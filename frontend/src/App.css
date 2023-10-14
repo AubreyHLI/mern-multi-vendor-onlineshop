@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* scroll-behavior: smooth; */
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.normalFlex {
+    @apply flex items-center;
+}
+
+.section {
+    @apply w-11/12 mx-auto max-w-[1200px];
+}
+
+.logo {
+    @apply cursor-pointer h-8 600px:h-9 800px:h-10;
+}
+
+.button {
+    @apply w-[200px] bg-black text-white h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer;
+}
+
+
+.button2 {
+    @apply w-[200px] h-[40px] text-center rounded-[10px] tracking-wider select-none;
+}
+
+.button3 {
+    @apply bg-[#f1c500] text-[#2d333a] h-11 my-3 px-5 flex items-center justify-center rounded disabled:bg-[#cccccc] disabled:text-white;
+}
+
+.heading {
+    @apply text-[27px] text-center md:text-start font-[600] pb-[20px];
+}
+
+.productDiscountPrice {
+    @apply font-bold text-[30px] text-[#333];
+}
+
+.priceSm {
+    @apply font-[500] text-[15px] text-[#d55b45] pl-3 line-through;
+}
+.price {
+    @apply font-[500] text-[20px] pl-3 line-through text-[#d55b45];
+}
+
+.custom_container {
+    @apply  w-11/12 hidden sm:block;
+}
+
+.active_indicator{
+    @apply absolute bottom-[-27%] left-0 h-[3px] w-full bg-[crimson];
+}
+
+.cart_content {
+    @apply w-full h-[calc(100%-80px-80px)] overflow-y-auto;
+}
+
+.cart_button{
+    @apply px-[20px] h-[38px] rounded-[20px] bg-[#f63b60] flex items-center justify-center cursor-pointer;
+} 
+    
+.cart_button_text{
+    @apply text-[#fff] text-[16px] font-[600];
+}
+
+.wishlist_content {
+    @apply w-full h-[calc(100%-80px)] overflow-y-auto;
+}
+
+.input{
+    @apply w-full border px-2 rounded-[5px] border-[#cccccc] h-[40px] text-[15px] placeholder:text-[#c8c8c8];
+}
+    
+.activeStatus{
+    @apply w-[10px] h-[10px] rounded-full absolute top-0 right-1 bg-[#40d132];
+}
+
+.success-msg {
+    @apply py-[10px] px-[16px] rounded-[3px] text-[#270] bg-[#DFF2BF];
+}
+.warning-msg {
+    @apply py-[10px] px-[16px] rounded-[3px] text-[#9F6000] bg-[#FEEFB3];
+}
+.error-msg {
+    @apply py-[10px] px-[16px] rounded-[3px] text-[#D8000C] bg-[#fcd7d7];
+}
+
+/* remove mui DataGrid cell border */
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+    outline: none !important;
+}
+
+

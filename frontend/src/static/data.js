@@ -1,0 +1,167 @@
+export const navItems = [
+	{
+		title: "首页",
+		url: "/",
+	},
+	{
+		title: "Best Selling",
+		url: "/bestselling",
+	},
+	{
+		title: "Products",
+		url: "/products",
+	},
+	{
+		title: "活动",
+		url: "/events",
+	},
+	{
+		title: "FAQ",
+		url: "/faq",
+	},
+];
+
+// categories data
+export const categoriesData = [
+	{
+		id: 1,
+		category: 'Fruits and Vegetables',
+		title: "水果蔬菜",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317478/mern-supermarket/categories/vegetable_wvnd9v.png",
+	},
+	{
+		id: 2,
+		category: 'Meat and Seafood',
+		title: "肉类海鲜",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317478/mern-supermarket/categories/proteins_yaabsf.png",
+	},
+	{
+		id: 3,
+		category: 'Dairy and Eggs and Cheese',
+		title: "乳品蛋类",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688319961/mern-supermarket/categories/dairy2_vmdnyu.png",
+	},
+	{
+		id: 4,
+		category: 'Breads and Bakery',
+		title: "面点烘焙",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317477/mern-supermarket/categories/bread_and_bakery_nfrxc9.png",
+	},
+	{
+		id: 5,
+		category: 'Frozen Food',
+		title: "冰冻食品",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688319114/mern-supermarket/categories/icecream_q13xpn.png",
+	},
+	{
+		id: 6,
+		category: 'Snacks',
+		title: "休闲零食",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317478/mern-supermarket/categories/snacks2_lgxfh7.png",
+	},
+	{
+		id: 7,
+		category: "Beverages",
+		title: "水茶饮品",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317845/mern-supermarket/categories/softdrinks_ol4ypz.png",
+	},
+	{
+		id: 8,
+		category: "Baby and Parent and Kids",
+		title: "母婴用品",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317478/mern-supermarket/categories/babycare_izernm.png",
+	},
+	{
+		id: 9,
+		category: "Health and Beauty and Personal Care",
+		title: "个护清洁",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317478/mern-supermarket/categories/bodycare_ib36kv.png",
+	},
+	{
+		id: 10,
+		category: "Pet Care",
+		title: "宠物生活",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317479/mern-supermarket/categories/pet_bs6oem.png",
+	},
+	{
+		id: 11,
+		category: "Home and Kitchen",
+		title: "家居厨具",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688319291/mern-supermarket/categories/kitchen2_iomw6t.png",
+	},
+	{
+		id: 12,
+		category: "Alcohol",
+		title: "酒类",
+		subTitle: "",
+		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317479/mern-supermarket/categories/alcohol_bvgthb.png",
+	},
+];
+
+
+export const footerProductLinks = [
+	{
+		name: "About us",
+		link: "/about",
+	},
+	{
+		name: "Careers",
+		link: "/carrers",
+	},
+	{
+		name: "Store Locations",
+	},
+	{
+		name: "Our Blog",
+	},
+	{
+		name: "Reviews",
+	},
+];
+
+export const footercompanyLinks = [
+	{
+		name: "Game & Video",
+	},
+	{
+		name: "Phone & Tablets",
+	},
+	{
+		name: "Computers & Laptop",
+	},
+	{
+		name: "Sport Watches",
+	},
+	{
+		name: "Events",
+	},
+];
+
+export const footerSupportLinks = [
+	{
+		name: "FAQ",
+	},
+	{
+		name: "Reviews",
+	},
+	{
+		name: "Contact Us",
+	},
+	{
+		name: "Shipping",
+	},
+	{
+		name: "Live chat",
+	},
+];
