@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Ratings from '../Products/Ratings'
 import { toast } from 'react-toastify';
 import { PiListMagnifyingGlass } from "react-icons/pi";
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDeleteProductMutation } from '../../redux/features/shop/shopApi';
+import Ratings from '../Products/Ratings'
 import EditProductForm from './EditProductForm';
 
 const ShopProductCard = ({data}) => {
@@ -20,11 +20,6 @@ const ShopProductCard = ({data}) => {
 			toast.error(`抱歉，${error?.data?.message}`)
 		}
 	}, [isSuccess, isError])
-
-    const handleClickEdit = () => {
-        // setEditId(data?._id);
-        setOpenEdit(true);
-    }
 
     const handleDeleteProduct = async () => {
         const answer = window.confirm('确认删除该商品？');
@@ -75,7 +70,7 @@ const ShopProductCard = ({data}) => {
                 <Link to={`/product/${data?._id}`} className='pt-2 normalFlex justify-center gap-1'>
                     <PiListMagnifyingGlass size={18}/>详情
                 </Link>
-                <button onClick={handleClickEdit} className='pt-2 normalFlex justify-center gap-1'>
+                <button onClick={() => setOpenEdit(true)} className='pt-2 normalFlex justify-center gap-1'>
                     <AiOutlineEdit size={16}/>更改
                 </button>
                 <button onClick={handleDeleteProduct} className='pt-2 normalFlex justify-center gap-1'>

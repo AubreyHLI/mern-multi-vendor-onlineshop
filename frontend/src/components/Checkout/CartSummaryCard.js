@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AmountItemStyle from './AmountItemStyle';
 import { PiStorefront } from "react-icons/pi";
 
-const CartSummaryCard = ({shopCart}) => {
+const CartSummaryCard = ({shopCart, index, updateOrder}) => {
     const [couponCode, setCouponCode] = useState();
 
     const subTotalPrice = shopCart.reduce((total, item) => {
@@ -13,6 +13,11 @@ const CartSummaryCard = ({shopCart}) => {
     // const discount = couponValid ? discountTotal : 0;
     const discount = 0;
     const totalPrice = subTotalPrice  - discount;
+
+
+    const handleApplyCoupon = async (e) => {
+        e.preventDefault();
+    }
 
 
     const renderCartItem = (item) => {
@@ -60,7 +65,7 @@ const CartSummaryCard = ({shopCart}) => {
                 <div className='normalFlex gap-2 700px:order-1'>
                     <input type="text" placeholder="店铺优惠券代码" value={couponCode} className='input'
                         onChange={(e) => setCouponCode(e.target.value)}/>
-                    <button className='button !w-[120px] !h-[40px] !my-0 !rounded-full !text-[15px] hover:opacity-80'>
+                    <button onClick={handleApplyCoupon} className='text-center text-[15px] border font-[600] w-[120px] h-[40px] py-[5px] border-[#53565a] text-[#53565a] hover:opacity-80 rounded-full'>
                         使用
                     </button>
                 </div>

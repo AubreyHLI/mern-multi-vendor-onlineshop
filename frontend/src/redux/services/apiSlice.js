@@ -19,7 +19,7 @@ const appApi = createApi({
         },
         credentials: "include",
     }),
-    tagTypes:['Auth', 'User', 'Products', 'CartItems', 'Wishlist', 'Order', 'AddressBook', 'Shop', 'ShopProducts', 'Coupons', 'Events', ],
+    tagTypes:['Auth', 'User', 'Products', 'CartItems', 'Wishlist', 'Orders', 'AddressBook', 'Shop', 'ShopProducts', 'ShopCoupons', 'Coupons', 'Events', ],
     endpoints: (builder) => ({ }),
 });
 

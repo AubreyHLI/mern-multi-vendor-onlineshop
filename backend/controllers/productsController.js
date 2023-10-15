@@ -12,7 +12,7 @@ const getAllProducts = asyncHandler( async(request, response, next) => {
     const products = await Product.find()
         .populate('shop')
         .sort({ createdAt: -1 });
-    response.status(201).json({
+    response.status(200).json({
         success: true,
         products,
     });
@@ -21,7 +21,6 @@ const getAllProducts = asyncHandler( async(request, response, next) => {
 // create new product 
 const createNewProduct = asyncHandler( async(request, response, next) => { 
     try {
-        console.log(request.files);
         const shop = await Shop.findById(request.shop.id);
         if (!shop) {
             return next(new CustomErrorClass(400, "店铺不存在，无法创建新商品"));
@@ -60,7 +59,7 @@ const createNewProduct = asyncHandler( async(request, response, next) => {
 // get products of one shop
 const getShopProducts = asyncHandler( async(req, res, next) => { 
     const shopProducts = await Product.find({shop: req.params.id}).sort({ createdAt: -1 });
-    res.status(201).json({
+    res.status(200).json({
         success: true,
         shopProducts,
     });

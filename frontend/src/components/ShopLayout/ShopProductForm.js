@@ -1,5 +1,6 @@
 import React from 'react'
 import ModalLayout from '../Layout/ModalLayout'
+import * as yup from "yup";
 import { RxCross1 } from 'react-icons/rx'
 import { categoriesData } from '../../static/data';
 import { BiImageAdd } from 'react-icons/bi';
@@ -7,7 +8,7 @@ import { toast } from 'react-toastify';
 import { Checkbox } from '@mui/material';
 
 
-const ShopProductForm = ({children, heading, formData, setFormData, withDiscount, setWithDiscount, images, setImages, setOpenForm, handleSubmit}) => {
+const ShopProductForm = ({heading, buttonText, submitHandler, formData, setFormData, withDiscount, setWithDiscount, images, setImages, setOpenForm, }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -66,6 +67,28 @@ const ShopProductForm = ({children, heading, formData, setFormData, withDiscount
         setImages([...filterImgs]);
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+		try{
+            const productInfo = {
+                name: formData.name.trim(),
+                category: formData.category,
+                description: formData.description.trim(),
+                originalPrice: formData.originalPrice,
+                stock: formData.stock,
+                images,
+            };
+            if(withDiscount) {
+                productInfo.discountPrice = formData.discountPrice;
+            }
+            const validProduct = await submitSchema.validate(productInfo);
+            await submitHandler(validProduct);
+
+        } catch (error) {
+			toast.error(error.message);
+		}
+    }
+
     return (
         <ModalLayout optionStyle='500px:my-auto 500px:max-w-[700px] '>
             <div className='w-full flex items-center gap-4 mt-3 mb-1 500px:my-3'>
@@ -80,28 +103,24 @@ const ShopProductForm = ({children, heading, formData, setFormData, withDiscount
                 <div className="w-full px-2 py-2 flex flex-col gap-4 500px:gap-5">
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
                         <label className='w-[70px]'>商品名称</label>
-                        <div className='flex-1'>
-                            <input type='text' name='name' value={formData.name} onChange={handleInputChange} placeholder='最多允许输入30个汉字（60个字符）' className='input'/>
-                        </div>
+                        <input type='text' name='name' value={formData.name} onChange={handleInputChange} placeholder='最多允许输入30个汉字（60个字符）' className='input 500px:flex-1'/>
                     </div>
 
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center'>
                         <label className='w-[70px]'>商品类型</label>
-                        <div className='flex-1'>
-                            <select className="input !px-1" name='category' value={formData.category} onChange={handleInputChange} >
-                                <option value="Choose a brand">请选择商品所属类型</option>
-                                { categoriesData?.map(i => 
-                                <option value={i.category} key={i.category}> {i.title} </option>
-                                ) }
-                            </select>
-                        </div>
+                        <select className="input !px-1 500px:flex-1" name='category' value={formData.category} onChange={handleInputChange} >
+                            <option value="">请选择商品所属类型</option>
+                            { categoriesData?.map(i => 
+                            <option value={i.category} key={i.category}> {i.title} </option>
+                            ) }
+                        </select>
                     </div>
 
                     <div className='normalFlex gap-[40px]'>
                         <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
                             <label className='w-[70px]'>商品价格</label>
-                            <div className='flex-1'>
-                                <input type='text' name='originalPrice' value={formData.originalPrice} onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
+                            <div className='500px:flex-1'>
+                                <input type='number' name='originalPrice' value={formData.originalPrice} onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
                                 元
                             </div>
                         </div>
@@ -111,8 +130,8 @@ const ShopProductForm = ({children, heading, formData, setFormData, withDiscount
                                 <label className='w-[50px]' htmlFor='discountPrice'>
                                     折扣价
                                 </label>
-                                <div className='flex-1'>
-                                    <input type='text' id='discountPrice' disabled={!withDiscount} value={formData.discountPrice} name='discountPrice' onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
+                                <div className='500px:flex-1'>
+                                    <input type='number' id='discountPrice' disabled={!withDiscount} value={formData.discountPrice} name='discountPrice' onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
                                     元
                                 </div>
                             </div>
@@ -121,23 +140,21 @@ const ShopProductForm = ({children, heading, formData, setFormData, withDiscount
 
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
                         <label className='w-[70px]'>库存量</label>
-                        <div className='flex-1'>
-                            <input type='text' value={formData.stock} name='stock' onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
+                        <div className='500px:flex-1'>
+                            <input type='number' value={formData.stock} name='stock' onChange={handleInputChange} className='input !w-[80px] mr-[6px]'/>
                             件
                         </div>
                     </div>
 
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row pt-[2px]'>
                         <label className='w-[70px] 500px:pt-2'>详情描述</label>
-                        <div className='flex-1'>
-                            <textarea type="text" value={formData.description} name='description' onChange={handleInputChange} placeholder='方便用户进一步了解商品' 
-                            className='w-full border px-2 py-2 rounded-[5px] border-[#cccccc] h-[150px] resize-none text-[15px] placeholder:text-[#c8c8c8]' />
-                        </div>
+                        <textarea type="text" value={formData.description} name='description' onChange={handleInputChange} placeholder='方便用户进一步了解商品' 
+                            className='500px:flex-1 w-full border px-2 py-2 rounded-[5px] border-[#cccccc] h-[150px] resize-none text-[15px] placeholder:text-[#c8c8c8]' />
                     </div>
 
                     <div className='flex flex-col gap-2 500px:flex-row -mt-1'>
                         <label className='w-full 500px:w-[70px]'>商品图片</label>
-                        <div className='flex-1'>
+                        <div className='500px:flex-1'>
                             <p className='text-[13px] text-[#949494] 500px:mt-[2px] mb-3'>
                                 最多允许上传 4张图片；每张图片大小不能超过 3Mb；只能上传格式为 jpg、png、jpeg 的图片. 
                             </p>
@@ -161,12 +178,28 @@ const ShopProductForm = ({children, heading, formData, setFormData, withDiscount
                         </div>
                     </div>
 
-                    {children}
+                    <button type="submit" className='w-[90%] h-11 my-3 mx-auto px-5 bg-[#78be20] text-white rounded-full font-[600] tracking-wider'>
+                        { buttonText }
+                    </button>
 
                 </div>
             </form>
         </ModalLayout>  
     )
 }
+
+const submitSchema = yup.object().shape({
+    images: yup.array().test({
+        message: "请上传商品图片",
+        test: arr => arr.length > 0
+    }),
+    description: yup.string().required("商品介绍不能为空"),
+    stock: yup.number().typeError('请填写库存').required("请填写库存").integer("库存数量必须是整数").positive("库存不能小于0件").max(100000, "库存不能大于100,000件"),
+    discountPrice: yup.number().typeError('请填写折扣价格').lessThan(yup.ref('originalPrice'), "折扣价格不能低于原价"),
+	originalPrice: yup.number().typeError('请填写价格').required("请填写价格").positive("价格必须大于0元"),
+	category: yup.string().required("请选择商品类型"),
+	name: yup.string().required("商品名称不能为空").max(60, '商品名称不能多于30个汉字 (60个字符)'),
+});
+
 
 export default ShopProductForm

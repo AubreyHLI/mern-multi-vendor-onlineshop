@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ShopProductCard from '../../components/Shop/ShopProductCard';
 import { MdAdd } from 'react-icons/md';
+import ShopProductCard from '../../components/Shop/ShopProductCard';
 import AddProductForm from '../../components/Shop/AddProductForm';
 
 const ShopProductsPage = () => {
     const {setActive} = useOutletContext();
-    const { shopProducts } = useSelector(state => state.shop);
     const [openAddForm, setOpenAddForm] = useState(false);
+    const { shopProducts } = useSelector(state => state.shop);
 
 	useEffect(() => {
 		setActive(1);

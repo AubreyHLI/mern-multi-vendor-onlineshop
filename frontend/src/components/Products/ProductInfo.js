@@ -89,7 +89,7 @@ const ProductInfo = ({data}) => {
                 <div className="normalFlex justify-between 800px:max-w-[400px]">
                     <div>
                         <h4 className='productDiscountPrice'>
-                            ¥{ data?.discountPrice ? data?.discountPrice : data?.originalPrice}
+                            ¥ { data?.discountPrice ? data?.discountPrice : data?.originalPrice}
                         </h4>
                         <h3 className='price'>
                             { data?.discountPrice ? "¥ "+ data?.originalPrice : null }

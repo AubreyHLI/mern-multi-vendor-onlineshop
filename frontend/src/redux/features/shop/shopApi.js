@@ -30,6 +30,20 @@ const shopApi = appApi.injectEndpoints({
             }),
             invalidatesTags: ["ShopProducts"],
         }),
+
+        getShopCoupons: builder.query({
+            query: (shopId) => '/coupons/getShopCoupons',
+            providesTags: ["ShopCoupons"],
+        }),
+        addCoupon: builder.mutation({
+            query: (coupon) => ({
+                url: '/coupons/createCoupon',
+                method: 'POST',
+                body: coupon
+            }),
+            invalidatesTags: ["ShopCoupons"],
+
+        })
     })
 })
 
@@ -38,6 +52,8 @@ export const {
    useAddProductMutation,
    useDeleteProductMutation,
    useUpdateProductMutation,
+   useGetShopCouponsQuery,
+   useAddCouponMutation,
 } = shopApi;
 
 export default shopApi;

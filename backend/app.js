@@ -21,17 +21,15 @@ app.use(cors({
 const userRoute = require('./routes/userRoute');
 const productsRoute = require('./routes/productsRoute');
 const shopsRoute = require('./routes/shopsRoute');
+const couponsRoute = require('./routes/couponsRoute');
 const paymentRoute = require('./routes/paymentRoute');
-// const eventsRoute = require('./routes/eventsRoute');
-// const couponsRoute = require('./routes/couponRoute');
 // const orderRoute = require('./routes/ordersRoute');
 
 app.use('/api/users', userRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/shop', shopsRoute);
+app.use('/api/coupons', couponsRoute);
 app.use('/api/payment', paymentRoute);
-// app.use('/api/events', eventsRoute);
-// app.use('/api/coupons', couponsRoute);
 // app.use('/api/orders', orderRoute);
 
 

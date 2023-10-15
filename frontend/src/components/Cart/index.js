@@ -45,7 +45,7 @@ const Cart = ({setOpenCart}) => {
                         </div>
                         {/* checkout buttons */}
                         <div className="px-5 mb-3 h-[80px] sticky bottom-0 bg-white normalFlex justify-between ">
-                            <span className='text-[18px] font-[500]'>{`合计: ¥${subTotalPrice.toFixed(2)}`}</span>
+                            <span className='text-[18px] font-[500]'>{`合计: ¥ ${subTotalPrice.toFixed(2)}`}</span>
                             <button onClick={handleSubmit} className={`h-[45px] normalFlex px-[20px] bg-[#e44343] rounded-[5px] text-[#fff] text-[18px] font-[600] cursor-pointer`}>
                                 结算
                             </button>
