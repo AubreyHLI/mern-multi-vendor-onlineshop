@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 
 const AddCouponForm = ({setOpenAddForm}) => {
     const today = new Date();
-    let year = today.getFullYear();
     let month = today.getMonth() + 1;
     month = month < 10 ? '0'+ month : month;
     let day = today.getDate();
@@ -18,7 +17,6 @@ const AddCouponForm = ({setOpenAddForm}) => {
 		discountPrice: '',
         discountPercentage: '',
         lowerLimit: '', 
-        upperLimit: '',
         beginsDate: '',
         expiresDate: ''
 	});
@@ -37,7 +35,6 @@ const AddCouponForm = ({setOpenAddForm}) => {
     return (
         <ShopCouponForm 
             heading='创建新优惠券'
-            today={`${year}-${month}-${day}`}
             formData={formData}
             setFormData={setFormData}
             setOpenForm={setOpenAddForm}

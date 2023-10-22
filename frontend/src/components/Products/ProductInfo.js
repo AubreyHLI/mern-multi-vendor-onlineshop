@@ -87,7 +87,7 @@ const ProductInfo = ({data}) => {
             {/* Text */}
             <div className="w-full 800px:flex-1 -mt-2 800px:mt-0 flex flex-col gap-3">
                 <div className="normalFlex justify-between 800px:max-w-[400px]">
-                    <div>
+                    <div className='normalFlex'>
                         <h4 className='productDiscountPrice'>
                             ¥ { data?.discountPrice ? data?.discountPrice : data?.originalPrice}
                         </h4>

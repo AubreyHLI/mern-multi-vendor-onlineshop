@@ -28,9 +28,9 @@ const ShopSalePage = () => {
                 <span className="mr-2 text-[14px] 600px:text-[15px]">创建新优惠券</span>
             </button>
             
-            <div className="grid grid-cols-1 600px:grid-cols-auto-fill-210 gap-3 600px:gap-[20px] mt-2 mb-6 600px:mt-4">
+            <div className="grid grid-cols-1 600px:grid-cols-auto-fill-245 gap-3 600px:gap-[20px] mt-2 mb-6 600px:mt-4">
                 { shopCoupons?.map(item => 
-                <CouponCard data={item} key={item?._id} />)}
+                <CouponCard data={item} key={item?._id} isSeller={true}/>)}
             </div>
 
             {openAddForm && <AddCouponForm setOpenAddForm={setOpenAddForm} />}

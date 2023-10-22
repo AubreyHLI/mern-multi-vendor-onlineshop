@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ModalLayout from '../Layout/ModalLayout'
 import * as yup from "yup";
 import { RxCross1 } from 'react-icons/rx'
 import { toast } from 'react-toastify';
+import { dateObjFormat } from '../../helpers/dayjsHelper';
 
-const ShopCouponForm = ({heading, buttonText, submitHandler, today, formData, setFormData, setOpenForm}) => {
-    
+const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formData, setFormData, setOpenForm}) => {
+    const [today, setToday] = useState(null);
+    const [minExpDate, setMinExpDate] = useState(null);
+
+    useEffect(() => {
+        if(!isEdit) {
+            const now = new Date();
+            setToday(dateObjFormat(now));
+            setMinExpDate(dateObjFormat(now.setDate(now.getDate() + 3)));
+        } else {
+            setToday(formData?.beginsDate);
+            let beginObj = new Date(formData?.beginsDate);
+            setMinExpDate(dateObjFormat(beginObj.setDate(beginObj.getDate() + 3)));
+        }        
+    }, [])
+
+    const handleBeginsDateChange = (e) => {
+        let dateObj = new Date(e.target.value);
+        dateObj.setDate(dateObj.getDate() + 3);
+        setMinExpDate(dateObjFormat(dateObj));
+        setFormData({
+            ...formData,
+            beginsDate: e.target.value,
+        });
+    }
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -100,9 +125,9 @@ const ShopCouponForm = ({heading, buttonText, submitHandler, today, formData, se
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
                         <label className='w-[98px]'>使用时间</label>
                         <div className='normalFlex gap-[6px] flex-1'>
-                            <input type='date' value={formData.beginsDate} name='beginsDate' onChange={handleInputChange} placeholder='' min={today} className='input flex-1'/>
+                            <input type='datetime-local' value={formData.beginsDate} name='beginsDate' onChange={handleBeginsDateChange} placeholder='' min={today} className='input flex-1'/>
                             <span>--</span>
-                            <input type='date' value={formData.expiresDate} name='expiresDate' onChange={handleInputChange} placeholder='' min={formData?.beginsDate} className='input flex-1'/>
+                            <input type='datetime-local' value={formData.expiresDate} name='expiresDate' onChange={handleInputChange} placeholder='' min={minExpDate} className='input flex-1'/>
                         </div>
                     </div>
 
@@ -135,7 +160,7 @@ const ShopCouponForm = ({heading, buttonText, submitHandler, today, formData, se
 }
 
 const submitSchema = yup.object().shape({
-    expiresDate: yup.date().typeError('请填写失效日期').min(yup.ref('beginsDate'), '失效日期必须晚于开始日期'),
+    expiresDate: yup.date().typeError('请填写失效日期').min(yup.ref('beginsDate'), '失效日期不能早于开始日期'),
     beginsDate: yup.date().typeError('请填写开始日期'),
     lowerLimit: yup.number().typeError('请填写最低消费金额'),
 	discountPrice: yup.number().typeError('请填写折扣金额').lessThan(yup.ref('lowerLimit'),"折扣金额必须小于最低消费金额"),
