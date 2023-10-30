@@ -26,6 +26,7 @@ module.exports = {
         'auto-fill-245': 'repeat(auto-fill, minmax(245px, 1fr))',
         'auto-fill-210': 'repeat(auto-fill, minmax(210px, 1fr))',
         'auto-fill-170': 'repeat(auto-fill, minmax(170px, 1fr))',
+        'auto-fill-160': 'repeat(auto-fill, minmax(160px, 1fr))',
         'auto-fill-150': 'repeat(auto-fill, minmax(150px, 1fr))',
         'auto-fill-145': 'repeat(auto-fill, minmax(145px, 1fr))',
         'auto-fill-120': 'repeat(auto-fill, minmax(120px, 1fr))',

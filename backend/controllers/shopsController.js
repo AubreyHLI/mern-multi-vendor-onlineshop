@@ -1,6 +1,7 @@
 const Shop = require('../models/shopModel');
 const ShopOtpVerification = require('../models/shopOtpVerificationModel');
 const Product = require("../models/productModel");
+const Coupon = require('../models/couponModel');
 const CustomErrorClass = require('../utils/CustomErrorClass');
 const asyncHandler = require('../middlewares/asyncHandler');
 const jwt = require('jsonwebtoken');
@@ -197,10 +198,12 @@ const getSingleShopInfo = asyncHandler( async(req, res, next) => {
     try {
         const shop = await Shop.findById(req.params.id);
         const shopProducts = await Product.find({shop: req.params.id});
+        const shopCoupons = await Coupon.find({shopId: req.params.id});
         res.status(200).json({
             success: true,
             shop,
             shopProducts,
+            shopCoupons,
         })
     } catch (error) {
         return next(new CustomErrorClass(404, error.message));

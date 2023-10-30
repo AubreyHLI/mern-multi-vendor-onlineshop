@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import { dateObjFormat } from '../../helpers/dayjsHelper';
+import { dashDateFormat } from '../../helpers/dayjsHelper';
 import { useUpdateCouponMutation } from '../../redux/features/shop/shopApi';
 import ShopCouponForm from '../ShopLayout/ShopCouponForm';
 
@@ -13,8 +13,8 @@ const EditCouponForm = ({setOpenEdit, data}) => {
 		discountPrice:  data?.discountPrice ? data?.discountPrice : '',
         discountPercentage:  data?.discountPercentage ? data?.discountPercentage : '',
         lowerLimit: data?.lowerLimit, 
-        beginsDate: dateObjFormat(data?.beginsAt),
-        expiresDate: dateObjFormat(data?.expiresAt)
+        beginsDate: dashDateFormat(data?.beginsAt),
+        expiresDate: dashDateFormat(data?.expiresAt)
 	});
 
 	const [updateCoupon, {isLoading, isSuccess, isError, error}] = useUpdateCouponMutation();

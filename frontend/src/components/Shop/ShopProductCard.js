@@ -71,7 +71,7 @@ const ShopProductCard = ({data}) => {
                     <PiListMagnifyingGlass size={18}/>详情
                 </Link>
                 <button onClick={() => setOpenEdit(true)} className='pt-2 normalFlex justify-center gap-1'>
-                    <AiOutlineEdit size={16}/>更改
+                    <AiOutlineEdit size={16}/>编辑
                 </button>
                 <button onClick={handleDeleteProduct} className='pt-2 normalFlex justify-center gap-1'>
                     <MdDeleteOutline size={16}/>删除

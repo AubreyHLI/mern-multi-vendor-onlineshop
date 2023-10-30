@@ -3,8 +3,8 @@ import ModalLayout from '../Layout/ModalLayout'
 import * as yup from "yup";
 import { RxCross1 } from 'react-icons/rx'
 import { toast } from 'react-toastify';
-import { dateObjFormat } from '../../helpers/dayjsHelper';
-
+import { dashDateFormat } from '../../helpers/dayjsHelper';
+ 
 const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formData, setFormData, setOpenForm}) => {
     const [today, setToday] = useState(null);
     const [minExpDate, setMinExpDate] = useState(null);
@@ -12,19 +12,19 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
     useEffect(() => {
         if(!isEdit) {
             const now = new Date();
-            setToday(dateObjFormat(now));
-            setMinExpDate(dateObjFormat(now.setDate(now.getDate() + 3)));
+            setToday(dashDateFormat(now));
+            setMinExpDate(dashDateFormat(now.setDate(now.getDate() + 3)));
         } else {
             setToday(formData?.beginsDate);
             let beginObj = new Date(formData?.beginsDate);
-            setMinExpDate(dateObjFormat(beginObj.setDate(beginObj.getDate() + 3)));
+            setMinExpDate(dashDateFormat(beginObj.setDate(beginObj.getDate() + 3)));
         }        
     }, [])
 
     const handleBeginsDateChange = (e) => {
         let dateObj = new Date(e.target.value);
         dateObj.setDate(dateObj.getDate() + 3);
-        setMinExpDate(dateObjFormat(dateObj));
+        setMinExpDate(dashDateFormat(dateObj));
         setFormData({
             ...formData,
             beginsDate: e.target.value,
@@ -125,9 +125,9 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
                     <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
                         <label className='w-[98px]'>使用时间</label>
                         <div className='normalFlex gap-[6px] flex-1'>
-                            <input type='datetime-local' value={formData.beginsDate} name='beginsDate' onChange={handleBeginsDateChange} placeholder='' min={today} className='input flex-1'/>
+                            <input type='date' value={formData.beginsDate} name='beginsDate' onChange={handleBeginsDateChange} placeholder='' min={today} className='input flex-1'/>
                             <span>--</span>
-                            <input type='datetime-local' value={formData.expiresDate} name='expiresDate' onChange={handleInputChange} placeholder='' min={minExpDate} className='input flex-1'/>
+                            <input type='date' value={formData.expiresDate} name='expiresDate' onChange={handleInputChange} placeholder='' min={minExpDate} className='input flex-1'/>
                         </div>
                     </div>
 

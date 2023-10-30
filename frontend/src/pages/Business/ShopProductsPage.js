@@ -17,12 +17,13 @@ const ShopProductsPage = () => {
 
     return (
         <div className='w-full my-3'>   
-            <h1 className="text-[20px] 600px:text-[22px] px-2">店铺商品</h1> 
+            <h1 className="text-[20px] px-2 800px:text-[22px] 800px:px-0">店铺商品</h1> 
+            
             <div className='normalFlex justify-end gap-2 '>
                 <h4 className='text-[15px]'>全部商品( {shopProducts?.length} )</h4>
                 <button onClick={() => setOpenAddForm(true)} className="p-2 rounded-lg text-white bg-pink-400 normalFlex gap-1" >
                     <MdAdd size={20}/>
-                    <span className="mr-2 text-[14px] 600px:text-[15px]">创建新商品</span>
+                    <span className="mr-2 text-[14px] 800px:text-[15px]">创建新商品</span>
                 </button>
             </div>
             

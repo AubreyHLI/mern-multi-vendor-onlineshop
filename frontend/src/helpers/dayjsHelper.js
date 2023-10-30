@@ -36,12 +36,16 @@ export const calendarFormatBrif = (date) => {
     return calendarDate;
 }
 
-export const dateObjFormat = (date) => {
-    return dayjs(date).format('YYYY-MM-DDTHH:mm');
+export const dashDateFormat = (date) => {
+    return dayjs(date).format('YYYY-MM-DD');
 }
 
-export const timeFormat = (date) => {
-    return dayjs(date).format('YYYY.MM.DD HH:mm');
+export const dotDateFormat = (date) => {
+    return dayjs(date).format('YYYY.MM.DD');
+}
+
+export const slashDateFormat = (date) => {
+    return dayjs(date).format('YYYY/MM/DD');
 }
 
 
