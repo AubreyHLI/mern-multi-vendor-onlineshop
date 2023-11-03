@@ -69,8 +69,8 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
 
 
     return (
-        <ModalLayout optionStyle='500px:my-auto 500px:max-w-[700px] '>
-            <div className='w-full flex items-center gap-4 mt-3 mb-1 500px:my-3'>
+        <ModalLayout optionStyle='600px:my-auto 600px:max-w-[700px] '>
+            <div className='w-full flex items-center gap-4 mt-3 mb-1 600px:my-3'>
                 <div onClick={() => setOpenForm(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
                     <RxCross1 size={20}/>
                 </div>
@@ -79,20 +79,20 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
 
             {/* Add Product Form */}
             <form onSubmit={handleSubmit} className="w-full">
-                <div className="w-full px-2 py-2 flex flex-col gap-4 500px:gap-5">
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
+                <div className="w-full px-2 py-2 flex flex-col gap-4 600px:gap-5">
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center '>
                         <label className='w-[98px]'>券名称</label>
-                        <input type='text' name='name' value={formData.name} onChange={handleInputChange} maxLength={10} placeholder='请输入' className='input 500px:flex-1'/>
+                        <input type='text' name='name' value={formData.name} onChange={handleInputChange} maxLength={10} placeholder='请输入' className='input 600px:flex-1'/>
                     </div>
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center '>
                         <label className='w-[98px]'>优惠券代码</label>
-                        <input type='text' name='code' value={formData.code} onChange={handleInputChange} className='input 500px:flex-1' maxLength={10} placeholder='由5到10位数字、英文组成'/>
+                        <input type='text' name='code' value={formData.code} onChange={handleInputChange} className='input 600px:flex-1' maxLength={10} placeholder='由5到10位数字、英文组成'/>
                     </div>
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center'>
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center'>
                         <label className='w-[98px]'>优惠类型</label>
-                        <select className="input !px-1 500px:flex-1" name='type' value={formData.type} onChange={handleInputChange} >
+                        <select className="input !px-1 600px:flex-1" name='type' value={formData.type} onChange={handleInputChange} >
                             <option value="Choose a brand">请选择优惠券类型</option>
                             <option value='fixedAmount' key={1}>满减券</option>
                             <option value='percentage' key={2}>折扣券</option>
@@ -102,11 +102,11 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
                         </select>
                     </div>
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center '>
                         <label className='w-[98px]'>面额门槛</label>
                         <div className='normalFlex gap-[6px] flex-1'>
                             <span>满 ¥</span>
-                            <input type='number' name='lowerLimit' value={formData.lowerLimit} onChange={handleInputChange} className='input flex-1 mb-[6px] 500px:mr-[6px]'/>
+                            <input type='number' name='lowerLimit' value={formData.lowerLimit} onChange={handleInputChange} className='input flex-1 mb-[6px] 600px:mr-[6px]'/>
                         </div>
                         { formData.type === 'fixedAmount' &&
                         <div className='normalFlex gap-[6px] flex-1'>
@@ -122,7 +122,7 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
                         }
                     </div>
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center '>
                         <label className='w-[98px]'>使用时间</label>
                         <div className='normalFlex gap-[6px] flex-1'>
                             <input type='date' value={formData.beginsDate} name='beginsDate' onChange={handleBeginsDateChange} placeholder='' min={today} className='input flex-1'/>
@@ -132,14 +132,14 @@ const ShopCouponForm = ({isEdit=false, heading, buttonText, submitHandler, formD
                     </div>
 
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row 500px:items-center '>
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row 600px:items-center '>
                         <label className='w-[98px]'>发行量 (张)</label>
-                        <input type='number' value={formData.stock} name='stock' onChange={handleInputChange} placeholder='需大于等于1000，不超过10万' className='input 500px:flex-1'/>
+                        <input type='number' value={formData.stock} name='stock' onChange={handleInputChange} placeholder='需大于等于1000，不超过10万' className='input 600px:flex-1'/>
                     </div>
 
-                    <div className='flex flex-col gap-1 600px:gap-2 500px:flex-row pt-[2px]'>
-                        <label className='w-[98px] 500px:pt-2'>每人限领 (张)</label>
-                        <select className="input !px-1 500px:flex-1" name='type' value={formData.type} onChange={handleInputChange} >
+                    <div className='flex flex-col gap-1 600px:gap-2 600px:flex-row pt-[2px]'>
+                        <label className='w-[98px] 600px:pt-2'>每人限领 (张)</label>
+                        <select className="input !px-1 600px:flex-1" name='type' value={formData.type} onChange={handleInputChange} >
                             <option value={1} key={1}>1</option>
                             <option value={2} key={2}>2</option>
                             <option value={3} key={3}>3</option>

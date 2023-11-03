@@ -11,7 +11,7 @@ const Wishlist = ({setOpenWishlist}) => {
     <div className="fixed top-0 left-0 w-full min-w-[360px] bg-[#0000004b] h-screen z-10">
         <div className="fixed top-0 right-0 h-full w-[90%] min-w-[300px] 500px:w-[350px] bg-white flex flex-col overflow-y-scroll justify-between shadow-sm">
             <div className="w-full h-full">
-                <div className="normalFlex w-full h-[80px] justify-between px-5 bg-white">
+                <div className="normalFlex w-full h-[65px] justify-between px-5 bg-white">
                     {/* Item length */}
                     <div className='normalFlex'>
                         <IoBagHandleOutline size={24} />

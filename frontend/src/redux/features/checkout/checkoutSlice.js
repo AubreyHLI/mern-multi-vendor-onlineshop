@@ -3,12 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const checkoutSlice = createSlice({
     name: 'checkout',
     initialState: {
-        order: null,
+        shippingAddress: null,
+        shopOrders: new Map(),
+        allDiscount: null,
+        total: null,
     },
     reducers: {
-        setOrder: (state, action) => {
-            state.order = action.payload;
+        setShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload;
         },
+        addShopOrder: (state, action) => {
+            state.shopOrders.set(action.payload.key, action.payload.value);
+        },
+        // setShopOrders: (state, action) => {
+
+        // },
+       
         clearOrder: (state) => {
             state.order = null;
         },
@@ -17,7 +27,8 @@ export const checkoutSlice = createSlice({
 
 // export actions
 export const { 
-    setOrder, 
+    setShippingAddress, 
+    addShopOrder,
     clearOrder,
 } = checkoutSlice.actions;
 

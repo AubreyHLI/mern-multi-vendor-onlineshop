@@ -32,7 +32,7 @@ input[type=number] {
 }
 
 .logo {
-    @apply cursor-pointer h-8 600px:h-9 800px:h-10;
+    @apply cursor-pointer h-8 600px:h-9 1000px:h-10;
 }
 
 .button {
@@ -69,10 +69,6 @@ input[type=number] {
 
 .active_indicator{
     @apply absolute bottom-[-27%] left-0 h-[3px] w-full bg-[crimson];
-}
-
-.cart_content {
-    @apply w-full h-[calc(100%-80px-80px)] overflow-y-auto;
 }
 
 .cart_button{

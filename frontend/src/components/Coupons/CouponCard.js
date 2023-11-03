@@ -4,9 +4,9 @@ import { dotDateFormat } from '../../helpers/dayjsHelper'
 const CouponCard = ({data, children}) => {
 
     return (
-        <div className='flex flex-col justify-between bg-white border px-3 '>
-            <div className='normalFlex py-3 gap-3'>
-                <div className='w-[80px] normalFlex flex-col gap-1 text-[#dc462f] 800px:w-[90px]'>
+        <div className='flex flex-col justify-between shadow-sm'>
+            <div className='normalFlex py-3 gap-3 px-3 bg-[rgb(251,242,233)]'>
+                <div className='w-[80px] normalFlex flex-col gap-1 text-[rgb(255,153,51)] 800px:w-[90px]'>
                     {data?.type === 'fixedAmount' &&
                     <div className='font-[600] flex items-end gap-[2px] '>
                         <span className='leading-none text-[17px] 800px:text-[18px]'>¥</span>
@@ -26,11 +26,11 @@ const CouponCard = ({data, children}) => {
                 </div>
 
                 <div className='flex flex-col gap-1 text-[#606060]'>
-                    <div className='normalFlex gap-1 font-[500] text-[13px] 800px:text-[14px]'>
+                    <div className='normalFlex gap-1 font-[500] text-[13px] 800px:text-[14px] text-[rgb(255,153,51)] '>
                         <span>[兑换码]</span>
                         <h2 className='text-[14px] 800px:text-[16px]'>{data?.code}</h2>
                     </div>
-                    <div className='text-[12px] 800px:text-[13px]'>
+                    <div className='text-[12px] 800px:text-[13px] '>
                         {data?.name}
                     </div>
                     <div className='text-[11px] normalFlex flex-wrap gap-[2px] text-[#ababab] 800px:text-[12px] '>

@@ -53,7 +53,11 @@ const ProductCard = ({ data, isShopPage=false }) => {
             if (data?.stock < 1) {
                 toast.error("抱歉，商品已无库存:(");
             } else {
-                await addToCart({productId: data?._id, qty: 1})
+                await addToCart({
+                    shopId: data?.shop?._id, 
+                    productId: data?._id, 
+                    qty: 1
+                })
             }
         } else {
             navigate('/login');

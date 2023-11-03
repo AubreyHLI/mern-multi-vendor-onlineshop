@@ -47,8 +47,8 @@ const EditAddressForm = ({address, setOpenEdit}) => {
 	}
 
     return (
-	<ModalLayout optionStyle='500px:my-[50px] 500px:max-w-[700px]'>
-		<div className='w-full flex items-center gap-4 mt-3 mb-1 500px:my-3'>
+	<ModalLayout optionStyle='600px:my-[60px] 600px:max-w-[700px]'>
+		<div className='w-full flex items-center gap-4 mt-3 mb-1 600px:my-3'>
 			<div onClick={() => setOpenEdit(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
 				<RxCross1 size={20}/>
 			</div>
@@ -57,22 +57,22 @@ const EditAddressForm = ({address, setOpenEdit}) => {
 
 		{/* Add Address Form */}
 		<form aria-required onSubmit={handleEditAddress} className="w-full">
-			<div className="w-full px-2 py-2 flex flex-col gap-2 500px:gap-4">
-				<div className='flex flex-col gap-[6px] 500px:flex-row '>
+			<div className="w-full px-2 py-2 flex flex-col gap-2 600px:gap-4">
+				<div className='flex flex-col gap-[6px] 600px:flex-row '>
 					<label className='w-[80px] pt-[8px]'>收件人</label>
 					<div className='flex-1'>
 						<input type='text' value={recipient} onChange={(e) => setRecipient(e.target.value)} placeholder='名字' className='input'/>
 					</div>
 				</div>
 
-				<div className='flex flex-col gap-[6px] 500px:flex-row '>
+				<div className='flex flex-col gap-[6px] 600px:flex-row '>
 					<label className='w-[80px] pt-[8px]'>手机号码</label>
 					<div className='flex-1'>
 						<input type='tel' value={phone} onChange={(e) => setPhone(e.target.value)} placeholder='手机号' className='input'/>
 					</div>
 				</div>
 
-				<div className='flex flex-col gap-[6px] 500px:flex-row '>
+				<div className='flex flex-col gap-[6px] 600px:flex-row '>
 					<label className='w-[80px] pt-[8px]'>所在地区</label>
 					<div className='flex-1 normalFlex gap-[6px]'>
 						<input type='text' value={province} onChange={(e) => setProvince(e.target.value)} placeholder='省' className='input'/>
@@ -81,7 +81,7 @@ const EditAddressForm = ({address, setOpenEdit}) => {
 					</div>
 				</div>
 
-				<div className='flex flex-col gap-[6px] 500px:flex-row pt-[2px]'>
+				<div className='flex flex-col gap-[6px] 600px:flex-row pt-[2px]'>
 					<label className='w-[80px] pt-[6px]'>详细地址</label>
 					<div className='flex-1'>
 						<textarea type="text" value={address1} onChange={(e) => setAddress1(e.target.value)} placeholder='街道、小区楼栋/乡村名称、门牌号' 

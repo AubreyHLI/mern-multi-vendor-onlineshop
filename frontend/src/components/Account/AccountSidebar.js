@@ -38,7 +38,7 @@ const AccountSidebar = ({ active }) => {
 				<div className="w-full flex items-center py-4 px-3 lg:p-4" key={index}>
 					<Link to={item.linkUrl} className={`w-full flex flex-col items-center gap-2 ${active === index ? "text-[#78be20] " : " "}`}>
 						{item.icon}
-						<h5 className='text-[12px] 500px:text-[16px] font-[400]'>
+						<h5 className='text-[12px] 600px:text-[16px] font-[400]'>
 							{item.label}
 						</h5>
 					</Link>
@@ -48,7 +48,7 @@ const AccountSidebar = ({ active }) => {
 		<div className="single_item w-full flex items-center py-4 px-3 lg:p-4" onClick={handleLogout} key={7}>
 			<div className={`w-full flex flex-col gap-2 items-center cursor-pointer ${active === 7 ? "text-[#78be20] " : " "}`}>
 				<AiOutlineLogin size={25} color={active === 7 ? "[#78be20]" : ""} />
-				<h5 className='text-[12px] 500px:text-[16px] font-[400]'>
+				<h5 className='text-[12px] 600px:text-[16px] font-[400]'>
 					退出登录
 				</h5>
 			</div>

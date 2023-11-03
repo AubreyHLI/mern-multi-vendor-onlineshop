@@ -40,7 +40,7 @@ const Header = ({ activeHeading, withNav }) => {
                         </div>
                     </Link>
 
-                    { !withNav && <Link to='/' className='text-[#333333] font-[500] px-4 cursor-pointer'>商城首页</Link>}
+                    { !withNav && <Link to='/' className='text-[#333333] font-[500] px-4 cursor-pointer hidden 600px:block'>首页</Link>}
     
                     {/* search bar */}
                     <SearchBar />

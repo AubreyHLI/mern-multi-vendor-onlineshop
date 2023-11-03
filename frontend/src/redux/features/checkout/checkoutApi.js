@@ -12,12 +12,20 @@ const checkoutApi = appApi.injectEndpoints({
                 body: orderInfo
             }),
         }),
+        checkCoupon: builder.mutation({
+            query: (coupon) => ({
+                url: `/coupons/checkCoupon/${coupon.code}`,
+                method: 'POST',
+                body: coupon.shopId,
+            }),
+        }),
     })
 })
 
 export const {
     useGetPublicStripeKeyQuery,
     useCreatePaymentMutation,
+    useCheckCouponMutation,
 } = checkoutApi;
 
 export default checkoutApi;

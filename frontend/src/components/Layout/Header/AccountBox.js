@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const AccountBox = ({setOpenCart, setOpenWishlist}) => {
     const { token, user } = useSelector(state => state.auth);
     const { cart, wishlist } = useSelector(state => state.user);
+    const cartLength = cart?.reduce((totalLength, shopCart) => totalLength + shopCart?.items?.length, 0)
 
     if(!token || !user) {
         return (
@@ -41,7 +42,7 @@ const AccountBox = ({setOpenCart, setOpenWishlist}) => {
                 <div className="relative cursor-pointer" onClick={() => setOpenCart(true)}>
                     <AiOutlineShoppingCart size={30} color="#333333"/>
                     <span className="absolute right-0 top-0 rounded-full bg-[#78be20] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                        {cart?.length}
+                        {cartLength}
                     </span>
                 </div>
             </div>

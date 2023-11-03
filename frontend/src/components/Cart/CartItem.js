@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useRemoveFromCartMutation, useUpdateCartMutation } from '../../redux/features/user/userApi';
 
 
-const CartItem = ({ data }) => {
+const CartItem = ({ data, shopId }) => {
     const [value, setValue] = useState(data?.qty);
     const [removeFromCart] = useRemoveFromCartMutation();
     const [updateCart] = useUpdateCartMutation();
@@ -20,7 +20,7 @@ const CartItem = ({ data }) => {
     const increment = async () => {
         if (value < productItem?.stock) {
             setValue(value + 1);
-            const updateCartData = { itemId: productItem?._id, qty: value + 1 };
+            const updateCartData = { shopId: shopId, itemId: productItem?._id, qty: value + 1 };
             await updateCart(updateCartData);
         } else {
             toast.error("加购数量超过商品库存!");
@@ -30,19 +30,19 @@ const CartItem = ({ data }) => {
     const decrement = async () => {
         if (value > 1) {
             setValue(value - 1);
-            const updateCartData = { itemId: productItem?._id, qty: value - 1 };
+            const updateCartData = { shopId: shopId, itemId: productItem?._id, qty: value - 1 };
             await updateCart(updateCartData);
         }         
     };
 
     const handleRemove = async () => {
-        await removeFromCart({itemId: productItem?._id});
+        await removeFromCart({shopId: shopId, itemId: productItem?._id});
     }
   
     return (
-        <div className="border-b py-4 pl-2 pr-5">
-            <div className="w-full flex items-center">
-                <img src={productItem?.images[0]?.url} alt="" className="w-[50px] h-[50px] mx-2 rounded-[5px] object-cover"/>
+        <div className="py-3">
+            <div className="w-full flex items-center gap-2">
+                <img src={productItem?.images[0]?.url} alt="" className="w-[50px] h-[50px] rounded-[5px] object-cover"/>
                 <div className="pl-[5px] w-[calc(100%-50px)]">
                     <div className='flex justify-between w-full'>
                         <h1 className='text-[15px]'>{productItem?.name}</h1>

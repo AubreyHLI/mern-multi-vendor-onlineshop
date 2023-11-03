@@ -7,35 +7,6 @@ dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 
-export const calendarFormat = (date) => {
-    const calendarDate = dayjs(date).calendar(null, {
-        sameDay: '[今天] HH:mm', 
-        nextDay: '[明天] HH:mm',
-        lastDay: '[昨天] HH:mm',
-        nextWeek: 'MM-DD [下]dddd HH:mm', 
-        lastWeek: 'MM-DD dddd HH:mm', 
-        sameElse: 'YYYY-MM-DD HH:mm' // Everything else ( 17/10/2011 )
-    })
-    return calendarDate;
-}
-
-
-export const calendarFormatBrif = (date) => {
-    const formattedTime = dayjs(date);
-    if(!dayjs().isSame(formattedTime, 'year') ) {
-        return formattedTime.format('YYYY-MM-DD HH:mm');
-    }
-    const calendarDate = dayjs(date).calendar(null, {
-        sameDay: 'HH:mm', 
-        nextDay: '[明天] HH:mm',
-        lastDay: '[昨天] HH:mm',
-        nextWeek: '[下]dddd HH:mm', 
-        lastWeek: 'dddd HH:mm', 
-        sameElse: 'MM-DD HH:mm' // Everything else ( 17/10/2011 )
-    })
-    return calendarDate;
-}
-
 export const dashDateFormat = (date) => {
     return dayjs(date).format('YYYY-MM-DD');
 }
@@ -46,6 +17,12 @@ export const dotDateFormat = (date) => {
 
 export const slashDateFormat = (date) => {
     return dayjs(date).format('YYYY/MM/DD');
+}
+
+export const compareDate = (d1, d2) => {
+    const date1 = dayjs(d1);
+    const date2 = dayjs(d2);
+    return date1.diff(date2, 'day');
 }
 
 

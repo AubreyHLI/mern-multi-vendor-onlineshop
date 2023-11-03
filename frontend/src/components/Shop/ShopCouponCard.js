@@ -31,7 +31,7 @@ const ShopCouponCard = ({data}) => {
 
     return (
         <CouponCard data={data}>
-            <div className='w-full grid grid-cols-2 text-[13px] border-t !text-[#606060] select-none 800px:text-[14px]' >
+            <div className='w-full grid grid-cols-2 text-[13px] bg-white !text-[#606060] select-none 800px:text-[14px] -ml-3 -mr-3 w-full' >
                 <button onClick={() => setOpenEdit(true)} className='py-2 normalFlex justify-center gap-1'>
                     <AiOutlineEdit size={16}/>编辑
                 </button>

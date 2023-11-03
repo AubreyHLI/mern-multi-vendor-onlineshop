@@ -43,7 +43,7 @@ const UpdatePwForm = () => {
     }
 
     return (
-        <form onSubmit={passwordChangeHandler} className="flex flex-col items-center gap-6 w-full max-w-[500px] mx-auto mt-[30px]" >
+        <form onSubmit={passwordChangeHandler} className="flex flex-col items-center gap-6 w-full max-w-[600px] mx-auto mt-[30px]" >
             <PwInput label='原密码' id='oldPw'
                 password={oldPassword} setPassword={setOldPassword}
                 visible={visible1} setVisible={setVisible1}

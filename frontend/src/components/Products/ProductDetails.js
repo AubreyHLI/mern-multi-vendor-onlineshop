@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react'
 import { Avatar } from '@mui/material';
 import Ratings from './Ratings';
 
 
 const ProductDetails = ({data}) => {
     const id = data?.brandId;
-    const [active, setActive] = useState(1);
-    const [shop, setShop] = useState(null);
-    // const brandProducts = useSelector(state => selectProductsByBrand(state, id));
-
-    // useEffect(() => {
-    //     if(!isLoading) {
-    //         console.log('allbrands:', allBrands)
-    //         const b = allBrands?.find(item => item._id === id);
-    //         setBrand(b);
-    //     }
-    // },[isLoading, id])
+    const [active, setActive] = useState(1);  
 
     return (
         <div className="bg-[#fff] px-3 800px:px-10 py-2 rounded mt-7">
