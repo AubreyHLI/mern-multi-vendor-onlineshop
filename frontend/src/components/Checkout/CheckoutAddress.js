@@ -21,6 +21,7 @@ const CheckoutAddress = () => {
 
     useEffect(() => {
         if(!shippingAddress) {
+            console.log('init')
             const defaultAddress = addressBook?.addresses?.find(a => a?._id == addressBook?.defaultAddressId);
             dispatch( setShippingAddress({
                 recipient: defaultAddress?.recipient,

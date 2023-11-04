@@ -24,7 +24,6 @@ const createShop = asyncHandler( async(request, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newShop = await Shop.create({ name, email, password: hashedPassword, description });
-    console.log(newShop);
     // send verification email
     try {
         sendVerificationEmail(newShop);
@@ -81,7 +80,6 @@ const verifyOtp = asyncHandler( async (request, response, next) => {
 
         // else: shop otp records found
         const { expiresAt } = shopOtpRecords[0];
-        console.log(shopOtpRecords[0]);
         const hashedOtp = shopOtpRecords[0].otp;
         if(expiresAt < Date.now()) {
             // await ShopOtpVerification.deleteMany({shopId});

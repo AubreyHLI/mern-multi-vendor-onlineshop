@@ -11,17 +11,14 @@ import CouponPrev from '../../components/Coupons/CouponPrev';
 const ShopPage = () => {
 	const { id } = useParams();
 	const { setActive } = useOutletContext();
-	const { data, isLoading, isSuccess, isError, error } = useGetSingleShopInfoQuery(id);
+	const { data, isLoading, isError, error } = useGetSingleShopInfoQuery(id);
 	const [openCouponsList, setOpenCouponsList] = useState(false);
 
 	useEffect(() => {
-		if(isSuccess) {
-			console.log(data);
-		}
 		if(isError) {
 			toast.error(error?.data?.message);
 		}
-	}, [isSuccess,isError])
+	}, [isError])
 
 	useEffect(() => {
 		window.scrollTo(0,0);

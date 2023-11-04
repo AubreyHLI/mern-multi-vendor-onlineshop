@@ -35,7 +35,6 @@ const UpdatePwForm = () => {
         e.preventDefault();
         try{
 			const validPw = await submitSchema.validate({oldPassword, newPassword, confirmPassword});
-			console.log(validPw)
             await updateUserPw(validPw);
 		} catch(error) {
 			toast.error(error.message);

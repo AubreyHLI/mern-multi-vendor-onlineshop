@@ -6,13 +6,14 @@ import { setUser } from '../../redux/features/auth/authSlice';
 
 const Auth = ({children}) => {
     const { token, user } = useSelector(state => state.auth);
-    const { data: userData, isLoading, isSuccess, isError } = useGetUserQuery(token, {skip: token === null});
+    const { data: userData, isLoading, isSuccess, isError } = useGetUserQuery(token);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(isSuccess) {
             dispatch(setUser(userData.user));
-        } else {
+        }  
+        if(isError) {
             dispatch(setUser(null));
         }
     }, [isSuccess, isError])
@@ -20,7 +21,7 @@ const Auth = ({children}) => {
 
     if(!isLoading && (!token || !user)) {
         return <Navigate to="/login" replace={true} /> 
-    }
+    } 
 
     return (
         children

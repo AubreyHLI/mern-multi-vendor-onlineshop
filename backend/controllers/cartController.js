@@ -60,7 +60,6 @@ const removeFromCart = asyncHandler(async (req, res, next) => {
         { arrayFilters: [{ "elem.shop": shopId }], new: true}
     )
     let shopCart = cart.cartDetails.find(shopCart => shopCart.shop == req.body.shopId);
-    console.log(shopCart);
     if(shopCart.items.length <= 0) {
         await Cart.findOneAndUpdate({_userId: req.user.id}, {$pull: {cartDetails: {shop: shopId}}})
     }

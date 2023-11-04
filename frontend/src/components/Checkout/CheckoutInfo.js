@@ -1,47 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import CheckoutAddress from './CheckoutAddress';
-import ShopCartCard from './ShopCartCard';
 import CheckoutSummary from './CheckoutSummary';
+import ShopOrderCard from './ShopOrderCard';
 
 const CheckoutInfo = () => {
-    const [checkoutOrders, setCheckoutOrders] = useState([]);
+    const [checkoutOrders, setCheckoutOrders] = useState([ ]);
     const { cart } = useSelector(state => state.user);
-
+    
+    
     useEffect(() => {
-        if(cart?.length > 0) {
-            const shopOrders = [];
-            for(let shopCart of cart) {
-                let order = {
-                    shopId: shopCart?.shop?._id,
-                    shopName: shopCart?.shop?.name,
-                    cartItems: [],
-                    discount: 0,
-                    total: 0,
-                };
-                shopCart?.items?.forEach(item => {
-                    const {product, qty} = item;
-                    order.cartItems.push({
-                        productId: product?._id,
-                        name: product?.name,
-                        image: product?.images[0],
-                        price: product?.discountPrice ? product?.discountPrice : product?.originalPrice,
-                        qty: qty,
-                    })
-                })
-                shopOrders.push(order);
-            }
-            setCheckoutOrders([...shopOrders]);
-        }
-    }, [cart])
+        cart?.forEach((shopCart, i) => {
+            let subTotal = shopCart?.items?.reduce((total, item) => {
+                const { product, qty } = item;
+                const itemPrice = product?.discountPrice ? product?.discountPrice : product?.originalPrice;
+                return itemPrice * qty + total;
+            }, 0);
+            setCheckoutOrders(prevOrders => [ 
+                ...prevOrders,
+                { shop: shopCart?.shop, items: shopCart?.items, subTotal: subTotal, discount:0, total: subTotal }
+            ]);
+        })
+    }, [])
 
 
-    const applyCoupon = (index, newDiscount, newTotal) => {
-        const updatedOrders = [...checkoutOrders];
-        updatedOrders[index].discount = newDiscount;
-        updatedOrders[index].total = newTotal;
-        setCheckoutOrders(updatedOrders);
+    const updateCheckoutOrders = (index, discount, total) => {
+        setCheckoutOrders(prevOrders => {
+            console.log('index:', index, ' discount:', discount, ' total:', total, ' subTotal:');
+            const updatedOrders = [...prevOrders];
+            updatedOrders[index].discount = discount;
+            updatedOrders[index].total = total;
+            console.log(updatedOrders);
+            return updatedOrders;
+        })
     }
+
+    
 
     
     return (
@@ -50,18 +44,20 @@ const CheckoutInfo = () => {
 
             {/* shipping info */}
             <div className="w-full">
-                <CheckoutAddress />
+                <CheckoutAddress  />
             </div>
             
             {/* cart info */}
             <div className="w-full">
-                {cart?.map((item, i) => 
-                <ShopCartCard shopCart={item} key={i} index={i} applyCoupon={applyCoupon} />)}
+                {/* { (checkoutOrders?.length === cart?.length) && */}
+                {checkoutOrders?.map((order, i) => 
+                <ShopOrderCard order={order} key={i} index={i} updateCheckoutOrders={updateCheckoutOrders} />)
+                }
             </div>
 
             {/* order summary */}
             <div className='w-full bg-[#e8e8e8] px-5 py-4'>
-                <CheckoutSummary />
+                <CheckoutSummary checkoutOrders={checkoutOrders} />
             </div>
 
         </div>

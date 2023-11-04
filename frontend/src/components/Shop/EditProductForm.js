@@ -34,9 +34,7 @@ const EditProductForm = ({setOpenEdit, data}) => {
 			if(key === 'images') {
 				images.forEach((image) => {
 					if(image?.url) {
-						console.log(image);
 						let index = data?.images.findIndex(i => i._id == image._id);
-						console.log(index);
 						newFormData.append("oldImagesIndex", index);
 					} else {
 						newFormData.append("newImages", image);

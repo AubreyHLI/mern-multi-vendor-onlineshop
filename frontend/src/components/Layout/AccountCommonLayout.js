@@ -42,10 +42,11 @@ const AccountCommonLayout = () => {
             { (cartLoading || addressLoading) 
             ? <Loader />
             : <div className="section flex items-start justify-between w-full py-8 gap-2 800px:gap-5">
+                
                 <div className='flex-1 h-full overflow-y-scroll'>
                     <Outlet context={{setActive, setWithSidebar, setWithNav}} />
                 </div>
-                {withSidebar &&
+                { withSidebar &&
                 <div className="w-[50px] mr-[-10px] 600px:w-[100px] 800px:mr-0 800px:w-[120px] 900px:w-[180px] first-letter:sticky pb-2">
                     <AccountSidebar active={active} />
                 </div>}

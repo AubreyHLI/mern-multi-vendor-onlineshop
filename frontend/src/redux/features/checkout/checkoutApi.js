@@ -16,7 +16,7 @@ const checkoutApi = appApi.injectEndpoints({
             query: (coupon) => ({
                 url: `/coupons/checkCoupon/${coupon.code}`,
                 method: 'POST',
-                body: coupon.shopId,
+                body: coupon,
             }),
         }),
     })

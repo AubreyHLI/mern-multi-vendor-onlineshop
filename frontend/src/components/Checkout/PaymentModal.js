@@ -9,7 +9,6 @@ const PaymentModal = () => {
 	const [data, isSuccess, isError, error] = useGetPublicStripeKeyQuery();
 
 	useEffect(() => {
-		console.log('111')
 		if(isSuccess) {
 			const { publishKey } = data;
 			setStripePromise(loadStripe(publishKey));

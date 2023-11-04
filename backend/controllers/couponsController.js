@@ -87,7 +87,6 @@ const updateCoupon = asyncHandler( async (req, res, next) => {
     // else
     const {code, type, beginsDate, expiresDate} = req.body;
     const isCouponCodeExists = await Coupon.find({code, shopId: req.shop.id, _id: {"$ne": req.params.id}});
-    console.log(isCouponCodeExists)
     if (isCouponCodeExists.length !== 0) {
         return next(new CustomErrorClass(400, "该优惠券代码已存在，请重新输入！"));
     }
@@ -120,9 +119,9 @@ const updateCoupon = asyncHandler( async (req, res, next) => {
 // Check coupon by code
 const checkCoupon =  asyncHandler( async (req, res, next) => {
     console.log(req.body);
-    const coupon = await Coupon.findOne({ code: req.params.code });
+    const coupon = await Coupon.findOne({ code: req.params.code, shopId: req.body.shopId });
     if(!coupon) {
-        return next(new CustomErrorClass(400, ` ${req.params.code} 为无效优惠券代码!`));
+        return next(new CustomErrorClass(400, '无效优惠券代码'));
     }
     res.status(200).json({
         success: true,
