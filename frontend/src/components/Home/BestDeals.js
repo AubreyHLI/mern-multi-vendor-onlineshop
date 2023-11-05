@@ -20,7 +20,7 @@ const BestDeals = () => {
 				热销商品
 			</h2>
 			{ data?.length !== 0 && 
-			<div className="grid grid-cols-1 gap-[20px] 600px:grid-cols-2 600px:gap-[25px] 800px:grid-cols-3 1000px:grid-cols-4 1200px:grid-cols-5 mb-12 border-0">
+			<div className="grid grid-cols-1 gap-[20px] 600px:grid-cols-2 600px:gap-[25px] 800px:grid-cols-3 1000px:grid-cols-4 1200px:grid-cols-5 pb-12 border-0">
 				{ data?.map((i, index) => <ProductCard data={i} key={index} />)}
 			</div>}
 		</div>

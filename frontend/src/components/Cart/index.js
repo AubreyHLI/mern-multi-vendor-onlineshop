@@ -1,11 +1,12 @@
 import React from 'react'
 import { IoBagHandleOutline } from "react-icons/io5";
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
 import ShopCartBox from './ShopCartBox';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const { cart } = useSelector(state => state.user);
+    const navigate = useNavigate();
     const cartLength = cart?.reduce((totalLength, shopCart) => totalLength + shopCart?.items?.length, 0);
     const subTotalPrice = cart?.reduce((subTotal, shopCart) => {
         let shopSubtotal = shopCart?.items?.reduce((sum, item) => {
@@ -17,7 +18,6 @@ const Cart = () => {
 
     return (
         <>
-        {/* <div className="w-full pt-4 flex-1 h-[calc(100%-80px)] 800px:gap-5 800px:h-[calc(100%-70px-60px)] overflow-y-scrool"> */}
             <div className='section h-full pt-4 mb-[10px]'>
                 <div className='normalFlex'>
                     <IoBagHandleOutline size={24} />
@@ -25,7 +25,7 @@ const Cart = () => {
                 </div>
 
                 { cartLength === 0 ?
-                <div className='w-full flex items-center justify-center'>
+                <div className='w-full h-full flex items-center justify-center'>
                     <h5>购物车为空</h5>
                 </div>
                 :
@@ -43,9 +43,10 @@ const Cart = () => {
                         <span className='text-[14px] 600px:text-[15px]'>合计 (不含运费): </span>
                         <span className='text-[#d02222] text-[20px] min-w-fit 800px:text-[22px]'> ¥ {subTotalPrice.toFixed(2)}</span>
                    </div>
-                    <Link to={'/account/checkout'} className={`button2 normalFlex justify-center !w-[100px] bg-[orange] text-[#fff] 600px:!w-[150px] 1000px:!w-[200px]`}>
+                    <button onClick={() => navigate('/account/checkout')} disabled={cartLength === 0}
+                        className={`button2 !w-[100px] bg-[orange] text-[#fff] 600px:!w-[150px] 1000px:!w-[200px] disabled:bg-[#cccccc] disabled:cursor-not-allowed`}>
                         结算
-                    </Link>
+                    </button>
                 </div>
             </div>
         </>       

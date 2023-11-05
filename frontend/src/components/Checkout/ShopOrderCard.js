@@ -68,7 +68,7 @@ const ShopOrderCard = ({order, index, updateCheckoutOrders}) => {
 
 
     return (
-        <div className="w-full bg-[#fff] rounded-md flex flex-col gap-3 px-5 py-4 mb-4">
+        <div className="w-full bg-[#fff] rounded-md flex flex-col gap-3 px-5 py-4">
             <div className='normalFlex gap-[6px] text-[14px] text-[#000000a4]'>
                 <PiStorefront size={20}/>
                 <h3>{order?.shop?.name}</h3>

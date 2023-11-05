@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginPage from './pages/Customer/LoginPage'
 import SignupPage from './pages/Customer/SignupPage';
+import InitLayout from './components/Layout/InitLayout';
 import UserCommonLayout from './components/Layout/UserCommonLayout';
 import HomePage from './pages/Customer/HomePage';
 import BestSelling from './pages/Customer/BestSelling';
@@ -47,18 +48,20 @@ const App = () => {
     <BrowserRouter>
         <div className='app w-screen h-auto min-w-[360px] bg-gray-50'>
             <Routes>
-                <Route path='/' element={<UserCommonLayout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path='bestselling' element={<BestSelling />} />
-                    <Route path='products' element={<ProductsPage />} />
-                    <Route path='product/:id' element={<SingleProductPage />} />
-                    <Route path='events' element={<EventsPage />} />
-                    <Route path='faq' element={<FAQPage />} />
-                    <Route path='shop/:id' element={<ShopPage />} />
+                <Route path='/' element={<InitLayout />}>
+                    <Route element={<UserCommonLayout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path='bestselling' element={<BestSelling />} />
+                        <Route path='products' element={<ProductsPage />} />
+                        <Route path='product/:id' element={<SingleProductPage />} />
+                        <Route path='events' element={<EventsPage />} />
+                        <Route path='faq' element={<FAQPage />} />
+                        <Route path='shop/:id' element={<ShopPage />} />
+                    </Route>
+                    <Route path='cart' element={<CartPage />} />
                 </Route>
                 <Route path='/account' element={<Auth><AccountCommonLayout /></Auth>}>
                     <Route index element={<AccountPage />} />
-                    <Route path='cart' element={<CartPage />} />
                     <Route path='orders' element={<OrdersPage />} />
                     <Route path='order/:id' element={<SingleOrderPage />} />
                     <Route path='inbox' element={<InboxPage />} />

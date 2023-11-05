@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom';
 import UpdatePwForm from '../../components/Account/UpdatePwForm';
 
 const ChangePwPage = () => {
-	const { setActive, setWithSidebar, setWithNav, setIsCart } = useOutletContext();
+	const { setActive, setWithSidebar, setWithNav } = useOutletContext();
 	
     useEffect(() => {
-		setIsCart(false);
 		setWithNav(true);
 		setWithSidebar(true);
 		setActive(4);

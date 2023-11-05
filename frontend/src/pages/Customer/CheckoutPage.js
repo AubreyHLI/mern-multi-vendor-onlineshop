@@ -4,11 +4,10 @@ import PaymentModal from '../../components/Checkout/PaymentModal';
 import { useOutletContext } from 'react-router-dom';
 
 const CheckoutPage = () => {
-    const { setWithSidebar, setWithNav, setIsCart } = useOutletContext();
+    const { setWithSidebar, setWithNav} = useOutletContext();
     const [openPaymentForm, setOpenPaymentForm] = useState(false);
 
     useEffect(() => {
-        setIsCart(false);
         setWithNav(false);
         setWithSidebar(false);
         window.scrollTo(0, 0);

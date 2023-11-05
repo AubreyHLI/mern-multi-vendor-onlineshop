@@ -39,7 +39,7 @@ const AccountBox = ({setOpenWishlist}) => {
             </div>
             {/* shopping cart */}
             <div className='normalFlex'>
-                <Link to={'/account/cart'} className="relative cursor-pointer">
+                <Link to={'/cart'} className="relative cursor-pointer">
                     <AiOutlineShoppingCart size={30} color="#333333"/>
                     <span className="absolute right-0 top-0 rounded-full bg-[#78be20] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                         {cartLength}

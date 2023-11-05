@@ -3,10 +3,9 @@ import { useOutletContext } from 'react-router-dom';
 import AccountDetails from '../../components/Account/AccountDetails';
 
 const AccountPage = () => {
-	const { setActive, setWithSidebar, setWithNav, setIsCart } = useOutletContext();
+	const { setActive, setWithSidebar, setWithNav } = useOutletContext();
 
     useEffect(() => {
-		setIsCart(false);
 		setWithNav(true);
 		setWithSidebar(true);
 		setActive(0);
