@@ -118,7 +118,6 @@ const updateCoupon = asyncHandler( async (req, res, next) => {
 
 // Check coupon by code
 const checkCoupon =  asyncHandler( async (req, res, next) => {
-    console.log(req.body);
     const coupon = await Coupon.findOne({ code: req.params.code, shopId: req.body.shopId });
     if(!coupon) {
         return next(new CustomErrorClass(400, '无效优惠券代码'));

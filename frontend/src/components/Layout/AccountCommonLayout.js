@@ -13,6 +13,7 @@ const AccountCommonLayout = () => {
     const [active, setActive] = useState(0);
     const [withSidebar, setWithSidebar] = useState(true);
     const [withNav, setWithNav] = useState(true);
+    const [isCart, setIsCart] = useState(false);
     const { data: cartData, isLoading: cartLoading, isSuccess: cartSuccess } = useGetCartItemsQuery();
     const { data: wishlistData, isSuccess: wishlistSuccess } = useGetWishlistQuery();
     const { data: addressData, isLoading: addressLoading, isSuccess: addressSuccess } = useGetAddressBookQuery();
@@ -36,6 +37,20 @@ const AccountCommonLayout = () => {
         } 
     }, [addressSuccess, addressData])
 
+
+    if(isCart) {
+        return (
+            <div className='h-screen min-h-[600px] flex flex-col overflow-y-scroll '>
+                <Header activeHeading={0} withNav={true}/>
+
+                { cartLoading 
+                ? <Loader />
+                : <Outlet context={{setActive, setWithSidebar, setWithNav, setIsCart}} />
+                }
+            </div>
+        )
+    }
+
     return (
         <div className='h-full min-h-[600px]'>
             <Header activeHeading={0} withNav={withNav}/>
@@ -44,7 +59,7 @@ const AccountCommonLayout = () => {
             : <div className="section flex items-start justify-between w-full py-8 gap-2 800px:gap-5">
                 
                 <div className='flex-1 h-full overflow-y-scroll'>
-                    <Outlet context={{setActive, setWithSidebar, setWithNav}} />
+                    <Outlet context={{setActive, setWithSidebar, setWithNav, setIsCart}} />
                 </div>
                 { withSidebar &&
                 <div className="w-[50px] mr-[-10px] 600px:w-[100px] 800px:mr-0 800px:w-[120px] 900px:w-[180px] first-letter:sticky pb-2">

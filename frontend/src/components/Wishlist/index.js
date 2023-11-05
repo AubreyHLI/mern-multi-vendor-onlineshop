@@ -17,7 +17,9 @@ const Wishlist = ({setOpenWishlist}) => {
                         <IoBagHandleOutline size={24} />
                         <h5 className="pl-2 text-[18px] font-[500]">收藏夹<span className='text-[16px]'>({wishlist?.length})</span></h5>
                     </div>
-                    <RxCross1 size={25} className="cursor-pointer" onClick={() => setOpenWishlist(false)} />
+                    <div onClick={() => setOpenWishlist(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
+                        <RxCross1 size={20}/>
+                    </div>
                 </div>
                 { wishlist?.length === 0 
                 ? <div className='widhlist_content flex items-center justify-center'>

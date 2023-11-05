@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const AccountBox = ({setOpenCart, setOpenWishlist}) => {
+const AccountBox = ({setOpenWishlist}) => {
     const { token, user } = useSelector(state => state.auth);
     const { cart, wishlist } = useSelector(state => state.user);
     const cartLength = cart?.reduce((totalLength, shopCart) => totalLength + shopCart?.items?.length, 0)
@@ -39,12 +39,12 @@ const AccountBox = ({setOpenCart, setOpenWishlist}) => {
             </div>
             {/* shopping cart */}
             <div className='normalFlex'>
-                <div className="relative cursor-pointer" onClick={() => setOpenCart(true)}>
+                <Link to={'/account/cart'} className="relative cursor-pointer">
                     <AiOutlineShoppingCart size={30} color="#333333"/>
                     <span className="absolute right-0 top-0 rounded-full bg-[#78be20] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                         {cartLength}
                     </span>
-                </div>
+                </Link>
             </div>
             {/* account */}
             <div className='hidden 800px:flex 800px:item-center'>

@@ -13,6 +13,7 @@ import ProductsPage from './pages/Customer/ProductsPage';
 import SingleProductPage from './pages/Customer/SingleProductPage';
 import EventsPage from './pages/Customer/EventsPage';
 import FAQPage from './pages/Customer/FAQPage';
+import CartPage from './pages/Customer/CartPage';
 import AccountPage from './pages/Customer/AccountPage';
 import Auth from './components/Account/Auth';
 import AccountCommonLayout from './components/Layout/AccountCommonLayout';
@@ -57,6 +58,7 @@ const App = () => {
                 </Route>
                 <Route path='/account' element={<Auth><AccountCommonLayout /></Auth>}>
                     <Route index element={<AccountPage />} />
+                    <Route path='cart' element={<CartPage />} />
                     <Route path='orders' element={<OrdersPage />} />
                     <Route path='order/:id' element={<SingleOrderPage />} />
                     <Route path='inbox' element={<InboxPage />} />

@@ -1,13 +1,11 @@
 import React from 'react'
-import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ShopCartBox from './ShopCartBox';
 
-const Cart = ({setOpenCart}) => {
+const Cart = () => {
     const { cart } = useSelector(state => state.user);
-    const navigate = useNavigate();
     const cartLength = cart?.reduce((totalLength, shopCart) => totalLength + shopCart?.items?.length, 0);
     const subTotalPrice = cart?.reduce((subTotal, shopCart) => {
         let shopSubtotal = shopCart?.items?.reduce((sum, item) => {
@@ -17,44 +15,40 @@ const Cart = ({setOpenCart}) => {
         return subTotal + shopSubtotal;
     }, 0);
 
-    const handleSubmit = (e) => {
-        setOpenCart(false);
-        navigate('/account/checkout');
-    }
-
     return (
-        <div className="fixed top-0 left-0 w-full min-w-[360px] bg-[#0000004b] h-screen z-10">
-            <div className="fixed top-0 right-0 h-full w-[90%] min-w-[300px] 500px:w-[350px] bg-[#f3f4f6] flex flex-col overflow-y-scroll justify-between shadow-sm">
-                <div className="w-full h-full">
-                    <div className="normalFlex w-full h-[65px] justify-between px-5 sticky top-0 ">
-                        {/* Item length */}
-                        <div className='normalFlex '>
-                            <IoBagHandleOutline size={24} />
-                            <h5 className="pl-2 text-[18px] font-[500]">购物车<span className='text-[16px]'>({cartLength})</span></h5>
-                        </div>
-                        <RxCross1 size={25} className="cursor-pointer" onClick={() => setOpenCart(false)} />
-                    </div>
-                    { cartLength === 0 
-                    ? <div className='w-full h-[calc(100%-65px)] flex items-center justify-center'>
-                        <h5>购物车为空</h5>
-                    </div>
-                    : <>
-                        <div className='w-full h-[calc(100%-65px-65px)] overflow-y-scroll'>
-                            {/* cart Items */}
-                            { cart?.map((shopCart, index) => <ShopCartBox shopCart={shopCart} key={index} />)}
-                        </div>
-                        {/* checkout buttons */}
-                        <div className="px-5 h-[65px] bg-white normalFlex justify-between ">
-                            <span className='text-[18px] font-[500]'>{`合计: ¥ ${subTotalPrice.toFixed(2)}`}</span>
-                            <button onClick={handleSubmit} className={`h-[45px] normalFlex px-[20px] bg-[#e44343] rounded-[5px] text-[#fff] text-[18px] font-[600] cursor-pointer`}>
-                                结算
-                            </button>
-                        </div>
-                    </>
-                    }
+        <>
+        {/* <div className="w-full pt-4 flex-1 h-[calc(100%-80px)] 800px:gap-5 800px:h-[calc(100%-70px-60px)] overflow-y-scrool"> */}
+            <div className='section h-full pt-4 mb-[10px]'>
+                <div className='normalFlex'>
+                    <IoBagHandleOutline size={24} />
+                    <h5 className="px-2 text-[20px] font-[500]">购物车<span className='text-[18px]'>({cartLength})</span></h5>
+                </div>
+
+                { cartLength === 0 ?
+                <div className='w-full flex items-center justify-center'>
+                    <h5>购物车为空</h5>
+                </div>
+                :
+                <div className='w-full'>
+                    {/* cart Items */}
+                    { cart?.map((shopCart, index) => <ShopCartBox shopCart={shopCart} key={index} />)}
+                </div>
+                }
+            </div>
+
+            {/* checkout buttons */}
+            <div className="sticky bottom-0 w-full h-[70px] min-h-[70px] pb-1 bg-[#f3f3f3] border-t border-t-2">
+                <div className='section h-full normalFlex justify-end gap-6'>
+                    <div className='font-[500] normalFlex gap-2'>
+                        <span className='text-[14px] 600px:text-[15px]'>合计 (不含运费): </span>
+                        <span className='text-[#d02222] text-[20px] min-w-fit 800px:text-[22px]'> ¥ {subTotalPrice.toFixed(2)}</span>
+                   </div>
+                    <Link to={'/account/checkout'} className={`button2 normalFlex justify-center !w-[100px] bg-[orange] text-[#fff] 600px:!w-[150px] 1000px:!w-[200px]`}>
+                        结算
+                    </Link>
                 </div>
             </div>
-        </div>
+        </>       
     )
 }
 

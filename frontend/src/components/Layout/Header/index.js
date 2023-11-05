@@ -10,17 +10,16 @@ import Wishlist from '../../Wishlist';
 
 const Header = ({ activeHeading, withNav }) => {
     const [dropDown, setDropDown] = useState(false);
-    const [openCart, setOpenCart] = useState(false);
     const [openWishlist, setOpenWishlist] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
-        if(openMenu || openWishlist || openCart) {
+        if(openMenu || openWishlist ) {
             document.body.style.overflow = 'hidden';  // lock the scroll of home page
         } else {
             document.body.style.overflow = 'unset';  // unlock the scroll of home page
         }
-    }, [openMenu, openWishlist, openCart]);
+    }, [openMenu, openWishlist]);
     
 
     return (
@@ -46,7 +45,7 @@ const Header = ({ activeHeading, withNav }) => {
                     <SearchBar />
     
                     {/* user info */}
-                    <AccountBox setOpenCart={setOpenCart} setOpenWishlist={setOpenWishlist} />
+                    <AccountBox setOpenWishlist={setOpenWishlist} />
                 </div>
             </div>
             
@@ -61,9 +60,6 @@ const Header = ({ activeHeading, withNav }) => {
     
         {/* wishlist details */}
         { openWishlist && <Wishlist setOpenWishlist={setOpenWishlist}/>}
-    
-        {/* shopping cart details */}
-        { openCart && <Cart setOpenCart={setOpenCart}/>}
     
         {/* mobile header menu sidebar */}
         {openMenu && <Sidebar activeHeading={activeHeading} setOpenMenu={setOpenMenu} />}
