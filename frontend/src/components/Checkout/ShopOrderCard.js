@@ -10,10 +10,6 @@ const ShopOrderCard = ({order, index, updateCheckoutOrders}) => {
     const [errMsg, setErrMsg] = useState(null);
     const [checkCoupon, {data, isSuccess, isError, error}] = useCheckCouponMutation();
 
-    useEffect(() => {
-        setCouponMsg(null);
-    }, [order?.items])
-
 
     useEffect(() => {
         if(isError) {
@@ -75,32 +71,28 @@ const ShopOrderCard = ({order, index, updateCheckoutOrders}) => {
             </div>
 
             <div className='w-full'>
-                { order?.items?.map((item, index) => {
-                const {qty, product} = item;
-                const itemPrice = product?.discountPrice ? product?.discountPrice : product?.originalPrice;
-                return (
+                { order?.items?.map((item, index) => 
                 <div className="w-full flex items-center py-1 border-dotted border-b" key={index}>
-                    <img src={product?.images[0]?.url} alt="" className="w-[40px] h-[40px] mr-2 rounded-[5px] object-cover"/>
+                    <img src={item?.image} alt="" className="w-[40px] h-[40px] mr-2 rounded-[5px] object-cover"/>
                     <div className="px-[5px] flex-1">
                         <div className='800px:hidden'>
                             <div className='flex justify-between w-full text-[14px]'>
-                                <h1 className='line-clamp-1'>{product?.name}</h1>
-                                <h4>¥{(itemPrice * qty).toFixed(2)}</h4>
+                                <h1 className='line-clamp-1'>{item?.name}</h1>
+                                <h4>¥{(item?.price * item?.qty).toFixed(2)}</h4>
                             </div>
                             <h4 className='pt-[4px] font-[400] text-[13px] text-[#00000082]'>
-                                ¥{itemPrice} * {qty}
+                                ¥{item?.price} * {item?.qty}
                             </h4>
                         </div>
                         <div className='hidden 800px:grid 800px:grid-cols-4'>
-                            <h1 className='line-clamp-1 col-span-2'>{product?.name}</h1>
+                            <h1 className='line-clamp-1 col-span-2'>{item?.name}</h1>
                             <h4 className='font-[400] text-[14px] text-[#00000082] text-center'>
-                                ¥ {itemPrice} * {qty}
+                                ¥ {item?.price} * {item?.qty}
                             </h4>
-                            <h4 className='text-end'>¥ {(itemPrice * qty).toFixed(2)}</h4>
+                            <h4 className='text-end'>¥ {(item?.price * item?.qty).toFixed(2)}</h4>
                         </div>
                     </div>
-                </div>)
-                })}
+                </div>)}
             </div>
 
             <div className='flex flex-col gap-3 700px:flex-row  700px:justify-between'>

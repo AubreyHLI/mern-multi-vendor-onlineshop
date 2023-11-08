@@ -14,17 +14,20 @@ import ProductsPage from './pages/Customer/ProductsPage';
 import SingleProductPage from './pages/Customer/SingleProductPage';
 import EventsPage from './pages/Customer/EventsPage';
 import FAQPage from './pages/Customer/FAQPage';
+import ShopPage from './pages/Customer/ShopPage';
 import CartPage from './pages/Customer/CartPage';
 import AccountPage from './pages/Customer/AccountPage';
 import Auth from './components/Account/Auth';
+import AccountInitLayout from './components/Layout/AccountInitLayout';
 import AccountCommonLayout from './components/Layout/AccountCommonLayout';
 import OrdersPage from './pages/Customer/OrdersPage';
 import SingleOrderPage from './pages/Customer/SingleOrderPage';
 import AddressBookPage from './pages/Customer/AddressBookPage';
 import ChangePwPage from './pages/Customer/ChangePwPage';
 import InboxPage from './pages/Customer/InboxPage';
-import ShopPage from './pages/Customer/ShopPage';
+import CheckoutCommonLayout from './components/Layout/CheckoutCommonLayout';
 import CheckoutPage from './pages/Customer/CheckoutPage';
+import PaymentPage from './pages/Customer/PaymentPage';
 import PaymentSuccessPage from './pages/Customer/PaymentSuccessPage';
 
 import ShopSignup from './pages/Business/ShopSignup';
@@ -60,15 +63,20 @@ const App = () => {
                     </Route>
                     <Route path='cart' element={<CartPage />} />
                 </Route>
-                <Route path='/account' element={<Auth><AccountCommonLayout /></Auth>}>
-                    <Route index element={<AccountPage />} />
-                    <Route path='orders' element={<OrdersPage />} />
-                    <Route path='order/:id' element={<SingleOrderPage />} />
-                    <Route path='inbox' element={<InboxPage />} />
-                    <Route path='addresses' element={<AddressBookPage />} />
-                    <Route path='changePW' element={<ChangePwPage />} />
-                    <Route path='checkout' element={<CheckoutPage />} />
-                    <Route path='paymentSuccess' element={<PaymentSuccessPage />} />
+                <Route path='/account' element={<Auth><AccountInitLayout /></Auth>}>
+                    <Route element={<AccountCommonLayout />}>
+                        <Route index element={<AccountPage />} />
+                        <Route path='orders' element={<OrdersPage />} />
+                        <Route path='order/:id' element={<SingleOrderPage />} />
+                        <Route path='inbox' element={<InboxPage />} />
+                        <Route path='addresses' element={<AddressBookPage />} />
+                        <Route path='changePW' element={<ChangePwPage />} />
+                    </Route>
+                    <Route element={<CheckoutCommonLayout />}>
+                        <Route path='checkout' element={<CheckoutPage />} />
+                        <Route path='payment' element={<PaymentPage />} />
+                        <Route path='paymentSuccess' element={<PaymentSuccessPage />} />
+                    </Route>
                 </Route>
                 <Route path='/signup' element={<SignupPage />} />
                 <Route path='/login' element={<LoginPage />} />

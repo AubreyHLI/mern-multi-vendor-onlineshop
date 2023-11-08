@@ -106,4 +106,8 @@ input[type=number] {
     outline: none !important;
 }
 
+/* change mui Steeper color */
+.MuiStepLabel-iconContainer { color: red }
+.MuiStepIcon-completed{ color: green }
+
 

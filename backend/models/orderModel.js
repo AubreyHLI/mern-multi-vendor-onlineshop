@@ -1,23 +1,11 @@
 const mongoose = require("mongoose");
 
 const orderDetailSchema = new mongoose.Schema({
-    _product: {
-        type: mongoose.Types.ObjectId,
-        ref: "Product",
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    quantity: {
-        type: Number,
-        required: true,
-    },
-    amount: {
-        type: Number,
-        required: true,
-    }
+    productId: { type: String,  required: true },
+    name: { type: String,  required: true },
+    image: { type: String,  required: true },
+    price: { type: Number, required: true },
+    qty: { type: Number, required: true },
 }, { versionKey: false, _id: false });
 
 
@@ -27,15 +15,13 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    orderDetails: [
-        {
-            type: orderDetailSchema,
-        }
-    ],
+    orderDetails: [{
+        type: orderDetailSchema,
+    }],
     paymentId: {
         type: String,
     },
-    priceSummary: {
+    checkoutSummary: {
         subTotalPrice: {
             type: Number,
         },
@@ -67,7 +53,7 @@ const orderSchema = new mongoose.Schema({
 });
 
 const Order =  mongoose.model("Order", orderSchema);
-const OrderDetail =  mongoose.model("OrderDerail", orderDetailSchema);
+const OrderDetail =  mongoose.model("OrderDetail", orderDetailSchema);
 module.exports = { 
     Order, 
     OrderDetail

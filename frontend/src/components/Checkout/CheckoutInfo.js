@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import CheckoutAddress from './CheckoutAddress';
+import { useDispatch, useSelector } from 'react-redux'
 import ShopOrderCard from './ShopOrderCard';
 import AmountItemStyle from './AmountItemStyle';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { setChekoutSummary } from '../../redux/features/checkout/checkoutSlice';
 
 const CheckoutInfo = () => {
     const [checkoutOrders, setCheckoutOrders] = useState([ ]);
+    const { shippingAddress } = useSelector(state => state.checkout);
     const { cart } = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const subTotalPrice = checkoutOrders?.reduce((sum, order) => sum + order?.subTotal, 0);
     const shipping = subTotalPrice > 99 ? 0 : 10;
     const discount = checkoutOrders?.reduce((sum, order) => sum + order?.discount, 0 );
@@ -16,15 +20,24 @@ const CheckoutInfo = () => {
     useEffect(() => {
         cart?.forEach((shopCart, i) => {
             if(!checkoutOrders[i]) {
-                console.log(checkoutOrders[i], !checkoutOrders[i]);
-                let subTotal = shopCart?.items?.reduce((total, item) => {
+                let subTotal = 0, itemPrice = 0;
+                let cartItems = [];
+                shopCart?.items?.forEach(item => {
                     const { product, qty } = item;
-                    const itemPrice = product?.discountPrice ? product?.discountPrice : product?.originalPrice;
-                    return itemPrice * qty + total;
-                }, 0);
+                    itemPrice = product?.discountPrice ? product?.discountPrice : product?.originalPrice;
+                    subTotal += itemPrice * qty;
+                    cartItems.push({
+                        _id: product?._id,
+                        name: product?.name,
+                        price: itemPrice,
+                        image: product?.images[0]?.url,
+                        qty: qty
+                    })
+                })
+
                 setCheckoutOrders(prevOrders => [ 
                     ...prevOrders,
-                    { shop: shopCart?.shop, items: shopCart?.items, subTotal: subTotal, discount:0, total: subTotal }
+                    { shop: shopCart?.shop, items: cartItems, subTotal: subTotal, discount:0, total: subTotal }
                 ]);
             }
         })
@@ -41,19 +54,24 @@ const CheckoutInfo = () => {
     }
 
     const handleSubmitOrders = async () => {
-
+        if(shippingAddress?.recipient === undefined) {
+            toast.error("请填写收货地址")
+        } else {
+            // update local storage with the updated orders array
+            dispatch(setChekoutSummary({
+                subTotalPrice: subTotalPrice,
+                shipping: shipping,
+                allDiscount: discount,
+                totalPrice: totalPrice
+            }))
+            localStorage.setItem("latestOrders", JSON.stringify(checkoutOrders));
+            navigate("/account/payment");
+        }
     }
 
     
     return (
-        <div className='flex flex-col gap-4'>
-            <h1 className="text-[22px] 800px:text-[24px] font-[500]">确认订单</h1>
-
-            {/* shipping info */}
-            <div className="w-full">
-                <CheckoutAddress  />
-            </div>
-            
+        <>
             {/* cart info */}
             <div className="w-full flex flex-col gap-4">
                 {/* { (checkoutOrders?.length === cart?.length) && */}
@@ -76,12 +94,11 @@ const CheckoutInfo = () => {
 
             
             <div className='w-full normalFlex justify-center 700px:justify-end'>
-                <button onClick={handleSubmitOrders} className='button2 bg-[orange] text-white'>
+                <button onClick={handleSubmitOrders} className='button2 bg-[orange] text-white !rounded-none'>
                     提交订单
                 </button>
             </div>
-
-        </div>
+        </>
     )
 }
 

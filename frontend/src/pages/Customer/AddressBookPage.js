@@ -8,7 +8,7 @@ import EditAddressForm from '../../components/Address/EditAddressForm';
 
 
 const AddressBookPage = () => {
-    const { setActive, setWithSidebar, setWithNav } = useOutletContext();
+    const { setActive, setWithNav } = useOutletContext();
 	const { addressBook } = useSelector(state => state.user);
 	const [openAddForm, setOpenAddForm] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
@@ -16,7 +16,6 @@ const AddressBookPage = () => {
 
 	useEffect(() => {
 		setWithNav(true);
-		setWithSidebar(true);
 		setActive(3);
 		window.scrollTo(0,0);
 	},[])

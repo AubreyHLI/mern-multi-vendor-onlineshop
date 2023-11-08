@@ -3,11 +3,10 @@ import { useOutletContext } from 'react-router-dom';
 import AccountDetails from '../../components/Account/AccountDetails';
 
 const AccountPage = () => {
-	const { setActive, setWithSidebar, setWithNav } = useOutletContext();
+	const { setActive, setWithNav } = useOutletContext();
 
     useEffect(() => {
 		setWithNav(true);
-		setWithSidebar(true);
 		setActive(0);
         window.scrollTo(0,0);
     }, [])

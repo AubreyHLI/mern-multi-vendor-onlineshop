@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom';
 
 const InboxPage = () => {
-	const { setWithSidebar, setActive } = useOutletContext();
+	const { setWithNav, setActive } = useOutletContext();
 
     useEffect(() => {
-		setWithSidebar(true);
+		setWithNav(true);
 		setActive(2);
         window.scrollTo(0,0);
     }, [])

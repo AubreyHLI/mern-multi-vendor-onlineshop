@@ -18,8 +18,8 @@ const Cart = () => {
 
     return (
         <>
-            <div className='section h-full pt-4 mb-[10px]'>
-                <div className='normalFlex'>
+            <div className='section h-auto mt-7 mb-[10px]'>
+                <div className='normalFlex mb-4'>
                     <IoBagHandleOutline size={24} />
                     <h5 className="px-2 text-[20px] font-[500]">购物车<span className='text-[18px]'>({cartLength})</span></h5>
                 </div>
@@ -29,7 +29,7 @@ const Cart = () => {
                     <h5>购物车为空</h5>
                 </div>
                 :
-                <div className='w-full'>
+                <div className='w-full mb-[80px]'>
                     {/* cart Items */}
                     { cart?.map((shopCart, index) => <ShopCartBox shopCart={shopCart} key={index} />)}
                 </div>
@@ -37,14 +37,14 @@ const Cart = () => {
             </div>
 
             {/* checkout buttons */}
-            <div className="sticky bottom-0 w-full h-[70px] min-h-[70px] pb-1 bg-[#f3f3f3] border-t border-t-2">
+            <div className="fixed bottom-0 w-full h-[70px] min-h-[70px] pb-1 bg-[#f3f3f3] border-t border-t-2">
                 <div className='section h-full normalFlex justify-end gap-6'>
                     <div className='font-[500] normalFlex gap-2'>
                         <span className='text-[14px] 600px:text-[15px]'>合计 (不含运费): </span>
                         <span className='text-[#d02222] text-[20px] min-w-fit 800px:text-[22px]'> ¥ {subTotalPrice.toFixed(2)}</span>
                    </div>
                     <button onClick={() => navigate('/account/checkout')} disabled={cartLength === 0}
-                        className={`button2 !w-[100px] bg-[orange] text-[#fff] 600px:!w-[150px] 1000px:!w-[200px] disabled:bg-[#cccccc] disabled:cursor-not-allowed`}>
+                        className={`button2 !w-[100px] bg-lime-600 !rounded-none text-[#fff] 600px:!w-[150px] 1000px:!w-[200px] disabled:bg-[#cccccc] disabled:cursor-not-allowed`}>
                         结算
                     </button>
                 </div>

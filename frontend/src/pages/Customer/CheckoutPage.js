@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import CheckoutInfo from '../../components/Checkout/CheckoutInfo';
-import PaymentModal from '../../components/Checkout/PaymentModal';
+import React, { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom';
+import CheckoutAddress from '../../components/Checkout/CheckoutAddress';
+import CheckoutInfo from '../../components/Checkout/CheckoutInfo';
 
 const CheckoutPage = () => {
-    const { setWithSidebar, setWithNav} = useOutletContext();
-    const [openPaymentForm, setOpenPaymentForm] = useState(false);
+    const { setActiveStep } = useOutletContext();    
 
     useEffect(() => {
-        setWithNav(false);
-        setWithSidebar(false);
+        setActiveStep(0);
         window.scrollTo(0, 0);
     }, []);
 
+    
     return (
-      	<div>
-            <CheckoutInfo setOpenPaymentForm={setOpenPaymentForm} />
+        <div className='flex flex-col gap-4'>
+            <h1 className="text-[22px] 800px:text-[24px] font-[500]">确认订单</h1>
 
-            {openPaymentForm && <PaymentModal setOpenPaymentForm={setOpenPaymentForm} />}
+            {/* shipping info */}
+            <CheckoutAddress  />
+            
+            {/* cart and order info */}
+            <CheckoutInfo />
+
         </div>
     )
 }

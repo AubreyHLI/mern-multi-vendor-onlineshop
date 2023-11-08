@@ -4,13 +4,21 @@ export const checkoutSlice = createSlice({
     name: 'checkout',
     initialState: {
         shippingAddress: null,
+        subTotalPrice: null,
         allDiscount: null,
-        total: null,
+        shipping: null,
+        totalPrice: null,
     },
     reducers: {
         setShippingAddress: (state, action) => {
             state.shippingAddress = action.payload;
         },
+        setChekoutSummary: (state, action) => {
+            state.subTotalPrice = action.payload.subTotalPrice;
+            state.allDiscount = action.payload.allDiscount;
+            state.shipping = action.payload.shipping;
+            state.totalPrice = action.payload.totalPrice;
+        }
         // setShopOrders: (state, action) => {
 
         // },
@@ -20,6 +28,7 @@ export const checkoutSlice = createSlice({
 // export actions
 export const { 
     setShippingAddress, 
+    setChekoutSummary,
 } = checkoutSlice.actions;
 
 // export reducer
