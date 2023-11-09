@@ -44,7 +44,7 @@ const stepStyle = {
         top: '15px',
     },
     "& .MuiStepLabel-label": {
-        fontSize:'12px',
+        fontSize:'13px',
         fontWeight: '400',
         marginTop: '2px',
     }

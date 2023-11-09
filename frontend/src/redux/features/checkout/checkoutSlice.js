@@ -18,10 +18,13 @@ export const checkoutSlice = createSlice({
             state.allDiscount = action.payload.allDiscount;
             state.shipping = action.payload.shipping;
             state.totalPrice = action.payload.totalPrice;
+        },
+        clearCheckoutSummary: (state) => {
+            state.subTotalPrice = null;
+            state.allDiscount = null;
+            state.shipping = null;
+            state.totalPrice = null;
         }
-        // setShopOrders: (state, action) => {
-
-        // },
     }
 });
 
@@ -29,6 +32,7 @@ export const checkoutSlice = createSlice({
 export const { 
     setShippingAddress, 
     setChekoutSummary,
+    clearCheckoutSummary,
 } = checkoutSlice.actions;
 
 // export reducer

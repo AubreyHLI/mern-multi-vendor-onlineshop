@@ -50,6 +50,7 @@ const userApi = appApi.injectEndpoints({
             }),
             invalidatesTags: ["Wishlist"],
         }),
+
         getAddressBook: builder.query({
             query: () => '/users/getAddresses',
             providesTags: ["AddressBook"],
@@ -88,14 +89,17 @@ const userApi = appApi.injectEndpoints({
     })
 })
 
+
 export const {
     useGetCartItemsQuery,
     useAddToCartMutation,
     useRemoveFromCartMutation,
     useUpdateCartMutation,
+
     useGetWishlistQuery,
     useAddToWishlistMutation,
     useRemoveFromWishlistMutation,
+
     useGetAddressBookQuery,
     useAddAddressMutation,
     useUpdateDefaultAddressMutation,

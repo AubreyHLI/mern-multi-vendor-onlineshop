@@ -28,7 +28,7 @@ const CheckoutCommonLayout = () => {
                 <HorizontalStepper activeStep={activeStep} />
             </div>
 
-            {data?.publishKey && <Outlet context={{setActiveStep, stripePromise}}/>}
+            <Outlet context={{setActiveStep, stripePromise}} />
         </div>
     )
 }

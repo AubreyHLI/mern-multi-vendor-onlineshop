@@ -1,9 +1,11 @@
 import { Elements } from '@stripe/react-stripe-js';
 import React, { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom';
+import PaymentInfo from '../../components/Checkout/PaymentInfo';
+import PaymentForm from '../../components/Checkout/PaymentForm';
 
 const PaymentPage = () => {
-    const { setActiveStep, stripePromise } = useOutletContext();    
+    const { setActiveStep, stripePromise } = useOutletContext();
 
     useEffect(() => {
         setActiveStep(1);
@@ -12,12 +14,15 @@ const PaymentPage = () => {
 
     
     return (
-        <Elements stripe={stripePromise}>
-            <div className='flex flex-col gap-4'>
-                <h1 className="text-[22px] 800px:text-[24px] font-[500]">订单支付</h1>
+        <div className='flex flex-col gap-4'>
+            
+            <PaymentInfo />
 
-            </div>
-        </Elements>
+            <Elements stripe={stripePromise}>
+                <PaymentForm />
+            </Elements>
+
+        </div>
     )
 }
 

@@ -27,11 +27,12 @@ const CheckoutInfo = () => {
                     itemPrice = product?.discountPrice ? product?.discountPrice : product?.originalPrice;
                     subTotal += itemPrice * qty;
                     cartItems.push({
-                        _id: product?._id,
+                        productId: product?._id,
                         name: product?.name,
                         price: itemPrice,
                         image: product?.images[0]?.url,
-                        qty: qty
+                        qty: qty,
+                        isReviewed: false
                     })
                 })
 
@@ -74,7 +75,6 @@ const CheckoutInfo = () => {
         <>
             {/* cart info */}
             <div className="w-full flex flex-col gap-4">
-                {/* { (checkoutOrders?.length === cart?.length) && */}
                 {checkoutOrders?.map((order, i) => 
                 <ShopOrderCard order={order} key={i} index={i} updateCheckoutOrders={updateCheckoutOrders} />)
                 }

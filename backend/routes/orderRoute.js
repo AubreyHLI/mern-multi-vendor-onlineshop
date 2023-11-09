@@ -1,4 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+// controllers
+const {
+   createOrders
+} = require('../controllers/orderController');
+
+// middlewares
+const { verifyShopToken, verifyToken } = require('../middlewares/auth');
+
+router.post('/createOrders', verifyToken, createOrders);
+
+
+module.exports = router;

@@ -5,13 +5,6 @@ const checkoutApi = appApi.injectEndpoints({
         getPublicStripeKey: builder.query({
             query: () => '/payment/config',
         }),
-        createPayment: builder.mutation({
-            query: (orderInfo) => ({
-                url: '/payment/process',
-                method: 'POST',
-                body: orderInfo
-            }),
-        }),
         checkCoupon: builder.mutation({
             query: (coupon) => ({
                 url: `/coupons/checkCoupon/${coupon.code}`,
@@ -19,13 +12,20 @@ const checkoutApi = appApi.injectEndpoints({
                 body: coupon,
             }),
         }),
+        createOrders: builder.mutation({
+            query: (ordersData) => ({
+                url: 'orders/createOrders',
+                method: 'POST',
+                body: ordersData
+            })
+        })
     })
 })
 
 export const {
     useGetPublicStripeKeyQuery,
-    useCreatePaymentMutation,
     useCheckCouponMutation,
+    useCreateOrdersMutation,
 } = checkoutApi;
 
 export default checkoutApi;

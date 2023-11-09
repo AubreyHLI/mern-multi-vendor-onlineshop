@@ -14,7 +14,6 @@ const CheckoutPage = () => {
     
     return (
         <div className='flex flex-col gap-4'>
-            <h1 className="text-[22px] 800px:text-[24px] font-[500]">确认订单</h1>
 
             {/* shipping info */}
             <CheckoutAddress  />

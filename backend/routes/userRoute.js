@@ -53,6 +53,7 @@ router.get('/getCart', verifyToken, getCart);
 router.post('/addCartItem', verifyToken, addToCart);
 router.delete('/removeCartItem', verifyToken, removeFromCart);
 router.patch('/updateCartItem', verifyToken, updateCart);
+router.patch('clearCart', verifyToken, clearCart);
 
 router.get('/getWishlist', verifyToken, getWishlist);
 router.post('/addWishlist', verifyToken, addToWishlist);

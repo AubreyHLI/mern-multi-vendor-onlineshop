@@ -6,6 +6,7 @@ const orderDetailSchema = new mongoose.Schema({
     image: { type: String,  required: true },
     price: { type: Number, required: true },
     qty: { type: Number, required: true },
+    isReviewed: { type: Boolean, default:false }
 }, { versionKey: false, _id: false });
 
 
@@ -18,22 +19,16 @@ const orderSchema = new mongoose.Schema({
     orderDetails: [{
         type: orderDetailSchema,
     }],
-    paymentId: {
-        type: String,
+    paymentInfo: {
+        id: { type: String },
+        status: { type: String },
+        type: { type: String },
     },
     checkoutSummary: {
-        subTotalPrice: {
-            type: Number,
-        },
-        shipping: {
-            type: Number,
-        },
-        discount: {
-            type: Number,
-        },
-        totalPrice:{
-            type: Number,
-        },
+        subTotalPrice: { type: Number },
+        shipping: { type: Number },
+        discount: { type: Number },
+        totalPrice: { type: Number },
     },
     shippingAddress:{
         type: Object,

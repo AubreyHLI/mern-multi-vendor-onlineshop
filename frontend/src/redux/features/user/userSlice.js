@@ -29,6 +29,7 @@ export const {
     setCart, 
     setWishlist,
     setAddressBook,
+    clearCart,
 } = userSlice.actions;
 
 // export reducer

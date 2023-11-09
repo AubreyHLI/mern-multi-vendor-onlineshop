@@ -18,6 +18,7 @@ router.get("/config", verifyToken, asyncHandler(async (req, res, next) => {
 
 // Create payment intent
 router.post("/process", verifyToken, asyncHandler(async (req, res, next) => {
+    console.log('payment intent')
     const myPayment = await stripe.paymentIntents.create({
         amount: req.body.amount,
         currency: "cny",
