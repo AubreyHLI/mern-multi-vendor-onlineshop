@@ -111,7 +111,7 @@ const PaymentForm = () => {
     }
 
     return (
-    <div className="w-full 800px:w-[95%] bg-[#fff] rounded-md px-5 pb-4 pt-4">
+    <div className="w-full mx-auto bg-[#fff] rounded-md px-5 pb-4 pt-4">
         <h3 className='font-[500] text-[18px]'>选择支付方式</h3>
         {/* pay with card */}
         <div className='border-b'>

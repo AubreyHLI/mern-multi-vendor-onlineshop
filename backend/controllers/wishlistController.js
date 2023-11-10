@@ -8,7 +8,7 @@ const getWishlist = asyncHandler(async (req, res, next) => {
         .select('wishlistDetails')
         .populate({
             path: 'wishlistDetails',
-            select: '_id name originalPrice discountPrice images'
+            select: '_id name originalPrice discountPrice images stock shop'
         });
     res.status(200).json({
         success: true,

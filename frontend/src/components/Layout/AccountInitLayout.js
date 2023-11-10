@@ -34,7 +34,7 @@ const AccountInitLayout = () => {
 
     return (
         <div className='h-full min-h-[600px]'>
-            <Header activeHeading={0} withNav={withNav}/>
+            <Header activeHeading={10} withNav={withNav}/>
             { (cartLoading || addressLoading) 
             ? <Loader />
             : <Outlet context={{setWithNav}} />

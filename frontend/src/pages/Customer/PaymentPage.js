@@ -5,17 +5,18 @@ import PaymentInfo from '../../components/Checkout/PaymentInfo';
 import PaymentForm from '../../components/Checkout/PaymentForm';
 
 const PaymentPage = () => {
-    const { setActiveStep, stripePromise } = useOutletContext();
+    const { stripePromise, setWithNav } = useOutletContext();
 
     useEffect(() => {
-        setActiveStep(1);
+        setWithNav(false);
         window.scrollTo(0, 0);
     }, []);
 
     
     return (
         <div className='flex flex-col gap-4'>
-            
+            <h1 className="text-[22px] 800px:text-[24px] font-[500]">Step 2：订单支付</h1>
+
             <PaymentInfo />
 
             <Elements stripe={stripePromise}>

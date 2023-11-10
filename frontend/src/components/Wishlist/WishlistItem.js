@@ -17,10 +17,15 @@ const WishlistItem = ({ data}) => {
     }, [isSuccess])
 
     const handleAddCart = async () => {
-        await addToCart({
-            productId: data?._id, 
-            qty: 1
-        });
+        if (data?.stock < 1) {
+            toast.error("抱歉，商品已无库存:(");
+        } else {
+            await addToCart({
+                shopId: data?.shop, 
+                productId: data?._id, 
+                qty: 1
+            })
+        }
     }
 
     const handleRemoveWishlist = async () => {
@@ -41,7 +46,7 @@ const WishlistItem = ({ data}) => {
                         </span>
                     </div>
                     <div className='normalFlex pt-[8px] justify-between'>
-                        <h4 className="font-[600] text-[#d02222]">
+                        <h4 className="font-[600] text-[#ff5e00]">
                             ¥ {productPrice}
                         </h4>
                         <button className='normalFlex gap-x-2 py-1 px-3 rounded-[10px] bg-lime-400 text-sm' onClick={handleAddCart}>

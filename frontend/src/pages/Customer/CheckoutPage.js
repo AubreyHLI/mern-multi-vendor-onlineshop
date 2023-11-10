@@ -4,16 +4,17 @@ import CheckoutAddress from '../../components/Checkout/CheckoutAddress';
 import CheckoutInfo from '../../components/Checkout/CheckoutInfo';
 
 const CheckoutPage = () => {
-    const { setActiveStep } = useOutletContext();    
+    const { setWithNav } = useOutletContext();    
 
     useEffect(() => {
-        setActiveStep(0);
+        setWithNav(false);
         window.scrollTo(0, 0);
     }, []);
 
     
     return (
         <div className='flex flex-col gap-4'>
+            <h1 className="text-[22px] 800px:text-[24px] font-[500]">Step 1：确认订单</h1>
 
             {/* shipping info */}
             <CheckoutAddress  />

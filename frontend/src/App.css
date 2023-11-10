@@ -32,7 +32,7 @@ input[type=number] {
 }
 
 .logo {
-    @apply cursor-pointer h-8 600px:h-9 1000px:h-10;
+    @apply cursor-pointer h-8 800px:h-9 1000px:h-10;
 }
 
 .button {
@@ -41,7 +41,7 @@ input[type=number] {
 
 
 .button2 {
-    @apply w-[200px] h-[40px] text-center rounded-[10px] tracking-wider select-none;
+    @apply w-[200px] h-[40px] text-center rounded-[10px] tracking-wider select-none hover:opacity-90;
 }
 
 .button3 {
@@ -106,8 +106,5 @@ input[type=number] {
     outline: none !important;
 }
 
-/* change mui Steeper color */
-.MuiStepLabel-iconContainer { color: red }
-.MuiStepIcon-completed{ color: green }
 
 

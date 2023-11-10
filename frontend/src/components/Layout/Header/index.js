@@ -5,7 +5,6 @@ import SearchBar from './SearchBar';
 import AccountBox from './AccountBox';
 import Nav from './Nav';
 import Sidebar from './Sidebar';
-import Cart from '../../Cart';
 import Wishlist from '../../Wishlist';
 
 const Header = ({ activeHeading, withNav }) => {
@@ -28,12 +27,12 @@ const Header = ({ activeHeading, withNav }) => {
             <div className='section'>
                 <div className="h-[80px] py-[20px] flex items-center justify-between">
                     {/* menu */}
-                    <div className="800px:hidden ">
+                    <div className="800px:hidden cursor-pointer">
                         <BiMenuAltLeft size={34} onClick={() => setOpenMenu(true)}/>
                     </div>
     
                     {/* logo */}
-                    <Link to='/'>
+                    <Link to='/' className='hidden 800px:block'>
                         <div className='logo'>
                             <img src='https://res.cloudinary.com/dewmfc2io/image/upload/v1695238416/mern-supermarket/logo/logo_lj7bii.png' alt='logo' className='h-full'/>
                         </div>

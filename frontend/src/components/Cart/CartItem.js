@@ -74,7 +74,7 @@ const CartItem = ({ data, shopId }) => {
                                 <HiPlus size={13} />
                             </button>
                         </div>
-                        <h4 className="font-[600] text-[#d02222] text-[16px] 600px:text-[17px]">
+                        <h4 className="font-[600] text-[#ff5e00] text-[16px] 600px:text-[17px]">
                             ¥ {totalPrice}
                         </h4>
                     </div>

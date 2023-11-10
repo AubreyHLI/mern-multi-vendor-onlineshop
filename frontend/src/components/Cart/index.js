@@ -41,7 +41,7 @@ const Cart = () => {
                 <div className='section h-full normalFlex justify-end gap-6'>
                     <div className='font-[500] normalFlex gap-2'>
                         <span className='text-[14px] 600px:text-[15px]'>合计 (不含运费): </span>
-                        <span className='text-[#d02222] text-[20px] min-w-fit 800px:text-[22px]'> ¥ {subTotalPrice.toFixed(2)}</span>
+                        <span className='text-[#ff5e00] text-[20px] min-w-fit 800px:text-[22px]'> ¥ {subTotalPrice.toFixed(2)}</span>
                    </div>
                     <button onClick={() => navigate('/account/checkout')} disabled={cartLength === 0}
                         className={`button2 !w-[100px] bg-lime-600 !rounded-none text-[#fff] 600px:!w-[150px] 1000px:!w-[200px] disabled:bg-[#cccccc] disabled:cursor-not-allowed`}>
