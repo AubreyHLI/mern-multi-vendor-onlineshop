@@ -16,6 +16,10 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    shop: {
+        _id: { type: String },
+        name: { type: String }
+    },
     orderDetails: [{
         type: orderDetailSchema,
     }],

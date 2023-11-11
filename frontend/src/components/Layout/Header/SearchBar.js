@@ -23,7 +23,7 @@ const SearchBar = () => {
     }
 
     return (
-        <div className='w-[60%] 800px:w-[40%]'>
+        <div className='w-[60%] 600px:w-[40%]'>
             <div className='relative w-full '>
                 <input type="text" placeholder="Search Product..." value={searchInput} onChange={handleSearchChange} className="h-[40px] w-full px-3 hover:border-[#3957db] border-[2px] rounded-md" />
                 <AiOutlineSearch size={30} className="absolute right-3 top-1.5 cursor-pointer" />

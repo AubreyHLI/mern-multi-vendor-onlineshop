@@ -16,7 +16,7 @@ const Sidebar = ({ setOpenMenu, activeHeading }) => {
     }
     
     return (
-        <div className='fixed w-full bg-[#0000005f] z-20 h-full top-0 left-0 800px:hidden'>
+        <div className='fixed w-full bg-[#0000005f] z-20 h-full top-0 left-0 600px:hidden'>
             <div className="fixed w-[65%] min-w-[270px] max-w-[340px] bg-[#fff] h-full top-0 left-0 z-10 overflow-y-scroll">
                 <div className="normalFlex w-full h-[80px] justify-between pl-4 pr-3 pt-1 bg-white">
                     {/* logo */}

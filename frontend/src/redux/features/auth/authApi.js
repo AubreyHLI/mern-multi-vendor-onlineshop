@@ -14,13 +14,14 @@ const authApi = appApi.injectEndpoints({
                 url: '/users/login',
                 method: 'POST',
                 body: user
-            })
+            }),
         }),
         logoutUser: builder.mutation({
             query: () => ({
                 url: '/users/logout',
                 method: 'GET',
-            })
+            }),
+            invalidatesTags: ["User", "CartItems", "Wishlist", "AddressBook"]
         }), 
         getUser: builder.query({
             query: () => '/users/getUser',

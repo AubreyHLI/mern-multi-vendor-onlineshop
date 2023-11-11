@@ -86,6 +86,12 @@ const userApi = appApi.injectEndpoints({
             }),
             invalidatesTags: ["AddressBook"],
         }),
+
+        getOrders: builder.query({
+            query: () => '/orders/getUserOrders',
+            providesTags: ["Orders"],
+        }),
+
     })
 })
 
@@ -105,6 +111,8 @@ export const {
     useUpdateDefaultAddressMutation,
     useUpdateAddressMutation,
     useDeleteAddressMutation,
+
+    useGetOrdersQuery,
 } = userApi;
 
 export default userApi;

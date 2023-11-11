@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useGetAllProductsQuery } from '../../redux/features/products/productsApi';
 import { useGetUserQuery } from '../../redux/features/auth/authApi';
 import { useGetCartItemsQuery, useGetWishlistQuery } from '../../redux/features/user/userApi';
 import { setProducts } from '../../redux/features/products/productsSlice';
 import { setUser } from '../../redux/features/auth/authSlice';
 import { setCart, setWishlist } from '../../redux/features/user/userSlice';
-import Loader from '../atoms/Loader';
 import { Outlet } from 'react-router-dom';
+import Loader from '../atoms/Loader';
+
 
 const InitLayout = () => {
-    const { token } = useSelector(state => state.auth);
     const { data: allProductsData, 
         isLoading: loadingProducts, 
         isSuccess: productsIsSuccess, } = useGetAllProductsQuery();
-    const { data: userData, 
-        isLoading: loadingUser, 
-        isSuccess: userIsSuccess, 
-        isError: userIsError,
-    } = useGetUserQuery(token, {skip: token === null});
-    const { data: cartData, isSuccess: cartSuccess } = useGetCartItemsQuery(userIsSuccess, {skip: !userIsSuccess});
+    const { data: userData, isLoading: loadingUser, isSuccess: userIsSuccess, isError: userIsError} = useGetUserQuery();
+    const { data: cartData, isLoading: loadingCart, isSuccess: cartSuccess } = useGetCartItemsQuery(userIsSuccess, {skip: !userIsSuccess});
     const { data: wishlistData, isSuccess: wishlistSuccess } = useGetWishlistQuery(userIsSuccess, {skip: !userIsSuccess});
     const dispatch = useDispatch();
 
@@ -51,7 +47,7 @@ const InitLayout = () => {
     }, [wishlistSuccess, wishlistData])
 
 
-    if(loadingProducts || loadingUser) {
+    if(loadingProducts || loadingUser || loadingCart) {
         return <Loader />
     }
     

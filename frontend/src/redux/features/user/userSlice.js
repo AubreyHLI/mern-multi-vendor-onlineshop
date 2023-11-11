@@ -18,9 +18,18 @@ export const userSlice = createSlice({
         setAddressBook: (state, action) => {
             state.addressBook = action.payload;
         },
+        setOrders: (state, action) => {
+            state.orderHistory = action.payload;
+        },
         clearCart: (state) => {
             state.cart = [];
         },
+        clearUserData: (state) => {
+            state.cart = [];
+            state.wishlist = [];
+            state.addressBook = null;
+            state.orderHistory = [];
+        }
     }
 });
 
@@ -30,6 +39,7 @@ export const {
     setWishlist,
     setAddressBook,
     clearCart,
+    clearUserData,
 } = userSlice.actions;
 
 // export reducer

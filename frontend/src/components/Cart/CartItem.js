@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { HiOutlineMinus, HiPlus } from "react-icons/hi";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { useRemoveFromCartMutation, useUpdateCartMutation } from '../../redux/features/user/userApi';
 import { RxCross1 } from 'react-icons/rx';

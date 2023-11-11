@@ -9,6 +9,7 @@ const createOrders = asyncHandler(async(req, res, next) => {
     for(const order of orders) {
         await Order.create({
             _customer: req.user.id,
+            shop: order?.shop,
             orderDetails: order?.items,
             paymentInfo,
             checkoutSummary: {
@@ -30,6 +31,34 @@ const createOrders = asyncHandler(async(req, res, next) => {
 	});
 })
 
+
+// get all orders of user
+const getUserAllOrders = asyncHandler(async (req, res, next) => {
+	const orders = await Order.find({ "_customer": req.user.id }).sort({
+		createdAt: -1,
+	});
+	res.status(200).json({
+		success: true,
+		orders,
+	});
+})
+
+
+// get all orders of shop
+const getShopAllOrders = asyncHandler(async (req, res, next) => {
+	const orders = await Order.find({ "shop._id": req.shop.id }).sort({
+		createdAt: -1,
+	});
+	res.status(200).json({
+		success: true,
+		orders,
+	});
+})
+
+
 module.exports = {
-    createOrders
+    createOrders,
+    getUserAllOrders,
+
+    getShopAllOrders,
 }

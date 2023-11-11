@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const verifyToken = asyncHandler( async(req, res, next) => {
     try{
         let token = req.header("Authorization");
+        console.log('token:', token);
         if(!token) {
             return next(new CustomErrorClass(403, '访问受限！请先登录用户账号'));
         }

@@ -5,19 +5,18 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { RxPerson } from 'react-icons/rx';
 import { TbAddressBook } from "react-icons/tb";
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLogoutUserMutation } from '../../redux/features/auth/authApi';
 import { toast } from 'react-toastify';
 import { setLogout } from '../../redux/features/auth/authSlice';
+import { clearUserData } from '../../redux/features/user/userSlice';
 
 const AccountSidebar = ({ active }) => {
     const [logoutUser, {isSuccess: logoutSuccess}] = useLogoutUserMutation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(logoutSuccess) {
-            dispatch(setLogout());
             toast.success("退出登录成功");
         }
     }, [logoutSuccess])
@@ -27,6 +26,8 @@ const AccountSidebar = ({ active }) => {
         if(!answer) {
             return
         } else {
+			dispatch(clearUserData());
+			dispatch(setLogout());
             await logoutUser();
         }
     }

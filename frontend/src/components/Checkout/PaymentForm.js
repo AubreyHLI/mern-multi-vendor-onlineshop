@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { useCreateOrdersMutation } from '../../redux/features/checkout/checkoutApi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useClearCartMutation } from '../../redux/features/user/userApi';
 import { clearCart } from '../../redux/features/user/userSlice';
 import { clearCheckoutSummary } from '../../redux/features/checkout/checkoutSlice';
 
@@ -174,7 +173,7 @@ const PaymentForm = () => {
                 <div className='text-[15px] text-[#444]'>
                     可使用现金支付、微信或支付宝付款给快递派送员
                 </div>
-                <div className='w-full flex justify-end'>
+                <div className='w-full flex justify-end mt-4'>
                     <button onClick={handlePayInCash} className='button2 bg-[orange] text-white !rounded-none' >
                         提交订单
                     </button>

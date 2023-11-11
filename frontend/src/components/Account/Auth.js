@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useGetUserQuery } from '../../redux/features/auth/authApi';
 import { setUser } from '../../redux/features/auth/authSlice';
 
-const Auth = ({children}) => {
+const Auth = () => {
     const { token, user } = useSelector(state => state.auth);
-    const { data: userData, isLoading, isSuccess, isError } = useGetUserQuery(token);
+    const { data: userData, isLoading, isSuccess, isError } = useGetUserQuery(token, {skip: !token});
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Auth = ({children}) => {
     } 
 
     return (
-        children
+        <Outlet />
     )
 }
 

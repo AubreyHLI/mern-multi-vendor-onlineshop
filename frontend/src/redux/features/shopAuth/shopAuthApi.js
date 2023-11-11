@@ -34,7 +34,8 @@ const shopAuthApi = appApi.injectEndpoints({
             query: () => ({
                 url: '/shop/logout',
                 method: 'GET',
-            })
+            }),
+            invalidatesTags: ["Shop", "ShopProducts", "ShopCoupons", "ShopOrders"]
         }), 
         getShop: builder.query({
             query: () => '/shop/getShop',

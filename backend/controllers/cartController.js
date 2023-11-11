@@ -83,15 +83,6 @@ const updateCart = asyncHandler(async (req, res, next) => {
     });
 })
 
-const clearCart = asyncHandler(async (req, res, next) => {
-    const cart = await Cart.findOneAndUpdate({_userId: req.user.id}, {$set: {cartDetails: []}}, {new:true});
-
-    res.status(201).json({
-        success: true,
-        cart,
-    });
-})
-
 
 // export
 module.exports = {
@@ -99,5 +90,4 @@ module.exports = {
     addToCart,
     removeFromCart,
     updateCart,
-    clearCart,
 }

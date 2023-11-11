@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import AmountItemStyle from './AmountItemStyle';
 
 const PaymentInfo = () => {
     const { shippingAddress, totalPrice } = useSelector(state => state.checkout);

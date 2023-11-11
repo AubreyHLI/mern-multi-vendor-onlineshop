@@ -27,12 +27,12 @@ const Header = ({ activeHeading, withNav }) => {
             <div className='section'>
                 <div className="h-[80px] py-[20px] flex items-center justify-between">
                     {/* menu */}
-                    <div className="800px:hidden cursor-pointer">
+                    <div className="600px:hidden cursor-pointer">
                         <BiMenuAltLeft size={34} onClick={() => setOpenMenu(true)}/>
                     </div>
     
                     {/* logo */}
-                    <Link to='/' className='hidden 800px:block'>
+                    <Link to='/' className='hidden 600px:block'>
                         <div className='logo'>
                             <img src='https://res.cloudinary.com/dewmfc2io/image/upload/v1695238416/mern-supermarket/logo/logo_lj7bii.png' alt='logo' className='h-full'/>
                         </div>
@@ -51,7 +51,7 @@ const Header = ({ activeHeading, withNav }) => {
     
             {/* navigation */}
             { withNav && 
-            <div className='transition hidden 800px:flex items-center justify-between w-full h-[50px]'>
+            <div className='transition hidden 600px:flex items-center justify-between w-full h-[50px]'>
                 <Nav activeHeading={activeHeading} dropDown={dropDown} setDropDown={setDropDown} />
             </div>
             }
