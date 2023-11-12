@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import AccountSidebar from '../Account/AccountSidebar'
 import { useDispatch } from 'react-redux';
-import { useGetAddressBookQuery } from '../../redux/features/user/userApi';
-import { setAddressBook } from '../../redux/features/user/userSlice';
+import { useGetAddressBookQuery, useGetOrdersQuery } from '../../redux/features/user/userApi';
+import { setAddressBook, setOrders } from '../../redux/features/user/userSlice';
 import Loader from '../atoms/Loader';
 import Header from './Header';
 import Footer from './Footer';
 
 
 const AccountCommonLayout = () => {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(6);
+    const [activeSidebar, setActiveSidebar] = useState(0);
     const [withNav, setWithNav] = useState(true);
     const { data: addressData, isLoading: addressLoading, isSuccess: addressSuccess } = useGetAddressBookQuery();
+    const { data: ordersData, isLoading: ordersLoading, isSuccess: ordersSuccess } = useGetOrdersQuery();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,17 +23,23 @@ const AccountCommonLayout = () => {
         } 
     }, [addressSuccess, addressData])
 
+    useEffect(() => {
+        if(ordersSuccess) {
+            dispatch(setOrders(ordersData.orders))
+        }
+    }, [ordersSuccess])
+
     return (
         <div className='h-full min-h-[600px]'>
-            <Header activeHeading={10} withNav={withNav}/>
-            { addressLoading
+            <Header activeHeading={active} withNav={withNav}/>
+            { addressLoading || ordersLoading
             ? <Loader />
-            : <div className="section flex items-start justify-between w-full py-6 gap-2 600px:py-8 800px:gap-5">
+            : <div className="section w-full flex items-start justify-between py-6 gap-4 800px:gap-5 1200px:gap-6 relative">
                 <div className='flex-1 h-full overflow-y-scroll'>
-                    <Outlet context={{setActive, setWithNav}} />
+                    <Outlet context={{setActive, setWithNav, setActiveSidebar}} />
                 </div>
-                <div className="w-[50px] mr-[-10px] 600px:w-[100px] 800px:mr-0 800px:w-[120px] 900px:w-[180px] first-letter:sticky pb-2">
-                    <AccountSidebar active={active} />
+                <div className="hidden 600px:block sticky top-[154px] -mr-[16px] w-[90px] 800px:w-[120px] h-[calc(100vh-164px)] 1000px:w-[160px] 1200px:w-[180px] rounded-[10px] bg-white shadow-md">
+                    <AccountSidebar active={activeSidebar} />
                 </div>
             </div>  
             }

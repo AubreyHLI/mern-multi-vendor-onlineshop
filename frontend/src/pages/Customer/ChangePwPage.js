@@ -3,11 +3,12 @@ import { useOutletContext } from 'react-router-dom';
 import UpdatePwForm from '../../components/Account/UpdatePwForm';
 
 const ChangePwPage = () => {
-	const { setActive, setWithNav } = useOutletContext();
+	const { setActive, setWithNav, setActiveSidebar } = useOutletContext();
 	
     useEffect(() => {
 		setWithNav(true);
-		setActive(4);
+		setActive(10);
+		setActiveSidebar(4);
         window.scrollTo(0,0);
     }, [])
 

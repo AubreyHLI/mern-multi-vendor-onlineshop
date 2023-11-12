@@ -11,7 +11,7 @@ const AccountBox = ({setOpenWishlist}) => {
 
     if(!token || !user) {
         return (
-            <div className="text-[#333333] hidden 800px:flex 800px:item-center">
+            <div className="text-[#333333] hidden 600px:flex 600px:item-center">
                 <div className="relative flex normalFlex gap-2 text-[#000000b7] font-[500]">
                     <CgProfile size={30} color="#333333" />
                     <Link to="/login" className="flex items-center text-[14px] cursor-pointer hover:underline">
@@ -47,7 +47,7 @@ const AccountBox = ({setOpenWishlist}) => {
                 </Link>
             </div>
             {/* account */}
-            <div className='hidden 800px:flex 800px:item-center'>
+            <div className='hidden 600px:flex 600px:item-center'>
                 <div className="relative flex cursor-pointer">
                     <Link to="/account">
                         <CgProfile size={30} color="#333333" />

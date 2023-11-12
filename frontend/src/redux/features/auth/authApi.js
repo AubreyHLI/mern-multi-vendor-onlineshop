@@ -21,7 +21,7 @@ const authApi = appApi.injectEndpoints({
                 url: '/users/logout',
                 method: 'GET',
             }),
-            invalidatesTags: ["User", "CartItems", "Wishlist", "AddressBook"]
+            invalidatesTags: ["User", "CartItems", "Wishlist", "AddressBook", "Orders"]
         }), 
         getUser: builder.query({
             query: () => '/users/getUser',

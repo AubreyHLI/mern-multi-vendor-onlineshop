@@ -38,6 +38,7 @@ export const {
     setCart, 
     setWishlist,
     setAddressBook,
+    setOrders,
     clearCart,
     clearUserData,
 } = userSlice.actions;

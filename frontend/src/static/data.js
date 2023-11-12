@@ -21,6 +21,29 @@ export const navItems = [
 	},
 ];
 
+export const accountNavItems = [
+	{
+		title: "基本信息",
+		url: "/account",
+	},
+	{
+		title: "我的订单",
+		url: "/account/orders",
+	},
+	{
+		title: "消息与通知",
+		url: "/account/inbox",
+	},
+	{
+		title: "地址管理",
+		url: "/account/addresses",
+	},
+	{
+		title: "修改密码",
+		url: "/account/changePW",
+	},
+]
+
 // categories data
 export const categoriesData = [
 	{

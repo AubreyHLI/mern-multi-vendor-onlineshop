@@ -51,7 +51,7 @@ const AccountDetails = () => {
 	}
 
     return (
-        <div className='flex flex-col items-center justify-center w-full'>
+        <div className='flex flex-col items-center justify-center w-full pt-8'>
             <div className="pb-5 flex flex-col">
                 { avatar || user?.avatar?.url 
                 ? <Avatar src={avatar ? URL.createObjectURL(avatar) : (user?.avatar?.url) } alt='' sx={{ width: 100, height: 100 }} className='border-2 border-[#e5e7eb]' />

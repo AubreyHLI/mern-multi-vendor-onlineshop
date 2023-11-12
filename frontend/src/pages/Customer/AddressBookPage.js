@@ -8,7 +8,7 @@ import EditAddressForm from '../../components/Address/EditAddressForm';
 
 
 const AddressBookPage = () => {
-    const { setActive, setWithNav } = useOutletContext();
+    const { setActive, setWithNav, setActiveSidebar } = useOutletContext();
 	const { addressBook } = useSelector(state => state.user);
 	const [openAddForm, setOpenAddForm] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
@@ -16,7 +16,8 @@ const AddressBookPage = () => {
 
 	useEffect(() => {
 		setWithNav(true);
-		setActive(3);
+		setActive(9);
+		setActiveSidebar(3);
 		window.scrollTo(0,0);
 	},[])
 
@@ -30,7 +31,7 @@ const AddressBookPage = () => {
 
     return (
         <div className="w-full pb-[20px]">
-            <h1 className="text-[22px] 800px:text-[26px] mb-[16px]">您的地址</h1>
+            <h1 className="text-[22px] 800px:text-[26px] mb-[16px]">地址管理</h1>
 
 			<div className='w-full grid grid-cols-1 gap-2 700px:grid-cols-2 800px:grid-cols-auto-fill-280'>
 				<div onClick={() => setOpenAddForm(true)} className='w-full h-[160px] 700px:h-[240px] 700px:max-w-[280px] border-2 border-dashed rounded-lg border-gray-300 cursor-pointer'>
@@ -41,11 +42,9 @@ const AddressBookPage = () => {
 				</div>
 
 				{addressBook?.addresses?.map((item, index) => 
-					<div key={index}>
-						<AddressCard data={item} isDefault={item?._id == addressBook?.defaultAddressId} 
-							setOpenEdit={setOpenEdit} setEditData={setEditData}
-						/>
-					</div>
+					<AddressCard key={index} data={item} isDefault={item?._id == addressBook?.defaultAddressId} 
+						setOpenEdit={setOpenEdit} setEditData={setEditData}
+					/>
 				)}
 			</div>
 
