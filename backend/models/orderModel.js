@@ -42,6 +42,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: "Processing",
     },
+    statusDetail: {
+        type: mongoose.Types.ObjectId,
+        ref: "StatusDetail",
+    },
     deliveredAt: {
         type: Date,
     },

@@ -17,7 +17,8 @@ const checkoutApi = appApi.injectEndpoints({
                 url: 'orders/createOrders',
                 method: 'POST',
                 body: ordersData
-            })
+            }),
+            invalidatesTags: ["Orders"]
         })
     })
 })

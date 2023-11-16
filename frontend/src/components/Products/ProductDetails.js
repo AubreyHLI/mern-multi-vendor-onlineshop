@@ -4,7 +4,6 @@ import Ratings from './Ratings';
 
 
 const ProductDetails = ({data}) => {
-    const id = data?.brandId;
     const [active, setActive] = useState(1);  
 
     return (

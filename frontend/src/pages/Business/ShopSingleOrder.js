@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useOutletContext, useParams } from 'react-router-dom'
-import OrderDetails from '../../components/Orders/OrderDetails';
+import { useOutletContext, useParams } from 'react-router-dom';
+import ShopOrderDetail from '../../components/Shop/ShopOrderDetail';
 import OrderStatus from '../../components/Orders/OrderStatus';
 import OrderStatusStepper from '../../components/Orders/OrderStatusStepper';
 import OrderInfo from '../../components/Orders/OrderInfo';
 
-const SingleOrderPage = () => {
-	const { id } = useParams();
-	const { setActive, setWithNav, setActiveSidebar } = useOutletContext();
-  	const { orderHistory } = useSelector(state => state.user);
-	const [order, setOrder] = useState({});
-
+const ShopSingleOrder = () => {
+    const { id } = useParams();
+    const [order, setOrder] = useState({});
+    const {setActive} = useOutletContext();
+    const { shopOrders } = useSelector(state => state.shop);
+   
 	useEffect(() => {
-		setWithNav(true);
-		setActive(7);
-		setActiveSidebar(1);
-        window.scrollTo(0,0);
-    }, [])
+		setActive(2);
+		window.scrollTo(0,0);
+	}, [])
 
-	useEffect(() => {
-		const data = orderHistory?.find(ord => ord?._id == id);
-		setOrder({...data})
-	}, [id])
+    useEffect(() => {
+        const ord = shopOrders?.find(item => item?._id == id);
+        setOrder({...ord})
+    }, [id])
 
     return (
-		<div className="w-full">
-            <h1 className="text-[22px] 800px:text-[26px] mb-[16px]">订单详情</h1>
-			
-			{order?._id &&
+        <div className='w-full my-3'>   
+            <h1 className="text-[20px] px-2 800px:text-[22px] 800px:px-0">订单详情</h1> 
+            
+            {order?._id &&
 			<div className="w-full rounded-md flex flex-col gap-3">
 				<div className='bg-[#fff] w-full py-3 '>
 					<div className='!text-[#111111] text-[18px] normalFlex gap-1 px-2 800px:px-4 800px:text-[19px]'>
@@ -45,17 +43,17 @@ const SingleOrderPage = () => {
 						paymentInfo={order?.paymentInfo} 
 						shippingAddress={order?.shippingAddress} 
 					/>
-					<OrderDetails 
-						shop={order?.shop} 
+					<ShopOrderDetail 
 						checkoutSummary={order?.checkoutSummary}
 						orderDetails={order?.orderDetails}
 					/>
 				</div>
 			</div>
 			}
+            
 
         </div>
     )
 }
 
-export default SingleOrderPage
+export default ShopSingleOrder

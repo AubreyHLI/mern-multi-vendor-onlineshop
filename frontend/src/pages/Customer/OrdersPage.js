@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
-import OrderCart from '../../components/Orders/OrderCart';
+import OrderCard from '../../components/Orders/OrderCard';
 
 const OrdersPage = () => {
-  const { setActive, setWithNav, setActiveSidebar } = useOutletContext();
-  const { orderHistory } = useSelector(state => state.user);
+	const { setActive, setWithNav, setActiveSidebar } = useOutletContext();
+	const { orderHistory } = useSelector(state => state.user);
 
     useEffect(() => {
 		setWithNav(true);
@@ -21,7 +21,7 @@ const OrdersPage = () => {
 			<div className='w-full grid grid-cols-1 gap-4'>
 
 				{orderHistory?.map((item, index) => 
-					<OrderCart key={index} data={item} />
+					<OrderCard key={index} data={item} />
 				)}
 			</div>
 

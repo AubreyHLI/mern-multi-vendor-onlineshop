@@ -32,6 +32,7 @@ const AddressSelector = ({setOpenAddressSelector}) => {
                 <h1 className='font-[500] text-[20px]'>选择收货地址</h1>
             </div>
 
+            { addressBook?.addresses?.length > 0 ?
             <fieldset className='w-full grid grid-cols-1 gap-2 700px:grid-cols-2 700px:gap-y-4 overflow-y-scroll py-3'>
                 { addressBook?.addresses?.map((ad, index) => 
                 <div key={index} className={`normalFlex gap-2 w-full ${ad?._id == shippingAddress?._id && 'order-first'}`}>
@@ -43,6 +44,10 @@ const AddressSelector = ({setOpenAddressSelector}) => {
                 </div>)
                 }
             </fieldset>
+            : <div className='w-full h-full normalFlex text-[18px] justify-center'>
+                暂无收货地址
+            </div>
+            }
 
             <div className='normalFlex w-full gap-3 px-3 sticky mt-auto mb-3 z-[101]'>
                 <button onClick={()=> setOpenAddForm(true)} className='bg-white border text-[#78be20] border-[#78be20] rounded-full text-[15px] py-2 flex-1 font-[600]'>

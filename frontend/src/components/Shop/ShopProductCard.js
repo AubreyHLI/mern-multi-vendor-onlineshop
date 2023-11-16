@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify';
 import { PiListMagnifyingGlass } from "react-icons/pi";
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
-import { useDeleteProductMutation } from '../../redux/features/shop/shopApi';
 import Ratings from '../Products/Ratings'
-import EditProductForm from './EditProductForm';
 
-const ShopProductCard = ({data}) => {
-    const [deleteProduct, {isLoading, isSuccess, isError, error}] = useDeleteProductMutation();
-    const [openEdit, setOpenEdit] = useState(false);
-    
-    useEffect(() => {
-		if(isSuccess) {
-			toast.success('该商品删除成功')
-		}
-		if(isError) {
-			toast.error(`抱歉，${error?.data?.message}`)
-		}
-	}, [isSuccess, isError])
-
-    const handleDeleteProduct = async () => {
-        const answer = window.confirm('确认删除该商品？');
-        if(!answer) {
-            return
-        } else {
-            await deleteProduct(data?._id);
-        }
-    }
+const ShopProductCard = ({data, onDeleteProduct, onEditProduct}) => {
 
     return (
         <div className="w-full bg-white rounded-lg shadow-sm px-3 pt-2 pb-1 600px:px-4 600px:pt-4 flex flex-col justify-between relative">
@@ -58,7 +35,7 @@ const ShopProductCard = ({data}) => {
 
                     <div className="flex items-center justify-between font-[400] text-[13px]">
                         <span>
-                            库存剩余：{data?.stock} 件
+                            库存 {data?.stock} 件
                         </span>
                         <span className="text-[#68d284]">
                             {data?.sold_out} 件已售
@@ -70,15 +47,14 @@ const ShopProductCard = ({data}) => {
                 <Link to={`/product/${data?._id}`} className='pt-2 normalFlex justify-center gap-1'>
                     <PiListMagnifyingGlass size={18}/>详情
                 </Link>
-                <button onClick={() => setOpenEdit(true)} className='pt-2 normalFlex justify-center gap-1'>
+                <button onClick={() => onEditProduct(data?._id)} className='pt-2 normalFlex justify-center gap-1'>
                     <AiOutlineEdit size={16}/>编辑
                 </button>
-                <button onClick={handleDeleteProduct} className='pt-2 normalFlex justify-center gap-1'>
+                <button onClick={(e) => onDeleteProduct(data?._id)} className='pt-2 normalFlex justify-center gap-1'>
                     <MdDeleteOutline size={16}/>删除
                 </button>
             </div>
-
-            {openEdit && <EditProductForm setOpenEdit={setOpenEdit} data={data}/>}
+            
         </div>
     )
 }

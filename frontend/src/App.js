@@ -37,6 +37,7 @@ import ShopCommonLayout from './components/ShopLayout/ShopCommonLayout';
 import ShopHomePage from './pages/Business/ShopHomePage';
 import ShopProductsPage from './pages/Business/ShopProductsPage';
 import ShopOrdersPage from './pages/Business/ShopOrdersPage';
+import ShopSingleOrder from './pages/Business/ShopSingleOrder';
 import ShopShippingPage from './pages/Business/ShopShippingPage';
 import ShopSalePage from './pages/Business/ShopSalePage';
 import ShopStatisPage from './pages/Business/ShopStatisPage';
@@ -84,6 +85,7 @@ const App = () => {
                     <Route index element={<ShopHomePage />} />
                     <Route path='products' element={<ShopProductsPage />} />
                     <Route path='orders' element={<ShopOrdersPage />} />
+                    <Route path='order/:id' element={<ShopSingleOrder />} />
                     <Route path='shipping' element={<ShopShippingPage />} />
                     <Route path='sales' element={<ShopSalePage />} />
                     <Route path='statis' element={<ShopStatisPage />} />

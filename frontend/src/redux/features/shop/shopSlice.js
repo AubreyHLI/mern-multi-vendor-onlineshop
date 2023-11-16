@@ -5,6 +5,7 @@ export const shopSlice = createSlice({
     initialState: {
         shopProducts: [],
         shopCoupons: [],
+        shopOrders: [],
     },
     reducers: {
         setShopProducts: (state, action) => {
@@ -13,6 +14,9 @@ export const shopSlice = createSlice({
         setShopCoupons: (state, action) => {
             state.shopCoupons = [...action.payload];
         },
+        setShopOrders: (state, action) => {
+            state.shopOrders = [...action.payload];
+        },
     }
 });
 
@@ -20,6 +24,7 @@ export const shopSlice = createSlice({
 export const { 
     setShopProducts,
     setShopCoupons,
+    setShopOrders,
 } = shopSlice.actions;
 
 // export reducer

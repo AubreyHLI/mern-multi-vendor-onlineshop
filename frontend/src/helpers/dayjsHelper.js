@@ -25,6 +25,22 @@ export const compareDate = (d1, d2) => {
     return date1.diff(date2, 'day');
 }
 
+export const timeDateFormat = (date) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+}
+
+export const calendarFormat = (date) => {
+    const calendarDate = dayjs(date).calendar(null, {
+        sameDay: '[今天] HH:mm', 
+        nextDay: '[明天] HH:mm',
+        lastDay: '[昨天] HH:mm',
+        nextWeek: 'MM-DD HH:mm', 
+        lastWeek: 'MM-DD HH:mm', 
+        sameElse: 'YYYY-MM-DD HH:mm' // Everything else ( 17/10/2011 )
+    })
+    return calendarDate;
+}
+
 
 
 export default dayjs;

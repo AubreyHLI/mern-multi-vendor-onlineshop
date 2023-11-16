@@ -91,7 +91,7 @@ export const categoriesData = [
 	{
 		id: 7,
 		category: "Beverages",
-		title: "水茶饮品",
+		title: "水饮料茶",
 		subTitle: "",
 		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317845/mern-supermarket/categories/softdrinks_ol4ypz.png",
 	},
@@ -111,8 +111,8 @@ export const categoriesData = [
 	},
 	{
 		id: 10,
-		category: "Pet Care",
-		title: "宠物生活",
+		category: "Pet and Plant",
+		title: "宠物鲜花",
 		subTitle: "",
 		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317479/mern-supermarket/categories/pet_bs6oem.png",
 	},
@@ -125,8 +125,8 @@ export const categoriesData = [
 	},
 	{
 		id: 12,
-		category: "Alcohol",
-		title: "酒类",
+		category: "Life",
+		title: "生活休闲",
 		subTitle: "",
 		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317479/mern-supermarket/categories/alcohol_bvgthb.png",
 	},

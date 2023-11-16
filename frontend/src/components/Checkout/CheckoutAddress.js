@@ -20,7 +20,7 @@ const CheckoutAddress = () => {
     }, [openAddressSelector]);
 
     useEffect(() => {
-        if(!shippingAddress?.recipient) {
+        if(!shippingAddress?.recipient &&  addressBook?.defaultAddressId) {
             const defaultAddress = addressBook?.addresses?.find(a => a?._id == addressBook?.defaultAddressId);
             dispatch( setShippingAddress({
                 recipient: defaultAddress?.recipient,

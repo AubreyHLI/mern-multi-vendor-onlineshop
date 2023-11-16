@@ -8,13 +8,17 @@ const productsApi = appApi.injectEndpoints({
         }),
         getSingleShopInfo: builder.query({
             query: (shopId) => `/shop/getShopInfo/${shopId}`,
-        }),        
+        }), 
+        getOrderStatusHistory: builder.query({
+            query: (detailId) => `/orders/getOrderStatusHistory/${detailId}`
+        })       
     })
 })
 
 export const {
     useGetAllProductsQuery,
     useGetSingleShopInfoQuery,
+    useGetOrderStatusHistoryQuery,
 } = productsApi;
 
 export default productsApi;

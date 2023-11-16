@@ -4,16 +4,48 @@ import { useSelector } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
 import ShopProductCard from '../../components/Shop/ShopProductCard';
 import AddProductForm from '../../components/Shop/AddProductForm';
+import { useDeleteProductMutation } from '../../redux/features/shop/shopApi';
+import { toast } from 'react-toastify';
+import ShopProductsTable from '../../components/Shop/ShopProductsTable';
+import EditProductForm from '../../components/Shop/EditProductForm';
 
 const ShopProductsPage = () => {
     const {setActive} = useOutletContext();
     const [openAddForm, setOpenAddForm] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [editData, setEditData] = useState({});
     const { shopProducts } = useSelector(state => state.shop);
+    const [deleteProduct, {isLoading, isSuccess, isError, error}] = useDeleteProductMutation();
 
 	useEffect(() => {
 		setActive(1);
 		window.scrollTo(0,0);
 	}, [])
+
+    useEffect(() => {
+		if(isSuccess) {
+			toast.success('该商品删除成功')
+		}
+		if(isError) {
+			toast.error(`抱歉，${error?.data?.message}`)
+		}
+	}, [isSuccess, isError])
+
+
+    const handleDeleteProduct = async (productId) => {
+        const answer = window.confirm('确认删除该商品？');
+        if(!answer) {
+            return
+        } else {
+            await deleteProduct(productId);
+        }
+    }
+
+    const handleEditProduct = async (productId) => {
+        const data = shopProducts?.find(item => item?._id == productId);
+        setEditData({...data});
+        setOpenEdit(true);
+    }
 
     return (
         <div className='w-full my-3'>   
@@ -27,12 +59,21 @@ const ShopProductsPage = () => {
                 </button>
             </div>
             
-            <div className="grid grid-cols-1 600px:grid-cols-auto-fill-245 gap-3 600px:gap-[20px] mt-2 mb-6 600px:mt-4">
+            {/* mobile screen */}
+            <div className="grid grid-cols-1 600px:grid-cols-auto-fill-245 gap-3 600px:gap-[20px] mt-2 mb-6 600px:mt-4 800px:hidden">
                 { shopProducts?.map(item => 
-                <ShopProductCard data={item} key={item?._id} />)}
+                <ShopProductCard data={item} key={item?._id} onDeleteProduct={handleDeleteProduct} onEditProduct={handleEditProduct} />)}
             </div>
 
+            {/* large screen */}
+            <div className='w-full hidden 800px:block mt-4'>
+                <ShopProductsTable onDeleteProduct={handleDeleteProduct} onEditProduct={handleEditProduct} />
+            </div>
+
+
             {openAddForm && <AddProductForm setOpenAddForm={setOpenAddForm} />}
+
+            {openEdit && <EditProductForm setOpenEdit={setOpenEdit} data={editData} />}
         </div>
     )
 }
