@@ -4,11 +4,11 @@ export const navItems = [
 		url: "/",
 	},
 	{
-		title: "Best Selling",
+		title: "推荐",
 		url: "/bestselling",
 	},
 	{
-		title: "Products",
+		title: "所有商品",
 		url: "/products",
 	},
 	{

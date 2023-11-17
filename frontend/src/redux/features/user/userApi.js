@@ -91,6 +91,28 @@ const userApi = appApi.injectEndpoints({
             query: () => '/orders/getUserOrders',
             providesTags: ["Orders"],
         }),
+        updateOrderAddress: builder.mutation({
+            query:(order) => ({
+                url:  `/orders/updateShippingAddress/${order?.id}`,
+                method: "PATCH",
+                body: order
+            }),
+            invalidatesTags: ["Orders"],
+        }),
+        confimReceiveOrder: builder.mutation({
+            query:(orderId) => ({
+                url: `/orders/confirmOrder/${orderId}`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Orders"],
+        }),
+        cancelUserOrder: builder.mutation({
+            query:(orderId) => ({
+                url: `/orders/cancelOrder/${orderId}`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Orders"],
+        })
 
     })
 })
@@ -113,6 +135,9 @@ export const {
     useDeleteAddressMutation,
 
     useGetOrdersQuery,
+    useUpdateOrderAddressMutation,
+    useConfimReceiveOrderMutation,
+    useCancelUserOrderMutation,
 } = userApi;
 
 export default userApi;

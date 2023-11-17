@@ -33,6 +33,8 @@ const ShopOrderDetail = ({checkoutSummary, orderDetails}) => {
                 </div>
                 )}
             </div>
+
+
             <div className='w-full max-w-[250px] ml-auto mr-0 my-2'>
                 <div className='flex justify-between'>
                     <h3 className='text-[#848689] text-[14px] 800px:text-[15px]'>优惠：</h3>
@@ -43,7 +45,7 @@ const ShopOrderDetail = ({checkoutSummary, orderDetails}) => {
                     <h3>¥ {checkoutSummary?.shipping?.toFixed(2)}</h3>
                 </div>
                 <div className='flex items-end justify-between'>
-                    <h3 className='text-[#848689] text-[14px] 800px:text-[15px]'>实付款：</h3>
+                    <h3 className='text-[#848689] text-[14px] 800px:text-[15px]'>实收款：</h3>
                     <h3 className='text-[20px] 800px:text-[24px] text-[#ff5e00] font-[600]'>
                         ¥ {(checkoutSummary?.totalPrice + checkoutSummary?.shipping).toFixed(2)}
                     </h3>

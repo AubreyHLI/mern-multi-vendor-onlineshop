@@ -5,12 +5,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import CustomPrice from '../atoms/CustomPrice';
 import ShippingTracker from './ShippingTracker';
+import OrderStatus from './OrderStatus';
+import OrderAddressEdit from './OrderAddressEdit';
+import { useCancelUserOrderMutation, useConfimReceiveOrderMutation } from '../../redux/features/user/userApi';
+import { toast } from 'react-toastify';
 
 const OrderCard = ({data}) => {
     const {shop, checkoutSummary, _id, orderDetails, status, createdAt, statusDetail} = data;
     const [openTracker, setOpenTracker] = useState(false);
+    const [openAddressEdit, setOpenAddressEdit] = useState(false);
     const [itemCount, setItemCount] = useState(0);
     const [itemNames, setItemNames] = useState('');
+    const [confimReceiveOrder, {isSuccess, isError, error}] = useConfimReceiveOrderMutation();
+    const [cancelOrder, {isSuccess:cancelSuccess, isError:cancelError, error:cancelErr}] = useCancelUserOrderMutation();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,16 +31,43 @@ const OrderCard = ({data}) => {
             return acc + item?.name
         }, '');
         setItemNames(nameString);
-    }, [])
+    }, [orderDetails])
 
     useEffect(() => {
-        if(openTracker) {
+        if(openTracker || openAddressEdit) {
             document.body.style.overflow = 'hidden';  // lock the scroll of home page
         } else {
             document.body.style.overflow = 'unset';  // unlock the scroll of home page
         }
-    }, [openTracker]);
+    }, [openTracker, openAddressEdit]);
 
+    useEffect(() => {
+        if(isError) {
+            toast.error(error?.data?.message);
+        }
+        if(cancelError) {
+            toast.error(cancelErr?.data?.message);
+        }
+    }, [isError, cancelError])
+
+
+    const handleConfirmOrder = async () => {
+        const answer = window.confirm('确认已收到商品，并无需要退换？');
+        if(!answer) {
+            return
+        } else {
+            await confimReceiveOrder(_id);
+        }
+    }
+
+    const handleCancleOrder = async () => {
+        const answer = window.confirm('确认取消该订单？');
+        if(!answer) {
+            return
+        } else {
+            await cancelOrder(_id);
+        }
+    }
 
     const btnStyle = 'px-2 py-[2px] border rounded-full 600px:px-3 border-[#00000054] hover:opacity-80';
 
@@ -49,7 +84,9 @@ const OrderCard = ({data}) => {
                         <h3>{shop?.name}</h3>
                         <IoIosArrowForward />
                     </Link>
-                    <span className='col-span-2'>{status}</span>
+                    <span className='col-span-2'>
+                        <OrderStatus status={status} />
+                    </span>
                 </div>
 
                 <div className='normalFlex justify-between gap-4'>
@@ -88,10 +125,20 @@ const OrderCard = ({data}) => {
 
             <div className='normalFlex gap-2 600px:gap-4 text-[12px] 600px:text-[13px] 1000px:text-[13.5px] py-2 justify-end'>
                 <button className={btnStyle} onClick={() => navigate(`/account/order/${_id}`)}>订单详情</button>
-                <button className={btnStyle} onClick={() => setOpenTracker(true)}>物流查询</button>
-                <button className={btnStyle}>退换/售后</button>
-                <button className={btnStyle}>评价</button>
-                <button className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>再次购买</button>
+                {status !== 'Cancelled' && <button className={btnStyle} onClick={() => setOpenTracker(true)}>物流查询</button>}
+                {status === 'Processing' && <>
+                <button className={btnStyle} onClick={() => setOpenAddressEdit(true)}>修改地址</button>
+                <button className={btnStyle} onClick={handleCancleOrder}>取消订单</button>
+                </>}
+                {status === 'Archived' && <>
+                <button className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>评价</button>
+                </>}
+                {status === 'Cancelled' && <>
+                <button className={btnStyle}>删除订单</button>
+                <button className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>加入购物车</button>
+                </>}
+                {status !== 'Processing' && status !== 'Cancelled' && status !== 'Archived' && 
+                <button onClick={handleConfirmOrder} className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>确认收货</button>}
             </div>
 
             {openTracker && 
@@ -100,7 +147,14 @@ const OrderCard = ({data}) => {
                 orderData={{status, _id, itemCount, itemNames, image:orderDetails[0]?.image }} 
                 setOpenForm={setOpenTracker} 
                 heading="物流查询" 
-            />}
+            /> }
+
+            {openAddressEdit && 
+            <OrderAddressEdit 
+                orderId={_id} 
+                setOpenForm={setOpenAddressEdit} 
+                heading="修改地址"
+            /> }
         </div>
     )
 }

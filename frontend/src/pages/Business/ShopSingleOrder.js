@@ -5,10 +5,12 @@ import ShopOrderDetail from '../../components/Shop/ShopOrderDetail';
 import OrderStatus from '../../components/Orders/OrderStatus';
 import OrderStatusStepper from '../../components/Orders/OrderStatusStepper';
 import OrderInfo from '../../components/Orders/OrderInfo';
+import EditOrderStatus from '../../components/Shop/EditOrderStatus';
 
 const ShopSingleOrder = () => {
     const { id } = useParams();
     const [order, setOrder] = useState({});
+    const [openEditStatus, setOpenEditStatus] = useState(false);
     const {setActive} = useOutletContext();
     const { shopOrders } = useSelector(state => state.shop);
    
@@ -20,7 +22,7 @@ const ShopSingleOrder = () => {
     useEffect(() => {
         const ord = shopOrders?.find(item => item?._id == id);
         setOrder({...ord})
-    }, [id])
+    }, [id, shopOrders])
 
     return (
         <div className='w-full my-3'>   
@@ -34,6 +36,14 @@ const ShopSingleOrder = () => {
 						<OrderStatus status={order?.status} optionStyle='!text-[#111111]'/>
 					</div>
 					<OrderStatusStepper status={order?.status} />
+                    {order?.status !== 'Archived' && order?.status !== 'Cancelled' && 
+                    <div className='w-full text-center h-[35px]'>
+                        { openEditStatus && <EditOrderStatus setOpenForm={setOpenEditStatus} status={order?.status} orderId={id}/>}
+                        { !openEditStatus && 
+                         <button onClick={()=> setOpenEditStatus(true)} className="text-[13px] 800px:text-[14px] px-3 py-1 800px:py-[6px] rounded-lg text-white bg-pink-400 hover:opacity-90" >
+                            更新状态
+                        </button>}
+                    </div>}
 				</div>
 
 				<div className='bg-[#fff] w-full px-2 py-3 800px:px-4'>

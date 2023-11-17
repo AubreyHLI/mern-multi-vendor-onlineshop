@@ -121,6 +121,9 @@ const OrderStatusStepper = ({status}) => {
 
     useEffect(() => {
         let index = steps.findIndex(item => item.key === status);
+        if(status === 'Archived') {
+            index = steps.length;
+        }
         setAvctiveStep(index);
     }, [status])
    

@@ -2,11 +2,12 @@ import React from 'react'
 
 const OrderStatus = ({status, optionStyle}) => {
     const statusOptions = [
-        "Processing",  // 订单处理中
-        "Shipped",  // 已发货
+        "Processing",  // 订单待发货
+        "Shipped",  // 卖家已发货
         "Shipping",  // 运输中
-        "Dispatching",  // 派送中
-        "Delivered",  // 已送达
+        "Dispatching",  // 快递员派送中
+        "Delivered",  // 买家已签收
+        
         "Archived", // 交易成功
 
         "Processing refund", // 退款处理中

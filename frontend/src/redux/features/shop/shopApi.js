@@ -64,6 +64,21 @@ const shopApi = appApi.injectEndpoints({
             query: () => '/orders/getShopOrders',
             providesTags: ["ShopOrders"],
         }),
+        updateOrderStatus: builder.mutation({
+            query: (order) => ({
+                url: `/orders/updateOrderStatus/${order.id}`,
+                method: 'PATCH',
+                body: order
+            }),
+            invalidatesTags: ["ShopOrders"],
+        }),
+        cancelShopOrder: builder.mutation({
+            query:(orderId) => ({
+                url: `/orders/cancelOrder/${orderId}`,
+                method: "POST",
+            }),
+            invalidatesTags: ["ShopOrders"],
+        })
     })
 })
 
@@ -77,6 +92,8 @@ export const {
    useDeleteCouponMutation,
    useUpdateCouponMutation,
    useGetShopOrdersQuery,
+   useUpdateOrderStatusMutation,
+   useCancelShopOrderMutation,
 } = shopApi;
 
 export default shopApi;

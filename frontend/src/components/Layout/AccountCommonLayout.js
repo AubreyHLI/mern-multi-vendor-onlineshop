@@ -24,10 +24,12 @@ const AccountCommonLayout = () => {
     }, [addressSuccess, addressData])
 
     useEffect(() => {
+        console.log('orderSuccess')
         if(ordersSuccess) {
             dispatch(setOrders(ordersData.orders))
+            console.log('dispatch setOrders')
         }
-    }, [ordersSuccess])
+    }, [ordersSuccess, ordersData])
 
     return (
         <div className='h-full min-h-[600px]'>
