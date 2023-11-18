@@ -46,7 +46,7 @@ const ShopOrderCard = ({data}) => {
                     {orderDetails?.length === 1 && 
                     <div className='flex-1 normalFlex gap-2 justify-start 800px:gap-3'>
                         <div className="min-w-fit">
-                            <img className="w-[60px] h-[60px] 600px:w-[80px] 600px:h-[80px] 1000px:w-[100px] 1000px:h-[100px] object-cover rounded-lg " alt="" src={orderDetails[0]?.image}/>
+                            <img className="w-[60px] h-[60px] 600px:w-[80px] 600px:h-[80px] object-cover rounded-lg " alt="" src={orderDetails[0]?.image}/>
                         </div>
                         <p className='line-clamp-2 text-[13px] text-[#000000bd]'>
                             {orderDetails[0]?.name}

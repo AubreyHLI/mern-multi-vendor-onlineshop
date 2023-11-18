@@ -2,6 +2,7 @@ import React from 'react'
 import { timeDateFormat } from '../../helpers/dayjsHelper'
 
 const OrderInfo = ({_id, createdAt, paymentInfo, shippingAddress}) => {
+    
     return (
         <>
             <h3 className='!text-[#111111] text-[18px] 800px:text-[19px]'>订单信息</h3>
@@ -10,7 +11,11 @@ const OrderInfo = ({_id, createdAt, paymentInfo, shippingAddress}) => {
                     <div><span className='text-[#848689]'>订单编号：</span>{_id}</div>
                     <div><span className='text-[#848689]'>下单时间：</span>{timeDateFormat(createdAt)}</div>
                     <div><span className='text-[#848689]'>支付方式：</span>{paymentInfo?.type === 'Bank Card' ? '在线支付（银行卡）' : '货到付款'}</div>
-                    <div><span className='text-[#848689]'>支付状态：</span>{paymentInfo?.status === 'succeeded' ? '已完成' : '未完成'}</div>
+                    <div><span className='text-[#848689]'>支付状态：</span>
+                        {paymentInfo?.status === 'succeeded' && '已完成'}
+                        {paymentInfo?.status === 'incomplete' && '未完成'}
+                        {paymentInfo?.status === 'refunded' && '已退还'}
+                    </div>
                 </div>
                 <div className='800px:flex-1 flex flex-col gap-[6px]'>
                     <div className='flex gap-3 800px:flex-col 800px:gap-1'>

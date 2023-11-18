@@ -64,8 +64,8 @@ const ShopProductsTable = ({onEditProduct, onDeleteProduct}) => {
             id: index,
             productData: { 
                 image: product?.images[0]?.url, 
-                name: product?.name, _id: 
-                product?._id 
+                name: product?.name, 
+                _id: product?._id 
             },
             price: `¥ ${(product?.discountPrice ? product?.discountPrice : product?.originalPrice).toFixed(2)}`,
             stock: product?.stock,

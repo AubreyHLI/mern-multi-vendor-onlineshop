@@ -2,20 +2,22 @@ import React, { useEffect } from 'react'
 import { useAddToCartMutation } from '../../redux/features/user/userApi';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-const AddToCartBtn = ({data, optionStyle, children,}) => {
+const AddToCartBtn = ({data, optionStyle, children, withAuth}) => {
     const { token, user } = useSelector(state => state.auth);
-    const [ addToCart, {isSuccess: cartSuccess } ] = useAddToCartMutation();
-    const navigate = useNavigate();
+    const [ addToCart, {isSuccess, isError, error } ] = useAddToCartMutation();
 
     useEffect(() => {
-        if(cartSuccess) {
+        if(isSuccess) {
             toast.success('成功加入购物车')
         }
-    }, [cartSuccess])
+        if(isError) {
+            toast.error(error?.data?.message)
+        }
+    }, [isSuccess, isError])
 
-    const addToCartHandler = async (e) => {
+
+    const addToCartWithAuth = async (e) => {
         e.preventDefault();
         e.stopPropagation();
         if(token && user) {
@@ -24,19 +26,35 @@ const AddToCartBtn = ({data, optionStyle, children,}) => {
             } else {
                 await addToCart({
                     shopId: data?.shopId, 
-                    productId: data?._id, 
+                    productId: data?.productId, 
                     qty: data?.qty
                 })
             }
         } else {
-            navigate('/login');
+            toast.error('无购物车，请先登录用户账户')
         }
     };
 
+
+    const addToCartWithoutAuth = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (data?.stock < 1) {
+            toast.error("抱歉，商品已无库存:(");
+        } else {
+            await addToCart({
+                shopId: data?.shopId, 
+                productId: data?.productId, 
+                qty: 1
+            })
+        }
+    }
+
+
     return (
-        <div onClick={e => addToCartHandler(e)} className={optionStyle} >
+        <button onClick={withAuth ? addToCartWithAuth : addToCartWithoutAuth} className={optionStyle} >
             {children}
-        </div>
+        </button>
     )
 }
 

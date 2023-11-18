@@ -114,6 +114,9 @@ const cancelOrder = asyncHandler(async (req, res, next) => {
 		return next(new CustomErrorClass(400, "订单已发货，无法取消收订单"));
     }
     existsOrder.status = "Cancelled";
+    if(existsOrder.paymentInfo?.status === 'succeeded') {
+        existsOrder.paymentInfo.status = 'refunded';
+    }
     await existsOrder.save();
 
     res.status(200).json({

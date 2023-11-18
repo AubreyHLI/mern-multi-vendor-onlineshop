@@ -1,32 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BsCartPlus } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { useAddToCartMutation, useRemoveFromWishlistMutation } from '../../redux/features/user/userApi';
-import { toast } from 'react-toastify';
+import { useRemoveFromWishlistMutation } from '../../redux/features/user/userApi';
+import AddToCartBtn from '../Cart/AddToCartBtn';
 
 
 const WishlistItem = ({ data}) => {
     const [ removeFromWishlist ] = useRemoveFromWishlistMutation();
-    const [ addToCart, {isSuccess} ] = useAddToCartMutation();
     const productPrice = data?.discountPrice ? data?.discountPrice : data?.originalPrice;
-
-    useEffect(() => {
-        if(isSuccess) {
-            toast.success('成功加入购物车')
-        }
-    }, [isSuccess])
-
-    const handleAddCart = async () => {
-        if (data?.stock < 1) {
-            toast.error("抱歉，商品已无库存:(");
-        } else {
-            await addToCart({
-                shopId: data?.shop, 
-                productId: data?._id, 
-                qty: 1
-            })
-        }
-    }
 
     const handleRemoveWishlist = async () => {
         await removeFromWishlist({
@@ -49,10 +30,13 @@ const WishlistItem = ({ data}) => {
                         <h4 className="font-[600] text-[#ff5e00]">
                             ¥ {productPrice}
                         </h4>
-                        <button className='normalFlex gap-x-2 py-1 px-3 rounded-[10px] bg-lime-400 text-sm' onClick={handleAddCart}>
-                            <BsCartPlus size={18} className="cursor-pointer"/>
-                            加入购物车
-                        </button>
+                        <AddToCartBtn
+                            data={{shopId: data?.shop, productId: data?._id, qty: 1}}
+                            optionStyle='normalFlex gap-x-2 py-1 px-3 rounded-[10px] bg-lime-400 text-sm'
+                            withAuth={false}
+                        >
+                            <BsCartPlus size={18} className="cursor-pointer"/>加入购物车
+                        </AddToCartBtn>
                     </div>
                 </div>
                 

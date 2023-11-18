@@ -2,8 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { PiStorefront } from 'react-icons/pi';
 import { IoIosArrowForward } from 'react-icons/io';
+import AddToCartBtn from '../Cart/AddToCartBtn';
 
-const OrderDetails = ({shop, checkoutSummary, orderDetails}) => {
+const OrderDetails = ({shop, checkoutSummary, orderDetails, status}) => {
+    const handleClickRefund = () => {}
+    
+    const handleClickComment = () => {}
 
     return (        
         <div className='mt-5 mx-2'>
@@ -14,36 +18,46 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails}) => {
             </Link>
             <div className='w-full mt-2'>
                 { orderDetails?.map((item, index) => 
-                <Link to={`/product/${item?.productId}`} className="w-full flex items-center py-1 border-dotted border-b hover:opacity-80" key={index}>
-                    <img src={item?.image} className="w-[60px] h-[60px] 600px:w-[80px] 600px:h-[80px] object-cover rounded-lg " alt=""/>
-                    <div className="px-[5px] flex-1 flex justify-between w-full">
-                        <div className='flex flex-col gap-1 w-full 800px:flex-1'>
-                            <h1 className='line-clamp-1 text-[14px]'>{item?.name}</h1>
-                            <div className='font-[400] text-[13px] text-[#00000082]'>
-                                <span className='800px:hidden'>
-                                    ¥{item?.price} * {item?.qty}
-                                </span>
-                                <span className='hidden 800px:block'>
-                                    数量 x {item?.qty}
-                                </span>
+                <div className='w-full border-dotted border-b pt-1 pb-2' key={index}>
+                    <Link to={`/product/${item?.productId}`} className="flex items-center hover:opacity-80" >
+                        <img src={item?.image} className="w-[60px] h-[60px] 600px:w-[80px] 600px:h-[80px] object-cover rounded-lg " alt=""/>
+                        <div className="px-[5px] flex-1 flex justify-between w-full">
+                            <div className='flex flex-col gap-1 w-full 800px:flex-1'>
+                                <h1 className='line-clamp-1 text-[14px]'>{item?.name}</h1>
+                                <div className='font-[400] text-[13px] text-[#00000082]'>
+                                    <span className='800px:hidden'>¥{item?.price} * {item?.qty}</span>
+                                    <span className='hidden 800px:block'>数量 x {item?.qty}</span>
+                                </div>
+                            </div>
+                            <div className='min-w-fit 800px:flex-1 flex justify-between'>
+                                <span className='hidden 800px:block text-[#00000082] text-[14px]'>单价: ¥ {item?.price.toFixed(2)}</span>
+                                <h4 className='min-w-fit text-[15px] 800px:text-[16px] font-[500]'>¥ {(item?.price * item?.qty).toFixed(2)}
+                                </h4>
                             </div>
                         </div>
-                        <div className='min-w-fit 800px:flex-1 flex justify-between'>
-                            <span className='hidden 800px:block text-[#00000082] text-[14px]'>
-                                单价: ¥ {item?.price.toFixed(2)}
-                            </span>
-                            <h4 className='min-w-fit text-[15px]'>
-                                ¥ {(item?.price * item?.qty).toFixed(2)}
-                            </h4>
-                        </div>
+                    </Link>
+                    <div className='normalFlex gap-2 justify-end text-[12px] 600px:text-[13px] text-[#000000ab]'>
+                        {(status !== 'Refunded' && status !== 'Cancelled'&& status !== 'Archived') 
+                        ? <button className='btnStyle'>
+                            {status==='Processing refund' ? '退款中' : '退款/售后'}
+                        </button>
+                        : <AddToCartBtn 
+                            optionStyle='btnStyle' 
+                            data={{ shopId: shop?._id, productId: item?.productId}}
+                            >
+                            加入购物车
+                        </AddToCartBtn>
+                        }
+                        {status === 'Archived' && 
+                        <button className='btnStyle'>评价</button>}
                     </div>
-                </Link>
+                </div>
                 )}
             </div>
-            <div className='w-full max-w-[250px] ml-auto mr-0 my-2'>
+            <div className='w-full max-w-[250px] ml-auto mr-0 my-3'>
                 <div className='flex justify-between'>
                     <h3 className='text-[#848689] text-[14px] 800px:text-[15px]'>优惠：</h3>
-                    <h3>¥ {checkoutSummary?.discount?.toFixed(2)}</h3>
+                    <h3>-¥ {checkoutSummary?.discount?.toFixed(2)}</h3>
                 </div>
                 <div className='flex justify-between'>
                     <h3 className='text-[#848689] text-[14px] 800px:text-[15px]'>运费：</h3>

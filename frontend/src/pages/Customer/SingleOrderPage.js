@@ -49,6 +49,7 @@ const SingleOrderPage = () => {
 						shop={order?.shop} 
 						checkoutSummary={order?.checkoutSummary}
 						orderDetails={order?.orderDetails}
+						status={order?.status}
 					/>
 				</div>
 			</div>

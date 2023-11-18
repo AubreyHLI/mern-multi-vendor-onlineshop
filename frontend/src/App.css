@@ -63,6 +63,10 @@ input[type=number] {
     @apply bg-[#f1c500] text-[#2d333a] h-11 my-3 px-5 flex items-center justify-center rounded disabled:bg-[#cccccc] disabled:text-white;
 }
 
+.btnStyle{
+    @apply px-2 py-[2px] border rounded-full 600px:px-3 border-[#d5d5d5] hover:opacity-80 min-w-[80px];
+}
+
 .heading {
     @apply text-[27px] text-center md:text-start font-[600] pb-[20px];
 }

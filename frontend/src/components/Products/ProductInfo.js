@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useAddToCartMutation, useAddToWishlistMutation } from '../../redux/features/user/userApi';
+import { useAddToWishlistMutation } from '../../redux/features/user/userApi';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsCartPlus } from 'react-icons/bs';
-import { toast } from 'react-toastify';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Counter from './Counter';
+import AddToCartBtn from '../Cart/AddToCartBtn';
 
 
 const ProductInfo = ({data}) => {
@@ -17,7 +17,6 @@ const ProductInfo = ({data}) => {
     const [count, setCount] = useState('1');
     const { token, user } = useSelector(state => state.auth);
     const { wishlist } = useSelector(state => state.user);
-    const [ addToCart, {isSuccess: cartSuccess } ] = useAddToCartMutation();
     const [ addToWishlist ] = useAddToWishlistMutation();
     const navigate = useNavigate();
     const swiperRef = useRef();
@@ -36,12 +35,6 @@ const ProductInfo = ({data}) => {
         }
     }, [wishlist, data?._id]);
 
-    useEffect(() => {
-        if(cartSuccess) {
-            toast.success('成功加入购物车')
-        }
-    }, [cartSuccess])
-
     const addToWishlistHandler = async (data) => {
         if(token && user) {
             setClick(!click);
@@ -50,22 +43,6 @@ const ProductInfo = ({data}) => {
             navigate('/login');
         }
      };
-
-    const addToCartHandler = async () => {
-        if(token && user) {
-            if (data?.stock < 1) {
-                toast.error("抱歉，商品已无库存:(");
-            } else {
-                await addToCart({
-                    shopId: data?.shop?._id, 
-                    productId: data?._id, 
-                    qty: Number(count)
-                })
-            }
-        } else {
-            navigate('/login');
-        }
-    };
 
     return (
         <div className="w-full flex flex-col 800px:flex-row 800px:gap-10">
@@ -113,9 +90,13 @@ const ProductInfo = ({data}) => {
                 <div className='normalFlex w-full justify-between gap-[6%] 500px:gap-0 max-w-[560px] 800px:flex-col 800px:items-start 800px:gap-10'>
                     <Counter count={count} setCount={setCount} stock={data?.stock}/>
                     <div className='flex-1 normalFlex justify-between 500px:justify-evenly 800px:gap-10'>
-                        <button onClick={() => addToCartHandler()} className='button2 text-[white] bg-[orange] normalFlex gap-x-2 justify-center !w-[130px] !text-[15px] 500px:!w-[180px] hover:opacity-[0.85] transition-opacity"'>
+                        <AddToCartBtn 
+                            data={{shopId: data?.shop?._id, productId: data?._id, qty: Number(count)}} 
+                            withAuth={true} 
+                            optionStyle='button2 text-[white] bg-[orange] normalFlex gap-x-2 justify-center !w-[130px] !text-[15px] 500px:!w-[180px] hover:opacity-[0.85] transition-opacity'
+                            >
                             <BsCartPlus size={20} className="ml-1" />加入购物车 
-                        </button>
+                        </AddToCartBtn>
                         <div>
                             {click 
                             ? <AiFillHeart size={26} className="cursor-pointer" onClick={() => addToWishlistHandler(data)} color="#78be20" title="取消收藏"/>

@@ -3,12 +3,13 @@ import { timeDateFormat } from '../../helpers/dayjsHelper'
 import { PiStorefront } from 'react-icons/pi';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
+import { useCancelUserOrderMutation, useConfimReceiveOrderMutation } from '../../redux/features/user/userApi';
+import { toast } from 'react-toastify';
+import EditOrderAddress from './EditOrderAddress';
 import CustomPrice from '../atoms/CustomPrice';
 import ShippingTracker from './ShippingTracker';
 import OrderStatus from './OrderStatus';
-import OrderAddressEdit from './OrderAddressEdit';
-import { useCancelUserOrderMutation, useConfimReceiveOrderMutation } from '../../redux/features/user/userApi';
-import { toast } from 'react-toastify';
+
 
 const OrderCard = ({data}) => {
     const {shop, checkoutSummary, _id, orderDetails, status, createdAt, statusDetail} = data;
@@ -69,8 +70,6 @@ const OrderCard = ({data}) => {
         }
     }
 
-    const btnStyle = 'px-2 py-[2px] border rounded-full 600px:px-3 border-[#00000054] hover:opacity-80';
-
     return (
         <div className='flex flex-col justify-between gap-2 shadow-sm bg-white text-[#000000ab] py-3 px-3 800px:px-5 '>
             <div className='flex flex-col gap-2'>
@@ -124,21 +123,18 @@ const OrderCard = ({data}) => {
             </div>
 
             <div className='normalFlex gap-2 600px:gap-4 text-[12px] 600px:text-[13px] 1000px:text-[13.5px] py-2 justify-end'>
-                <button className={btnStyle} onClick={() => navigate(`/account/order/${_id}`)}>订单详情</button>
-                {status !== 'Cancelled' && <button className={btnStyle} onClick={() => setOpenTracker(true)}>物流查询</button>}
+                <button className='btnStyle' onClick={() => navigate(`/account/order/${_id}`)}>订单详情</button>
+                {status !== 'Cancelled' && <button className='btnStyle' onClick={() => setOpenTracker(true)}>物流查询</button>}
                 {status === 'Processing' && <>
-                <button className={btnStyle} onClick={() => setOpenAddressEdit(true)}>修改地址</button>
-                <button className={btnStyle} onClick={handleCancleOrder}>取消订单</button>
+                <button className='btnStyle' onClick={() => setOpenAddressEdit(true)}>修改地址</button>
+                <button className='btnStyle' onClick={handleCancleOrder}>取消订单</button>
                 </>}
                 {status === 'Archived' && <>
-                <button className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>评价</button>
+                <button className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>评价</button>
                 </>}
-                {status === 'Cancelled' && <>
-                <button className={btnStyle}>删除订单</button>
-                <button className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>加入购物车</button>
-                </>}
+                {status === 'Cancelled' && <button className='btnStyle'>删除订单</button>}
                 {status !== 'Processing' && status !== 'Cancelled' && status !== 'Archived' && 
-                <button onClick={handleConfirmOrder} className={`${btnStyle} !text-[#ff8800] !border-[#ffa36e]`}>确认收货</button>}
+                <button onClick={handleConfirmOrder} className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>确认收货</button>}
             </div>
 
             {openTracker && 
@@ -150,10 +146,9 @@ const OrderCard = ({data}) => {
             /> }
 
             {openAddressEdit && 
-            <OrderAddressEdit 
+            <EditOrderAddress
                 orderId={_id} 
-                setOpenForm={setOpenAddressEdit} 
-                heading="修改地址"
+                setOpenAddressEdit={setOpenAddressEdit} 
             /> }
         </div>
     )

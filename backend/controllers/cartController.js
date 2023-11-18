@@ -1,4 +1,5 @@
 const Cart = require('../models/cartModel');
+const Product = require('../models/productModel');
 const CustomErrorClass = require('../utils/CustomErrorClass');
 const asyncHandler = require('../middlewares/asyncHandler');
 const mongoose = require("mongoose");
@@ -22,6 +23,13 @@ const getCart = asyncHandler(async (req, res, next) => {
 
 const addToCart = asyncHandler(async (req, res, next) => {
     const { shopId, productId, qty } = req.body;
+    const product = await Product.findById(productId);
+    if(!product) {
+        return next(new CustomErrorClass(400, "商品已过期，无法加入购物车"));
+    }
+    if(product.stock < qty) {
+        return next(new CustomErrorClass(400, "无效操作，加购数量超过商品库存"));
+    }
     const cart = await Cart.findOne({_userId: req.user.id});
     const existsShop = cart.cartDetails.find(shopCart => shopCart?.shop == shopId);
     if(existsShop) {

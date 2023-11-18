@@ -1,38 +1,9 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAddToCartMutation } from '../../redux/features/user/userApi';
-import { toast } from 'react-toastify';
+import React from 'react'
+import { Link } from 'react-router-dom';
 import { BsCartPlus } from 'react-icons/bs';
+import AddToCartBtn from '../Cart/AddToCartBtn';
 
 const SuggestedProductCard = ({data}) => {
-    const { token, user } = useSelector(state => state.auth);
-    const [ addToCart, {isSuccess: cartSuccess } ] = useAddToCartMutation();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if(cartSuccess) {
-            toast.success('成功加入购物车')
-        }
-    }, [cartSuccess])
-
-    const addToCartHandler = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if(token && user) {
-            if (data?.stock < 1) {
-                toast.error("抱歉，商品已无库存:(");
-            } else {
-                await addToCart({
-                    shopId: data?.shop?._id, 
-                    productId: data?._id, 
-                    qty: 1
-                })
-            }
-        } else {
-            navigate('/login');
-        }
-    };
 
     return (
         <div className="w-full bg-white rounded-lg shadow-sm px-3 py-2 600px:p-4 relative">
@@ -57,9 +28,13 @@ const SuggestedProductCard = ({data}) => {
                         </div>
                         {/* side options */}
                         <div className="normalFlex">
-                            <div onClick={e => addToCartHandler(e)} className="bg-[#f1f0f0] rounded-full !p-2" >
+                            <AddToCartBtn
+                                data={{shopId: data?.shop?._id, productId: data?._id, qty: 1}}
+                                withAuth={true}
+                                optionStyle='bg-[#f1f0f0] rounded-full !p-2'
+                            >
                                 <BsCartPlus className="!text-[16px] " title="加入购物车" />
-                            </div>
+                            </AddToCartBtn>
                         </div>
 
                     </div>
