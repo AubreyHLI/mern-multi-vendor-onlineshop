@@ -1,54 +1,50 @@
 import React, { useState } from 'react'
 import { Avatar } from '@mui/material';
 import Ratings from './Ratings';
+import { dotDateFormat } from '../../helpers/dayjsHelper';
 
 
 const ProductDetails = ({data}) => {
     const [active, setActive] = useState(1);  
 
     return (
-        <div className="bg-[#fff] px-3 800px:px-10 py-2 rounded mt-7">
-            <div className="w-full flex justify-around border-b pb-4 pt-5">
-                <div className="relative">
-                    <h5 onClick={() => setActive(1)} className={"text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] pb-1"}>
-                        商品详情
-                    </h5>
-                    { active === 1 ? <div className='active_indicator' /> : null }
-                </div>
-                <div className="relative">
-                    <h5 onClick={() => setActive(2)} className={"text-[#000] text-[18px] px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px]"}>
-                        评论 <span> ( {data?.reviews?.length} ) </span>
-                    </h5>
-                    { active === 2 ? <div className='active_indicator' /> : null }
-                </div>
+        <div className="bg-[#fff] px-3 800px:px-10 pt-2 pb-5 rounded mt-7 ">
+            <div className="w-full flex justify-around border-b py-3">
+                <h5 onClick={() => setActive(1)} className={`text-[#000] text-[18px] pt-1 pb-2 px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] border-b border-b-[3px] ${active === 1 ? 'border-b-[crimson]' : 'border-b-transparent'}`}>
+                    商品详情
+                </h5>
+                <h5 onClick={() => setActive(2)} className={`text-[#000] text-[18px] pt-1 pb-2 px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] border-b border-b-[3px] ${active === 2 ? 'border-b-[crimson]' : 'border-b-transparent'}`}>
+                    评价 <span className='text-[17px]'> ( {data?.reviews?.length} ) </span>
+                </h5>
             </div>
 
             { active === 1 && 
-            <p className="text-[18px] leading-8 py-3 whitespace-pre-line">
-                { data?.description }
-            </p>
+            <p className="leading-8 py-5 whitespace-pre-line px-2">{data?.description}</p>
             }
 
             { active === 2 &&
-            <div className="w-full flex flex-col leading-8 items-center py-3 overflow-y-scroll">
+            <div className="w-full flex flex-col items-center px-2 overflow-y-scroll">
                 { data?.reviews?.map((item, index) => (
-                    <div className="w-full normalFlex my-2" key={index}>
-                        <Avatar size={50}>{item.user.name.slice(0,1)}</Avatar>
-                        <div className="pl-2 ">
-                            <div className="w-full flex items-center">
-                                <h1 className="font-[500] mr-3">{item.user.name}</h1>
-                                <Ratings ratings={data?.ratings} />
+                    <div className="w-full flex gap-3 border-b py-3" key={index}>
+                        {item?.customer?.avatar?.url 
+                        ? <Avatar src={item?.customer?.avatar?.url} alt='' />
+                        : <Avatar>{item?.customer?.name.slice(0,1)}</Avatar>
+                        }
+                        <div className="flex flex-col flex-1 gap-1 -mt-1">
+                            <div className="w-full flex items-center justify-between">
+                                <h1 className="font-[500] ml-[2px] text-[14px]">{item?.customer?.name}</h1>
+                                <div className='text-[13px] text-[#00000088]'>
+                                    {dotDateFormat(item?.createdAt)}
+                                </div>
                             </div>
-                            <p>{item.comment}</p>
+                            <Ratings ratings={item?.rating} />
+                            <p className='mt-[2px]'>{item?.comment === '' ? '此用户没有填写文本。': item?.comment}</p>
                         </div>
                     </div>
                 ))}
 
-                <div className="w-full flex justify-center">
-                    { data?.reviews?.length === 0 && (
-                        <h5>暂无评论</h5>
-                    )}
-                </div>
+                { data?.reviews?.length === 0 && 
+                <h5 className='leading-8 py-5 whitespace-pre-line'>暂无评价</h5>}
             </div>
             }
         </div>

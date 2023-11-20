@@ -20,8 +20,7 @@ router.get('/getShopProducts/:id', getShopProducts);
 router.post('/createProduct', verifyShopToken, upload.array("images"), createNewProduct);
 router.delete('/deleteProduct/:id', verifyShopToken, deleteProduct);
 router.patch('/updateProduct/:id', verifyShopToken, upload.array("newImages"), updateProduct);
-
-router.patch('/createNewReview', verifyToken, createReview);
+router.post('/createReview', verifyToken, createReview);
 
 
 module.exports = router;

@@ -2,6 +2,7 @@ const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
 const User = require("../models/userModel");
 const Order = require("../models/orderModel");
+const mongoose = require("mongoose");
 const asyncHandler = require('../middlewares/asyncHandler');
 const CustomErrorClass = require('../utils/CustomErrorClass');
 const { uploadStreamToCloudinary, removeFromCloudinary, deleteFolderInCloudinary } = require("../utils/cloudinary");
@@ -10,7 +11,10 @@ const { uploadStreamToCloudinary, removeFromCloudinary, deleteFolderInCloudinary
 // get all products
 const getAllProducts = asyncHandler( async(request, response, next) => { 
     const products = await Product.find()
-        .populate('shop')
+        .populate(['shop', {
+            path: 'reviews.customer',
+            select: '_id name avatar'
+        }])
         .sort({ createdAt: -1 });
     response.status(200).json({
         success: true,
@@ -137,47 +141,36 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
 
 
 // review for a product
-const createReview = asyncHandler( async(request, response, next) => { 
-    const { user, rating, comment, productId, orderId } = request.body;
+const createReview = asyncHandler( async(req, res, next) => { 
+    const { rating, comment, productId, orderId } = req.body;    
     const product = await Product.findById(productId);
-    const review = {
-        user,
-        rating,
-        comment,
-        productId,
-    };
-    const isReviewed = product.reviews.find((rev) => rev.user._id === request.user._id);
+    const existReview = product?.reviews?.find(review => review?.orderId === orderId && review?.customer == req.user.id);
 
-    // update review if the user has already commented, else create new one
-    if (isReviewed) {
-        product.reviews.forEach((rev) => {
-            if (rev.user._id === request.user._id) {
-                (rev.rating = rating), (rev.comment = comment), (rev.user = user);
-            }
-        });
+    // update review if is reviewed, else create new one
+    if (existReview) {
+        existReview.rating = rating;
+        existReview.comment = comment;
     } else {
-        product.reviews.push(review);
+        product.reviews.push({
+            customer: req.user.id,
+            rating,
+            comment,
+            productId,
+            orderId,
+        });
     }
-
     // calculate the average rating
-    let avgRating = 0;
-    product.reviews.forEach((rev) => { avgRating += rev.rating });
+    let avgRating =  product.reviews.reduce((acc, item) => acc += item.rating, 0);
     product.ratings = avgRating / product.reviews.length;
-
-    // save the review
-    await product.save({ validateBeforeSave: false });
-    await Order.findByIdAndUpdate(
-        orderId,
-        { $set: { "cart.$[elem].isReviewed": true } },
-        { arrayFilters: [{ "elem.product._id": productId }], new: true }
+    await product.save();
+    
+    await Order.findByIdAndUpdate(orderId,
+        { $set: { "orderDetails.$[elem].isReviewed": true } },
+        { arrayFilters: [{ "elem.productId": productId }] }
     );
-
-    const products = await Product.find().sort({ createdAt: -1 });
-
-    response.status(200).json({
+    res.status(201).json({
         success: true,
         message: "Reviwed succesfully!",
-        products,
     });
 })
 

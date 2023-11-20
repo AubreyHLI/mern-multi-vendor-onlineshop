@@ -5,12 +5,22 @@ import { IoStorefrontOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
 
 const ProductShopInfo = ({shop}) => {
-	const [shopProducts, setShopProducts] = useState(null);    
+	const [shopProducts, setShopProducts] = useState([]); 
+	const [avgRatings, setAvgRatings] = useState(0);
     const { products } = useSelector(state => state.products);
 
     useEffect(() => {
         const d = products?.filter(i => i?.shop?._id === shop?._id);
         setShopProducts(d);
+
+		let totalReviewNum = 0;
+		let totalRatings = 0;
+		for(const product of d) {
+			totalReviewNum += product?.reviews?.length;
+			totalRatings += product?.reviews?.reduce((acc, item) => acc + item?.rating, 0);
+		}
+		const averageRating = totalReviewNum > 0 ? totalRatings / totalReviewNum : 0;
+		setAvgRatings(averageRating.toFixed(2));
     }, [shop?._id]);
 
     return (
@@ -33,7 +43,8 @@ const ProductShopInfo = ({shop}) => {
 								{shopProducts?.length}
 							</div>
 							<div className='flex 1100px:flex-col'>
-								<span className='text-[#a8a8a8]'>店铺评价：</span>
+								<span className='text-[#a8a8a8]'>店铺评分：</span>
+								{avgRatings}
 							</div>
 						</div>
 					</div>

@@ -120,7 +120,7 @@ const userApi = appApi.injectEndpoints({
                 body: order
             }) ,
             invalidatesTags: ["Orders"],
-        })
+        }),
     })
 })
 

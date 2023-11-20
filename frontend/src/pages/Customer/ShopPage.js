@@ -11,14 +11,27 @@ import CouponPrev from '../../components/Coupons/CouponPrev';
 const ShopPage = () => {
 	const { id } = useParams();
 	const { setActive } = useOutletContext();
-	const { data, isLoading, isError, error } = useGetSingleShopInfoQuery(id);
+	const { data, isLoading, isSuccess, isError, error } = useGetSingleShopInfoQuery(id);
 	const [openCouponsList, setOpenCouponsList] = useState(false);
+	const [avgRatings, setAvgRatings] = useState(0);
 
 	useEffect(() => {
 		if(isError) {
 			toast.error(error?.data?.message);
 		}
-	}, [isError])
+		if(isSuccess) {
+			const { shopProducts } = data;
+			let totalReviewNum = 0;
+			let totalRatings = 0;
+			for(const product of shopProducts) {
+				totalReviewNum += product?.reviews?.length;
+				totalRatings += product?.reviews?.reduce((acc, item) => acc + item?.rating, 0);
+			}
+			const averageRating = totalReviewNum > 0 ? totalRatings / totalReviewNum : 0;
+			setAvgRatings(averageRating.toFixed(2));
+			
+		}
+	}, [isError, isSuccess])
 
 	useEffect(() => {
 		window.scrollTo(0,0);
@@ -40,7 +53,7 @@ const ShopPage = () => {
     return (
 		<div className="section py-5 flex flex-col gap-5">
 			<div className="bg-[#fff] rounded-[4px]">
-				<ShopInfoCard shopData={data?.shop} shopProductsCount={data?.shopProducts?.length}/>
+				<ShopInfoCard shopData={data?.shop} shopProductsCount={data?.shopProducts?.length} avgRatings={avgRatings}/>
 			</div>
 
 			<div>

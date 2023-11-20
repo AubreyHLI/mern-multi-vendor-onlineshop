@@ -3,8 +3,8 @@ import { Avatar } from '@mui/material';
 import { IoStorefrontOutline } from 'react-icons/io5';
 import { slashDateFormat } from '../../helpers/dayjsHelper';
 
-const ShopInfoCard = ({shopData, shopProductsCount}) => {
-    
+const ShopInfoCard = ({shopData, shopProductsCount, avgRatings}) => {
+
     return (
        <div className='p-4 grid grid-cols-4 grid-rows-4 gap-1 grid-flow-col 600px:gap-y-[10px] 600px:gap-x-0'>
             <div className='col-span-4 row-span-2 600px:col-span-[2.5] 600px:row-span-3 1000px:col-span-2 1000px:row-span-4'>
@@ -31,7 +31,7 @@ const ShopInfoCard = ({shopData, shopProductsCount}) => {
                 col-span-4 row-span-1 600px:col-span-[1.5] 600px:row-span-4 1000px:col-span-2 1000px:row-span-2'>
                 <div className="flex flex-col 600px:flex-row 600px:gap-2">
                     <h5 className="font-[600]">店铺评分:</h5>
-                    <h4>0.0</h4>
+                    <h4>{avgRatings}</h4>
                 </div>
                 <div className="flex flex-col 600px:flex-row 600px:gap-2">
                     <h5 className="font-[600]">商品总数:</h5>

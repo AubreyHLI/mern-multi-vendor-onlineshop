@@ -81,13 +81,13 @@ const ShopOrderCard = ({order, index, updateCheckoutOrders}) => {
                                 <h4>¥{(item?.price * item?.qty).toFixed(2)}</h4>
                             </div>
                             <h4 className='pt-[4px] font-[400] text-[13px] text-[#00000082]'>
-                                ¥{item?.price} * {item?.qty}
+                                ¥{item?.price} x {item?.qty}
                             </h4>
                         </div>
                         <div className='hidden 800px:grid 800px:grid-cols-4'>
                             <h1 className='line-clamp-1 col-span-2'>{item?.name}</h1>
                             <h4 className='font-[400] text-[14px] text-[#00000082] text-center'>
-                                ¥ {item?.price} * {item?.qty}
+                                ¥ {item?.price} x {item?.qty}
                             </h4>
                             <h4 className='text-end'>¥ {(item?.price * item?.qty).toFixed(2)}</h4>
                         </div>

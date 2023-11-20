@@ -4,6 +4,7 @@ import { PiStorefront } from 'react-icons/pi';
 import { IoIosArrowForward } from 'react-icons/io';
 import AddToCartBtn from '../Cart/AddToCartBtn';
 import OrderRefundModal from './OrderRefundModal';
+import ReviewForm from '../Reviews/ReviewForm';
 
 const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) => {
     const [openRefundModal, setOpenRefundModal] = useState(false);
@@ -14,22 +15,29 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) =>
         price: '',
         qty: '',
         productStatus: ''
-    })
+    });
+    const [openReviewForm, setOpenReviewForm] = useState(false);
+    const [selectedItem, setSelectedItem] = useState({});
+    const [isEdit, setIsEdit] = useState(false);
 
     useEffect(() => {
-        if(openRefundModal) {
+        if(openRefundModal || openReviewForm) {
             document.body.style.overflow = 'hidden';  // lock the scroll of home page
         } else {
             document.body.style.overflow = 'unset';  // unlock the scroll of home page
         }
-    }, [openRefundModal]);
+    }, [openRefundModal, openReviewForm]);
     
     const handleClickRefund = (item) => {
         setRefundItem({...item});
         setOpenRefundModal(true);
     }
     
-    const handleClickComment = () => {}
+    const handleClickReview = (item, isedit) => {
+        setSelectedItem({...item});
+        setIsEdit(isedit);
+        setOpenReviewForm(true);
+    }
 
     return (        
         <div className='mt-5 mx-2'>
@@ -47,7 +55,7 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) =>
                             <div className='flex flex-col gap-1 w-full 800px:flex-1'>
                                 <h1 className='line-clamp-1 text-[14px]'>{item?.name}</h1>
                                 <div className='font-[400] text-[13px] text-[#00000082]'>
-                                    <span className='800px:hidden'>¥{item?.price} * {item?.qty}</span>
+                                    <span className='800px:hidden'>¥{item?.price} x {item?.qty}</span>
                                     <span className='hidden 800px:block'>数量 x {item?.qty}</span>
                                 </div>
                             </div>
@@ -64,7 +72,7 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) =>
                             
                         </div>
                     </Link>
-                    <div className='normalFlex gap-2 -mt-2 justify-end text-[12px] 600px:text-[13px] text-[#000000ab]'>
+                    <div className='normalFlex gap-2 -mt-1 justify-end text-[12px] 600px:text-[13px] text-[#000000ab]'>
                         <AddToCartBtn 
                             optionStyle='btnStyle' 
                             data={{ shopId: shop?._id, productId: item?.productId}}
@@ -75,7 +83,8 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) =>
                         <button onClick={() => handleClickRefund(item)} className='btnStyle'>
                             { item?.productStatus === 'Processing refund' ? '退款中' : '退款/售后' }
                         </button>}
-                        {status === 'Archived' && <button className='btnStyle'>评价</button>}
+                        {status === 'Archived' && item?.isReviewed && <button onClick={() => handleClickReview(item, true)} className='btnStyle'>已评价，修改评价</button> }
+                        {status === 'Archived' && !item?.isReviewed && <button onClick={() => handleClickReview(item, false)} className='btnStyle'>评价</button>}
                     </div>
                 </div>
                 )}
@@ -103,6 +112,14 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) =>
                 heading='退换/售后'
                 refundItem={refundItem}
                 orderId={orderId}
+            />}
+
+            {openReviewForm && 
+            <ReviewForm 
+                selectedItem={selectedItem}
+                orderId={orderId}
+                isEdit={isEdit}
+                setOpenForm={setOpenReviewForm}
             />}
         </div>
     )

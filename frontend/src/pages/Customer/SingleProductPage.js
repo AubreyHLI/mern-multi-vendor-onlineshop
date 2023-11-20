@@ -28,7 +28,7 @@ const SingleProductPage = () => {
                 { product?.shop && <ProductShopInfo shop={product?.shop} /> }
             </div>
 
-            { product && <ProductDetails data={product} /> }
+            { product && <ProductDetails data={{ description: product?.description, reviews: product?.reviews}} /> }
 
             { product && <SuggestedProducts data={product}/>}
         </div>

@@ -104,7 +104,9 @@ const updateUserInfo = asyncHandler( async(req, res, next) => {
     // else
     user.name = name;
     user.email = email;
-    user.phoneNumber = phoneNumber;
+    if(phoneNumber.trim !== '') {
+        user.phoneNumber = phoneNumber;
+    }
     if(req.file) {
         if(user.avatar && user.avatar.public_id) {
             await removeFromCloudinary(user.avatar)

@@ -23,7 +23,7 @@ const InitLayout = () => {
         if(productsIsSuccess) {
             dispatch(setProducts(allProductsData.products));
         } 
-    }, [productsIsSuccess])
+    }, [productsIsSuccess, allProductsData])
 
     useEffect(() => {
         if(userIsSuccess) {

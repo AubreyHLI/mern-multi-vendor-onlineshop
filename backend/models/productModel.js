@@ -17,15 +17,16 @@ const productSchema = new mongoose.Schema({
 		required: true,
 	},
 	reviews: [
-		// {
-		// 	type: mongoose.Types.ObjectId,
-		// 	ref: "Review",
-		// },
 		{
-			user: { type: Object, },
+			customer: { 
+				type: mongoose.Types.ObjectId,
+				ref: "User",
+				required: true, 
+			},
 			rating: { type: Number, },
 			comment: { type: String, },
 			productId: { type: String, },
+			orderId: { type: String, },
 			createdAt:{ type: Date,  default: Date.now, }
 		},
 	],

@@ -45,8 +45,8 @@ const ProductCard = ({ data, isShopPage=false }) => {
     return (
         <div className="w-full bg-white rounded-lg shadow-sm px-3 py-2 600px:p-4 relative">
             <Link to={`/product/${data?._id}`} className="w-full h-full normalFlex gap-4 600px:flex-col 600px:gap-2 600px:items-start">
-                <div className="w-[100px] 400px:w-[120px] 600px:w-full 600px:mx-auto">
-                    <img className="w-full h-[100px] 400px:h-[120px] 600px:h-[170px] object-cover 600px:object-contain rounded-lg " alt="" src={data?.images && data?.images[0]?.url}/>
+                <div className="w-[80px] 400px:w-[100px] 600px:w-full 600px:mx-auto">
+                    <img className="w-full h-[80px] 400px:h-[100px] 600px:h-[170px] object-cover 600px:object-contain rounded-lg " alt="" src={data?.images && data?.images[0]?.url}/>
                 </div>
 
                 <div className="flex-1 600px:w-full 600px:flex 600px:flex-col">

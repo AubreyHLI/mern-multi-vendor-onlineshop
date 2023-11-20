@@ -62,7 +62,7 @@ const CartItem = ({ data, shopId }) => {
                     </div>
                     <div className='grid grid-cols-2 pb-[4px] 500px:grid-cols-3 items-end 500px:items-center'>
                         <h4 className="font-[400] text-[13px] text-[#00000082] justify-self-start 600px:text-[14px]">
-                            ¥ {productPrice} * {value}
+                            ¥ {productPrice} x {value}
                         </h4>
                         <div className='w-[70px] justify-between items-center hidden 500px:flex '>
                             <button  onClick={() => decrement()} className={`${value < 2 ? 'bg-[#a7abb14f] text-[#7d879c]': 'bg-[#34b351] text-[#fff]'} w-[20px] h-[20px] normalFlex justify-center cursor-pointer`}>

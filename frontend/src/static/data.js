@@ -4,7 +4,7 @@ export const navItems = [
 		url: "/",
 	},
 	{
-		title: "推荐",
+		title: "热销推荐",
 		url: "/bestselling",
 	},
 	{
@@ -129,62 +129,5 @@ export const categoriesData = [
 		title: "生活休闲",
 		subTitle: "",
 		image_Url: "https://res.cloudinary.com/dewmfc2io/image/upload/v1688317479/mern-supermarket/categories/alcohol_bvgthb.png",
-	},
-];
-
-
-export const footerProductLinks = [
-	{
-		name: "About us",
-		link: "/about",
-	},
-	{
-		name: "Careers",
-		link: "/carrers",
-	},
-	{
-		name: "Store Locations",
-	},
-	{
-		name: "Our Blog",
-	},
-	{
-		name: "Reviews",
-	},
-];
-
-export const footercompanyLinks = [
-	{
-		name: "Game & Video",
-	},
-	{
-		name: "Phone & Tablets",
-	},
-	{
-		name: "Computers & Laptop",
-	},
-	{
-		name: "Sport Watches",
-	},
-	{
-		name: "Events",
-	},
-];
-
-export const footerSupportLinks = [
-	{
-		name: "FAQ",
-	},
-	{
-		name: "Reviews",
-	},
-	{
-		name: "Contact Us",
-	},
-	{
-		name: "Shipping",
-	},
-	{
-		name: "Live chat",
 	},
 ];

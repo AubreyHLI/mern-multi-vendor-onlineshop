@@ -1,4 +1,4 @@
-const { Order } = require('../models/orderModel');
+const Order = require('../models/orderModel');
 const Cart = require('../models/cartModel');
 const StatusDetail = require('../models/statusDetailModel');
 const Product = require('../models/productModel');
@@ -196,14 +196,16 @@ const updateOrderStatus = asyncHandler(async (req, res, next) => {
     }
     // update sold_out
 	if (req.body.status === "Shipped") {
-		existsOrder.orderDetails.forEach(async (item) => {
-			const product = await Product.findById(item.productId);
-			product.stock -= item.qty;
-			product.sold_out += item.qty;
-			await product.save();
+        for (const item of existsOrder.orderDetails) {
+            const product = await Product.findById(item.productId);
+            product.stock -= item.qty;
+            product.sold_out += item.qty;
+            await product.save();
             item.productStatus = 'Shipped';
-		});
+        }
+        // await existsOrder.save();
 	}
+
     // update payment status
 	if (req.body.status === "Delivered") {
 		existsOrder.deliveredAt = Date.now();

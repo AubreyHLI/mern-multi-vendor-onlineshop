@@ -11,7 +11,15 @@ const productsApi = appApi.injectEndpoints({
         }), 
         getOrderStatusHistory: builder.query({
             query: (detailId) => `/orders/getOrderStatusHistory/${detailId}`
-        })       
+        }),
+        createProductReview: builder.mutation({
+            query: (review) => ({
+                url: '/products/createReview',
+                method: 'POST',
+                body: review
+            }),
+            invalidatesTags: ["Products", "Orders"]
+        })   
     })
 })
 
@@ -19,6 +27,7 @@ export const {
     useGetAllProductsQuery,
     useGetSingleShopInfoQuery,
     useGetOrderStatusHistoryQuery,
+    useCreateProductReviewMutation,
 } = productsApi;
 
 export default productsApi;

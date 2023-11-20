@@ -86,10 +86,6 @@ input[type=number] {
     @apply  w-11/12 hidden sm:block;
 }
 
-.active_indicator{
-    @apply absolute bottom-[-27%] left-0 h-[3px] w-full bg-[crimson];
-}
-
 .cart_button{
     @apply px-[20px] h-[38px] rounded-[20px] bg-[#f63b60] flex items-center justify-center cursor-pointer;
 } 

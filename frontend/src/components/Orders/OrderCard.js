@@ -9,38 +9,37 @@ import EditOrderAddress from './EditOrderAddress';
 import CustomPrice from '../atoms/CustomPrice';
 import ShippingTracker from './ShippingTracker';
 import OrderStatus from './OrderStatus';
+import ReviewWaitList from '../Reviews/ReviewWaitList';
 
 
 const OrderCard = ({data}) => {
     const {shop, checkoutSummary, _id, orderDetails, status, createdAt, statusDetail} = data;
     const [openTracker, setOpenTracker] = useState(false);
     const [openAddressEdit, setOpenAddressEdit] = useState(false);
+    const [openReviewList, setOpenReviewList] = useState(false);
     const [itemCount, setItemCount] = useState(0);
     const [itemNames, setItemNames] = useState('');
     const [confimReceiveOrder, {isError, error}] = useConfimReceiveOrderMutation();
     const [cancelOrder, {isError:cancelError, error:cancelErr}] = useCancelUserOrderMutation();
-
     const navigate = useNavigate();
 
     useEffect(() => {
         const count = orderDetails?.reduce((acc, item) => acc + item?.qty, 0);
         setItemCount(count);
         const nameString = orderDetails?.reduce((acc, item) => {
-            if(acc !== '') {
-                acc += '、'
-            }
+            if(acc !== '') { acc += '、'}
             return acc + item?.name
         }, '');
         setItemNames(nameString);
     }, [orderDetails])
 
     useEffect(() => {
-        if(openTracker || openAddressEdit) {
+        if(openTracker || openAddressEdit || openReviewList) {
             document.body.style.overflow = 'hidden';  // lock the scroll of home page
         } else {
             document.body.style.overflow = 'unset';  // unlock the scroll of home page
         }
-    }, [openTracker, openAddressEdit]);
+    }, [openTracker, openAddressEdit, openReviewList]);
 
     useEffect(() => {
         if(isError) {
@@ -132,7 +131,8 @@ const OrderCard = ({data}) => {
                 {(status === 'Shipping' || status === 'Shipped' || status === 'Dispatching' || status === 'Delivered') && 
                 <button onClick={handleConfirmOrder} className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>确认收货</button>
                 }
-                {status === 'Archived' && <button className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>评价</button>}
+                {status === 'Archived' && 
+                <button onClick={() => setOpenReviewList(true)} className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>评价</button>}
                 {status === 'Cancelled' && <button className='btnStyle'>删除订单</button>}
             </div>
 
@@ -149,6 +149,14 @@ const OrderCard = ({data}) => {
                 orderId={_id} 
                 setOpenAddressEdit={setOpenAddressEdit} 
             /> }
+
+            {openReviewList && 
+            <ReviewWaitList 
+                setOpenList={setOpenReviewList}
+                heading='评价晒单'
+                orderId={_id}
+                shop={shop}
+            />}
         </div>
     )
 }
