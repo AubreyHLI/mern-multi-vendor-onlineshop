@@ -25,23 +25,23 @@ const ShopRefundPage = () => {
             <div className='w-full mt-4 flex flex-col gap-3'>
                 {shopRefunds?.map((item, index) => 
                 <div className='w-full shadow-md bg-white text-[13px] p-2 700px:p-3' key={index}>
-                    <div className='w-full flex flex-col 700px:flex-row'>
+                    <div className='w-full flex flex-col 700px:flex-row text-[#00000095] '>
                         <div className='700px:flex-1 flex flex-col 700px:gap-[2px]'>
-                            <div><span className=''>订单编号：</span>{item?.order?._id}</div>
+                            <div><span className='text-[#00000054]'>订单编号：</span>{item?.order?._id}</div>
                             <div className='flex'>
-                                <span className='text-[#848689]'>订单状态：</span>
+                                <span className='text-[#00000054]'>订单状态：</span>
                                 <OrderStatus status={item?.order?.status} />
                             </div>
-                            <div><span className='text-[#848689]'>下单时间：</span>{timeDateFormat(item?.order?.createdAt)}</div>
+                            <div><span className='text-[#00000054]'>下单时间：</span>{timeDateFormat(item?.order?.createdAt)}</div>
                         </div>
                         <div className='700px:flex-1 flex flex-col 700px:gap-[2px]'>
-                            <div><span className='text-[#848689]'>支付方式：</span>{item?.order?.paymentInfo?.type === 'Bank Card' ? '在线支付（银行卡）' : '货到付款'}</div>
-                            <div><span className='text-[#848689]'>支付状态：</span> 
+                            <div><span className='text-[#00000054]'>支付方式：</span>{item?.order?.paymentInfo?.type === 'Bank Card' ? '在线支付（银行卡）' : '货到付款'}</div>
+                            <div><span className='text-[#00000054]'>支付状态：</span> 
                                 {item?.order?.paymentInfo?.status === 'succeeded' && '已完成'}
                                 {item?.order?.paymentInfo?.status === 'incomplete' && '未完成'}
                                 {item?.order?.paymentInfo?.status === 'refunded' && '已退还'}
                             </div>
-                            <div><span className='text-[#848689]'>买家昵称：</span>{item?.customer?.name}</div>
+                            <div><span className='text-[#00000054]'>买家昵称：</span>{item?.customer?.name}</div>
                         </div>
                     </div>
                     <ShopRefundsTable refundItems={item?.refundItems} orderId={item?.order?._id}/>

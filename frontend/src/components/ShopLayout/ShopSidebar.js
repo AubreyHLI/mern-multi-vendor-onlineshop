@@ -5,6 +5,7 @@ import { AiOutlineHome, AiOutlineMoneyCollect } from "react-icons/ai";
 import { CgShoppingBag } from 'react-icons/cg';
 import { HiOutlineClipboardList } from 'react-icons/hi';
 import { RiCoupon3Line } from 'react-icons/ri';
+import { TbTruckReturn } from "react-icons/tb";
 
 
 const ShopSidebar = ({active}) => {
@@ -42,7 +43,7 @@ const sidebarData = [
     },
     {
         label: '退款',
-        icon: <MdOutlineLocalShipping size={26} />,
+        icon: <TbTruckReturn size={26} />,
         linkUrl: "/business/refundOrganize",
     },
     {
