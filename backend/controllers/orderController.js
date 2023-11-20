@@ -2,8 +2,10 @@ const { Order } = require('../models/orderModel');
 const Cart = require('../models/cartModel');
 const StatusDetail = require('../models/statusDetailModel');
 const Product = require('../models/productModel');
+const Refund = require('../models/refundModel');
 const CustomErrorClass = require('../utils/CustomErrorClass');
 const asyncHandler = require('../middlewares/asyncHandler');
+const mongoose = require("mongoose");
 
 const createOrders = asyncHandler(async(req, res, next) => { 
     const { orders, shippingAddress, shipping, paymentInfo } = req.body;
@@ -90,7 +92,7 @@ const confirmReceiveOrder = asyncHandler(async (req, res, next) => {
     if (existsOrder.status === "Processing") {
 		return next(new CustomErrorClass(400, "订单未发货，无法确认收货"));
 	}
-    if (existsOrder.status === "Cancelled" || existsOrder.status === 'Refunded') {
+    if (existsOrder.status === "Cancelled") {
 		return next(new CustomErrorClass(400, "订单交易已取消，无法确认收货"));
 	}
     existsOrder.status = "Archived";
@@ -125,6 +127,50 @@ const cancelOrder = asyncHandler(async (req, res, next) => {
 	});
 })
 
+const requestItemRefund = asyncHandler(async (req, res, next) => {
+    const existsOrder = await Order.findById(req.body.orderId);
+    if (!existsOrder) {
+		return next(new CustomErrorClass(400, "Order not found with this id"));
+	}
+    if (existsOrder.status === 'Cancelled') {
+		return next(new CustomErrorClass(400, "订单已结束交易，无法申请退款"));
+	}
+    if (existsOrder.status === 'Archived') {
+		return next(new CustomErrorClass(400, "订单已确认收货，无法申请退款"));
+	}
+    const product = existsOrder.orderDetails.find(item => item.productId === req.body.productId);
+    if(!product) {
+        return next(new CustomErrorClass(400, "订单不包含该商品，无法申请退款"));
+    }
+    if(product?.productStatus === 'Refunded') {
+        return next(new CustomErrorClass(400, "该商品已退款成功，无法再次申请退款"));
+    }
+    if(product.productStatus === 'Processing refund') {
+        return next(new CustomErrorClass(400, "该商品退款正在处理中，请耐心等待"));
+    }
+    
+    product.productStatus = 'Processing refund';
+
+    const refund = await Refund.findOne({order: existsOrder._id});
+    if(!refund) {
+        await Refund.create({
+            order: existsOrder._id,
+            refundItems: product,
+            customer: req.user.id,
+            shopId: existsOrder.shop._id
+        });
+    } else {
+        refund.refundItems.push(product);
+        await refund.save()
+    }
+    await existsOrder.save();
+
+    res.status(200).json({
+		success: true,
+		message: "Refund request sent",
+	});
+})
+
 
 // get all orders of shop
 const getShopAllOrders = asyncHandler(async (req, res, next) => {
@@ -155,6 +201,7 @@ const updateOrderStatus = asyncHandler(async (req, res, next) => {
 			product.stock -= item.qty;
 			product.sold_out += item.qty;
 			await product.save();
+            item.productStatus = 'Shipped';
 		});
 	}
     // update payment status
@@ -181,6 +228,66 @@ const updateOrderStatus = asyncHandler(async (req, res, next) => {
 	});
 })
 
+const getShopRefundOrders = asyncHandler(async (req, res, next) => {
+    const refundOrders = await Refund.find({shopId: req.shop.id})
+        .populate([{
+            path: 'customer',
+            select: '_id name'
+        }, {
+            path: 'order',
+            select: '_id status createdAt paymentInfo'
+        }]);
+	res.status(200).json({
+		success: true,
+		refunds: refundOrders
+	});
+})
+
+const acceptRefundRequest =  asyncHandler(async (req, res, next) => {
+    const productId = new mongoose.Types.ObjectId(req.body.productId);
+    const orderId = new mongoose.Types.ObjectId(req.body.orderId);
+
+    const existsOrder = await Order.findById(orderId);
+	if (!existsOrder) {
+		return next(new CustomErrorClass(400, "Order not found with this id"));
+	}
+    if (existsOrder.shop._id != req.shop.id) {
+        return next(new CustomErrorClass(400, "权限限制，无法修改其他店铺的订单状态"));
+    }
+
+    const refundedItemsCount = existsOrder?.orderDetails?.reduce((acc, item) => {
+        if(item.productId == productId) {
+            item.productStatus = 'Refunded';
+        }
+        if(item.productStatus === 'Refunded') {
+            return acc += 1
+        }
+    }, 0);
+    if(refundedItemsCount === existsOrder?.orderDetails?.length) {
+        existsOrder.status = 'Refunded Success';
+    }
+    await existsOrder.save();
+
+    // return back stock
+    const product = await Product.findById(productId);
+    const productItem = existsOrder?.orderDetails?.find(item => item.productId == productId);
+    product.stock += productItem.qty;
+    product.sold_out -= productItem.qty;
+    await product.save();
+
+    // update refundRecord
+    const refundOrder = await Refund.findOneAndUpdate({order: orderId}, 
+        { $set: {"refundItems.$[elem].productStatus": 'Refunded'} },
+        { arrayFilters: [{ "elem.productId":  req.body.productId+''}], new: true }
+    );
+    console.log(refundOrder)
+
+	res.status(200).json({
+		success: true,
+		message: "Order Refund successfully!",
+	});
+})
+
 
 module.exports = {
     createOrders,
@@ -188,8 +295,11 @@ module.exports = {
     getOrderStatusHistory,
     updateOrderAddress,
     confirmReceiveOrder,
+    cancelOrder,
+    requestItemRefund,
 
     getShopAllOrders,
     updateOrderStatus,
-    cancelOrder,
+    getShopRefundOrders,
+    acceptRefundRequest,
 }

@@ -78,6 +78,18 @@ const shopApi = appApi.injectEndpoints({
                 method: "POST",
             }),
             invalidatesTags: ["ShopOrders"],
+        }),
+        getShopRefunds: builder.query({
+            query: () => '/orders/getShopRefunds',
+            providesTags: ["ShopRefunds"],
+        }),
+        acceptRefundRequest: builder.mutation({
+            query:(item) => ({
+                url: '/orders/acceptRefund',
+                method: "POST",
+                body: item
+            }),
+            invalidatesTags: ["ShopOrders", "ShopRefunds"],
         })
     })
 })
@@ -94,6 +106,8 @@ export const {
    useGetShopOrdersQuery,
    useUpdateOrderStatusMutation,
    useCancelShopOrderMutation,
+   useGetShopRefundsQuery,
+   useAcceptRefundRequestMutation,
 } = shopApi;
 
 export default shopApi;

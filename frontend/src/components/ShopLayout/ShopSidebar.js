@@ -41,9 +41,9 @@ const sidebarData = [
         linkUrl: "/business/orders",
     },
     {
-        label: '物流',
+        label: '退款',
         icon: <MdOutlineLocalShipping size={26} />,
-        linkUrl: "/business/shipping",
+        linkUrl: "/business/refundOrganize",
     },
     {
         label: '促销',

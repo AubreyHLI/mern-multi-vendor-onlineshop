@@ -40,7 +40,7 @@ const EditOrderAddress = ({setOpenAddressEdit, orderId}) => {
 
     return (
         <AddressForm 
-			heading='修改收货地址'
+			heading='修改收件人信息'
 			formData={formData}
             setFormData={setFormData}
 			setOpenForm={setOpenAddressEdit}

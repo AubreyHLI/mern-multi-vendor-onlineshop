@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { PiStorefront } from 'react-icons/pi';
 import { IoIosArrowForward } from 'react-icons/io';
 import AddToCartBtn from '../Cart/AddToCartBtn';
+import OrderRefundModal from './OrderRefundModal';
 
-const OrderDetails = ({shop, checkoutSummary, orderDetails, status}) => {
-    const handleClickRefund = () => {}
+const OrderDetails = ({shop, checkoutSummary, orderDetails, status, orderId}) => {
+    const [openRefundModal, setOpenRefundModal] = useState(false);
+    const [refundItem, setRefundItem] = useState({
+        productId: '',
+        name: '',
+        image: '',
+        price: '',
+        qty: '',
+        productStatus: ''
+    })
+
+    useEffect(() => {
+        if(openRefundModal) {
+            document.body.style.overflow = 'hidden';  // lock the scroll of home page
+        } else {
+            document.body.style.overflow = 'unset';  // unlock the scroll of home page
+        }
+    }, [openRefundModal]);
+    
+    const handleClickRefund = (item) => {
+        setRefundItem({...item});
+        setOpenRefundModal(true);
+    }
     
     const handleClickComment = () => {}
 
@@ -18,7 +40,7 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status}) => {
             </Link>
             <div className='w-full mt-2'>
                 { orderDetails?.map((item, index) => 
-                <div className='w-full border-dotted border-b pt-1 pb-2' key={index}>
+                <div className='w-full border-dotted border-b pt-1 pb-[10px]' key={index}>
                     <Link to={`/product/${item?.productId}`} className="flex items-center hover:opacity-80" >
                         <img src={item?.image} className="w-[60px] h-[60px] 600px:w-[80px] 600px:h-[80px] object-cover rounded-lg " alt=""/>
                         <div className="px-[5px] flex-1 flex justify-between w-full">
@@ -29,27 +51,31 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status}) => {
                                     <span className='hidden 800px:block'>数量 x {item?.qty}</span>
                                 </div>
                             </div>
-                            <div className='min-w-fit 800px:flex-1 flex justify-between'>
-                                <span className='hidden 800px:block text-[#00000082] text-[14px]'>单价: ¥ {item?.price.toFixed(2)}</span>
-                                <h4 className='min-w-fit text-[15px] 800px:text-[16px] font-[500]'>¥ {(item?.price * item?.qty).toFixed(2)}
-                                </h4>
+                            <div className='min-w-fit 800px:flex-1'>
+                                <div className='w-full flex justify-between'>
+                                    <span className='hidden 800px:block text-[#00000082] text-[14px]'>单价: ¥ {item?.price.toFixed(2)}</span>
+                                    <h4 className='min-w-fit text-[15px] 800px:text-[16px] font-[500]'>¥ {(item?.price * item?.qty).toFixed(2)}</h4>
+                                </div>
+                                {item?.productStatus === 'Refunded' &&
+                                <div className='w-full text-right mt-1 text-[14px] text-[rgb(255,175,101)]'>
+                                    <h4>退款成功</h4>
+                                </div>}
                             </div>
+                            
                         </div>
                     </Link>
-                    <div className='normalFlex gap-2 justify-end text-[12px] 600px:text-[13px] text-[#000000ab]'>
-                        {(status !== 'Refunded' && status !== 'Cancelled'&& status !== 'Archived') 
-                        ? <button className='btnStyle'>
-                            {status==='Processing refund' ? '退款中' : '退款/售后'}
-                        </button>
-                        : <AddToCartBtn 
+                    <div className='normalFlex gap-2 -mt-2 justify-end text-[12px] 600px:text-[13px] text-[#000000ab]'>
+                        <AddToCartBtn 
                             optionStyle='btnStyle' 
                             data={{ shopId: shop?._id, productId: item?.productId}}
                             >
                             加入购物车
                         </AddToCartBtn>
-                        }
-                        {status === 'Archived' && 
-                        <button className='btnStyle'>评价</button>}
+                        {(status === 'Shipped' || status === 'Shipping' || status === 'Dispatching' || status === 'Delivered') && 
+                        <button onClick={() => handleClickRefund(item)} className='btnStyle'>
+                            { item?.productStatus === 'Processing refund' ? '退款中' : '退款/售后' }
+                        </button>}
+                        {status === 'Archived' && <button className='btnStyle'>评价</button>}
                     </div>
                 </div>
                 )}
@@ -70,6 +96,14 @@ const OrderDetails = ({shop, checkoutSummary, orderDetails, status}) => {
                     </h3>
                 </div>
             </div>
+
+            { openRefundModal && 
+            <OrderRefundModal 
+                setOpenForm={setOpenRefundModal}
+                heading='退换/售后'
+                refundItem={refundItem}
+                orderId={orderId}
+            />}
         </div>
     )
 }

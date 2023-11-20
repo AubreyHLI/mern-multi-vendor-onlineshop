@@ -36,7 +36,7 @@ const ShopSingleOrder = () => {
 						<OrderStatus status={order?.status} optionStyle='!text-[#111111]'/>
 					</div>
 					<OrderStatusStepper status={order?.status} />
-                    {order?.status !== 'Archived' && order?.status !== 'Cancelled' && 
+                    {order?.status !== 'Archived' && order?.status !== 'Cancelled' && order?.status !== 'Refunded Success' &&
                     <div className='w-full text-center h-[35px]'>
                         { openEditStatus && <EditOrderStatus setOpenForm={setOpenEditStatus} status={order?.status} orderId={id}/>}
                         { !openEditStatus && 
@@ -51,10 +51,13 @@ const ShopSingleOrder = () => {
 						_id={order?._id} 
 						createdAt={order?.createdAt}
 						paymentInfo={order?.paymentInfo} 
-						shippingAddress={order?.shippingAddress} 
+						shippingAddress={order?.shippingAddress}
+						isSeller={true}
+						_customer={order?._customer}
 					/>
 					
 					<ShopOrderDetail 
+						orderId={order?._id} 
 						orderDetails={order?.orderDetails}
 						status={order?.status}
 					/>

@@ -112,8 +112,15 @@ const userApi = appApi.injectEndpoints({
                 method: "POST",
             }),
             invalidatesTags: ["Orders"],
+        }),
+        requestItemRefund: builder.mutation({
+            query: (order) => ({
+                url: '/orders/itemRefund',
+                method: "POST",
+                body: order
+            }) ,
+            invalidatesTags: ["Orders"],
         })
-
     })
 })
 
@@ -138,6 +145,7 @@ export const {
     useUpdateOrderAddressMutation,
     useConfimReceiveOrderMutation,
     useCancelUserOrderMutation,
+    useRequestItemRefundMutation,
 } = userApi;
 
 export default userApi;

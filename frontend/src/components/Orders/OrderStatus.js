@@ -9,8 +9,8 @@ const OrderStatus = ({status, optionStyle}) => {
         "Delivered",  // 买家已签收
         
         "Archived", // 交易成功
-
         "Processing refund", // 退款处理中
+
         "Refunded", // 退款成功
         "Cancelled", // 交易关闭
     ];
@@ -25,8 +25,7 @@ const OrderStatus = ({status, optionStyle}) => {
                 { status === 'Delivered' && <h1>买家已签收</h1> }
             </span>
             { status === 'Archived' && <h1>交易成功</h1> }
-            {/* { status === 'Processing refund' && <h1>退款待处理</h1> }
-            { status === 'Refunded' && <h1>退款完成</h1> } */}
+            { status === 'Refunded Success' && <h1>订单退款成功</h1> }
             { status === 'Cancelled' && <h1 className=''>交易已关闭</h1> }
         </span>
     )

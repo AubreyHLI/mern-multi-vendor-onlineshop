@@ -38,11 +38,11 @@ import ShopHomePage from './pages/Business/ShopHomePage';
 import ShopProductsPage from './pages/Business/ShopProductsPage';
 import ShopOrdersPage from './pages/Business/ShopOrdersPage';
 import ShopSingleOrder from './pages/Business/ShopSingleOrder';
-import ShopShippingPage from './pages/Business/ShopShippingPage';
 import ShopSalePage from './pages/Business/ShopSalePage';
 import ShopStatisPage from './pages/Business/ShopStatisPage';
 import ShopAccountPage from './pages/Business/ShopAccountPage';
 import ShopInboxPage from './pages/Business/ShopInboxPage';
+import ShopRefundPage from './pages/Business/ShopRefundPage';
 
 
 const App = () => {
@@ -86,7 +86,7 @@ const App = () => {
                     <Route path='products' element={<ShopProductsPage />} />
                     <Route path='orders' element={<ShopOrdersPage />} />
                     <Route path='order/:id' element={<ShopSingleOrder />} />
-                    <Route path='shipping' element={<ShopShippingPage />} />
+                    <Route path='refundOrganize' element={<ShopRefundPage />} />
                     <Route path='sales' element={<ShopSalePage />} />
                     <Route path='statis' element={<ShopStatisPage />} />
                     <Route path='shop' element={<ShopAccountPage />} />

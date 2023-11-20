@@ -22,7 +22,7 @@ const SingleOrderPage = () => {
 	useEffect(() => {
 		const data = orderHistory?.find(ord => ord?._id == id);
 		setOrder({...data})
-	}, [id])
+	}, [id, orderHistory])
 
     return (
 		<div className="w-full">
@@ -46,6 +46,7 @@ const SingleOrderPage = () => {
 						shippingAddress={order?.shippingAddress} 
 					/>
 					<OrderDetails 
+						orderId={order?._id} 
 						shop={order?.shop} 
 						checkoutSummary={order?.checkoutSummary}
 						orderDetails={order?.orderDetails}

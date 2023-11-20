@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import ShopHeader from './ShopHeader';
 import ShopSidebar from './ShopSidebar';
-import { useGetShopCouponsQuery, useGetShopOrdersQuery, useGetShopProductsQuery } from '../../redux/features/shop/shopApi';
+import { useGetShopCouponsQuery, useGetShopOrdersQuery, useGetShopProductsQuery, useGetShopRefundsQuery } from '../../redux/features/shop/shopApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setShopCoupons, setShopOrders, setShopProducts } from '../../redux/features/shop/shopSlice';
+import { setShopCoupons, setShopOrders, setShopProducts, setShopRefunds } from '../../redux/features/shop/shopSlice';
 
 const ShopCommonLayout = () => {
 	const [active, setActive] = useState(0);
@@ -12,6 +12,7 @@ const ShopCommonLayout = () => {
 	const { data: productsData, isSuccess: productsSuccess } = useGetShopProductsQuery(shop?._id);
 	const { data: couponsData, isSuccess: couponsSuccess } = useGetShopCouponsQuery(shop?._id, {skip: !shop?._id});
 	const { data: ordersData, isSuccess: ordersSuccess } = useGetShopOrdersQuery(shop?._id, {skip: !shop?._id});
+	const { data: refundsData, isSuccess: refundsSuccess } = useGetShopRefundsQuery(shop?._id, {skip: !shop?._id});
 
 	const dispatch = useDispatch();
 
@@ -38,6 +39,14 @@ const ShopCommonLayout = () => {
 			)
 		}
 	}, [ordersSuccess, ordersData?.orders])
+
+	useEffect(() => {
+		if(refundsSuccess) {
+			dispatch(
+				setShopRefunds(refundsData?.refunds)
+			)
+		}
+	}, [refundsSuccess, refundsData?.refunds])
 
 	return (
 		<div className='flex flex-col w-full h-screen'>

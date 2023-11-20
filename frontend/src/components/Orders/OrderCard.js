@@ -17,8 +17,8 @@ const OrderCard = ({data}) => {
     const [openAddressEdit, setOpenAddressEdit] = useState(false);
     const [itemCount, setItemCount] = useState(0);
     const [itemNames, setItemNames] = useState('');
-    const [confimReceiveOrder, {isSuccess, isError, error}] = useConfimReceiveOrderMutation();
-    const [cancelOrder, {isSuccess:cancelSuccess, isError:cancelError, error:cancelErr}] = useCancelUserOrderMutation();
+    const [confimReceiveOrder, {isError, error}] = useConfimReceiveOrderMutation();
+    const [cancelOrder, {isError:cancelError, error:cancelErr}] = useCancelUserOrderMutation();
 
     const navigate = useNavigate();
 
@@ -126,15 +126,14 @@ const OrderCard = ({data}) => {
                 <button className='btnStyle' onClick={() => navigate(`/account/order/${_id}`)}>订单详情</button>
                 {status !== 'Cancelled' && <button className='btnStyle' onClick={() => setOpenTracker(true)}>物流查询</button>}
                 {status === 'Processing' && <>
-                <button className='btnStyle' onClick={() => setOpenAddressEdit(true)}>修改地址</button>
-                <button className='btnStyle' onClick={handleCancleOrder}>取消订单</button>
+                    <button className='btnStyle' onClick={() => setOpenAddressEdit(true)}>修改地址</button>
+                    <button className='btnStyle' onClick={handleCancleOrder}>取消订单</button>
                 </>}
-                {status === 'Archived' && <>
-                <button className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>评价</button>
-                </>}
+                {(status === 'Shipping' || status === 'Shipped' || status === 'Dispatching' || status === 'Delivered') && 
+                <button onClick={handleConfirmOrder} className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>确认收货</button>
+                }
+                {status === 'Archived' && <button className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>评价</button>}
                 {status === 'Cancelled' && <button className='btnStyle'>删除订单</button>}
-                {status !== 'Processing' && status !== 'Cancelled' && status !== 'Archived' && 
-                <button onClick={handleConfirmOrder} className='btnStyle !text-[#ff8800] !border-[#ffa36e]'>确认收货</button>}
             </div>
 
             {openTracker && 
