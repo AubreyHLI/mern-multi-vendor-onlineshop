@@ -29,7 +29,7 @@ const Banner = () => {
 								<h4>{i?.label}</h4>
 								<h5>{i?.name}</h5>
 								<p>{i.description}</p>
-								<Link className='button'>立即抢购</Link>
+								<Link to={i?.url} className='button'>立即抢购</Link>
 							</div>
 						</div>
 					</SwiperSlide>
@@ -69,7 +69,8 @@ const mainBannerData = [
 		label: '新品好货',
 		name: 'Tyrrells 手工薯片',
 		description: '多种口味随心选.',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587939/mern-supermarket/banners/banner-4_dpyrj0.png'
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587939/mern-supermarket/banners/banner-4_dpyrj0.png',
+		url: '/products?searchStr=Tyrrells'
 	},
 ];
 

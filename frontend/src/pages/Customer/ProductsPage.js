@@ -7,6 +7,7 @@ const ProductsPage = () => {
     const [data, setData] = useState(null);
     const [searchParams] = useSearchParams();
     const categoryData = searchParams.get("category");
+    const searchStr = searchParams.get("searchStr");
     const { products } = useSelector(state => state.products);
     const { setActive } = useOutletContext();
 
@@ -14,14 +15,19 @@ const ProductsPage = () => {
     useEffect(() => {
         setActive(3);
         window.scrollTo(0,0);
-        if(!categoryData) {
-            setData([...products]);
-        } else {
+        if(categoryData) {
             const productData = [...products];
-            const d = productData?.filter(item => item.category === categoryData);
+            const d = productData?.filter(item => item?.category === categoryData);
             setData(d);
+        } else if(searchStr){
+            const productData = [...products];
+            let searchString = searchStr.toLowerCase();
+            const d = productData?.filter(item => item?.name?.toLowerCase().includes(searchString));
+            setData(d);
+        } else {
+            setData([...products]);
         }
-    }, [products.length, searchParams])
+    }, [products.length, searchParams, searchStr])
 
 
     return (
