@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsCartPlus } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Counter from './Counter';
@@ -51,9 +51,14 @@ const ProductInfo = ({data}) => {
                 <Swiper 
                     pagination={{ clickable: true, }} 
                     lazy="true" 
-                    modules={[Pagination]} 
+                    modules={[Autoplay, Pagination]} 
                     className="w-full h-full"
                     ref={swiperRef}
+                    autoplay={{
+						delay: 5000,
+						disableOnInteraction: false,
+					}}
+					loop={true}
                     >
                     { data?.images?.map((i, index) => 
                         <SwiperSlide key={index} className='h-full mb-auto'>
