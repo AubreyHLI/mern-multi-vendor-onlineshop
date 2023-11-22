@@ -48,7 +48,7 @@ const Banner = () => {
 					)}
 
 				</Swiper>
-			</div>
+			</div> 
 
 			{vibeBannerData?.map((item, index) => 
 			<div className='hidden 900px:block col-span-1 relative min-h-[160px] 1000px:min-h-[200px]' key={index}>
@@ -69,7 +69,7 @@ const mainBannerData = [
 		label: '新品好货',
 		name: 'Tyrrells 手工薯片',
 		description: '多种口味随心选.',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587939/mern-supermarket/banners/banner-4_dpyrj0.png',
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700636607/mern-supermarket/banners/banner-4-2_y9ucjn.png',
 		url: '/products?searchStr=Tyrrells'
 	},
 ];
@@ -79,25 +79,25 @@ const vibeBannerData = [
 		label: '进口水果',
 		name: '圆圆哈密瓜',
 		description: '',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587940/mern-supermarket/banners/banner-6_e8ypis.png'
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700636608/mern-supermarket/banners/banner-6-2_paoelq.png'
 	},
 	{
 		label: '人气商品',
 		name: '桃子布丁',
 		description: '',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587940/mern-supermarket/banners/banner-2_hfxt0l.png'
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700636607/mern-supermarket/banners/banner-2-2_iun9ss.png'
 	},
 	{
 		label: '低价超值',
 		name: '纸巾享85折',
 		description: '',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587938/mern-supermarket/banners/banner-7_r8miwr.png'
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700636607/mern-supermarket/banners/banner-7-2_jcqqbz.png'
 	},
 	{
 		label: '快递包邮',
 		name: '全场满¥99免运费',
 		description: '',
-		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700587940/mern-supermarket/banners/banner-1_zrcjjb.png'
+		image: 'https://res.cloudinary.com/dewmfc2io/image/upload/v1700636607/mern-supermarket/banners/banner-1-2_d96w9c.png'
 	},
 ];
 

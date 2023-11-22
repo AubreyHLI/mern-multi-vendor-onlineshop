@@ -19,6 +19,10 @@ export const navItems = [
 		title: "FAQ",
 		url: "/faq",
 	},
+	{
+		title: "商家版",
+		url: "/business/login",
+	}
 ];
 
 export const accountNavItems = [

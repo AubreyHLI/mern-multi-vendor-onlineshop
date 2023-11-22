@@ -6,6 +6,8 @@ module.exports = {
   theme: {
     fontFamily: {
       NotoSansSC: ["Noto Sans SC", "sans-serif"],
+      PoiretOne: ['Poiret One', 'sans-serif'],
+      Vidaloka: ['Vidaloka', "serif"]
     },
     extend: {
       screens: {
