@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom'
 const AuthFormLayout = ({children, heading, isSignup}) => {
     return (
         <div className='w-full h-screen 800px:flex'>
-            <div className={`w-full 800px:w-[40%] hidden 800px:flex items-center justify-center py-8 px-6 ${isSignup ? 'bg-lime-50' : 'bg-amber-50 '}`}>
-                <img src='https://res.cloudinary.com/dewmfc2io/image/upload/v1700674324/mern-supermarket/logo/logo2_thsytr.png' alt='logo2' className='w-full max-w-[400px] rounded-full'/>
-            </div>
             <div className='w-full h-screen 800px:w-[65%] flex flex-col relative'>
                 <div className='w-full normalFlex justify-between gap-4 py-8 px-6 h-fit absolute'> 
                     <Link to='/' className='h-9 800px:h-10'>
@@ -28,6 +25,9 @@ const AuthFormLayout = ({children, heading, isSignup}) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={`w-full 800px:w-[40%] hidden 800px:flex items-center justify-center py-8 px-6 ${isSignup ? 'bg-lime-50' : 'bg-amber-50 '}`}>
+                <img src='https://res.cloudinary.com/dewmfc2io/image/upload/v1700674324/mern-supermarket/logo/logo2_thsytr.png' alt='logo2' className='w-full max-w-[400px] rounded-full'/>
             </div>
         </div>
     )
