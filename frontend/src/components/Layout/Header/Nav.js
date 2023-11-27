@@ -9,7 +9,7 @@ const Nav = ({activeHeading, dropDown, setDropDown}) => {
 	return (
 		<div className='section relative flex justify-between h-full '>
 			{/* categories box*/}
-			<button onClick={() => setDropDown(!dropDown)} className="relative h-full w-[100px] hidden 600px:block">
+			<button onMouseLeave={() => setDropDown(false)} onMouseEnter={() => setDropDown(true)} className="relative h-full w-[100px] hidden 600px:block">
 				<BiMenuAltLeft size={28} className="absolute top-[10px]" />
 				<span className='h-[100%] w-full flex justify-between items-center pl-[40px] font-sans text-lg font-[500] select-none rounded-t-md text-[#333333]' >
 					分类

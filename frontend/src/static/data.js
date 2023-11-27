@@ -11,10 +11,10 @@ export const navItems = [
 		title: "所有商品",
 		url: "/products",
 	},
-	{
-		title: "活动",
-		url: "/events",
-	},
+	// {
+	// 	title: "活动",
+	// 	url: "/events",
+	// },
 	{
 		title: "FAQ",
 		url: "/faq",

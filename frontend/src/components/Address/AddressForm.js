@@ -35,7 +35,7 @@ const AddressForm = ({isAdd=false, heading, submitHandler, formData, setFormData
 	}
 
     return (
-    <ModalLayout optionStyle='600px:my-[60px] 600px:max-w-[700px]'>
+    <ModalLayout optionStyle='600px:my-[60px] 600px:max-w-[700px]' setOpenForm={setOpenForm}>
 		<div className='w-full flex items-center gap-4 mt-3 mb-1 600px:my-3'>
 			<div onClick={() => setOpenForm(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
 				<RxCross1 size={20}/>

@@ -7,7 +7,7 @@ const FAQPage = () => {
     const { setActive } = useOutletContext();
 
 	useEffect(() => {
-        setActive(5);
+        setActive(4);
 		window.scrollTo(0,0);
 	}, [])
 
@@ -20,9 +20,34 @@ const FAQPage = () => {
         }
     };
 
+    const handleTest = () => {
+        console.log('test cluster')
+    }
+
+    const debounceFunc = (func, delay) => {
+        let timer;
+        console.log('debounce Func called');  // only called when defining the component
+        return function(...args) {
+            console.log('return Func called');  // called every click
+            const context = this;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func.apply(context, args);  
+            }, delay)
+        }
+    }
+
+    const optimisedSearchHandler = debounceFunc(handleTest, 2000);
+
+   
+
+
     return (
         <div className='section my-8'>
             <h2 className="text-3xl font-bold text-gray-900 mb-8">FAQ</h2>
+
+            {/* <button onClick={optimisedSearchHandler}>test cluster</button> */}
+            
             <div className="mx-auto space-y-4">
                 {/* single Faq */}
                 <SingleFAQ index={1} activeTab={activeTab} toggleTab={toggleTab} 

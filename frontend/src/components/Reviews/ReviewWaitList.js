@@ -27,7 +27,7 @@ const ReviewWaitList = ({setOpenList, heading, shop, orderId }) => {
     }
 
     return (
-         <ModalLayout optionStyle='600px:my-auto 600px:max-w-[600px]'>
+         <ModalLayout setOpenForm={setOpenList} optionStyle='600px:my-auto 600px:max-w-[600px]'>
             <div className='w-full flex items-center gap-4 my-3'>
                 <div onClick={() => setOpenList(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
                     <RxCross1 size={20}/>

@@ -5,7 +5,7 @@ import CouponCard from './CouponCard'
 
 const CouponsListModal = ({setOpenForm, heading, coupons}) => {
   return (
-    <ModalLayout optionStyle='600px:mt-[80px] 600px:max-w-[700px]'>
+    <ModalLayout setOpenForm={setOpenForm} optionStyle='600px:mt-[80px] 600px:max-w-[700px]'>
         <div className='w-full flex items-center gap-4 mt-3 mb-1 600px:my-3'>
             <div onClick={() => setOpenForm(false)} className='w-[34px] h-[34px] rounded-[50%] normalFlex justify-center cursor-pointer transition-colors duration-200 ease-out hover:bg-[#eff3f4]'>
                 <RxCross1 size={20}/>

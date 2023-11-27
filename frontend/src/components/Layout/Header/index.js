@@ -13,12 +13,12 @@ const Header = ({ activeHeading, withNav }) => {
     const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
-        if(openMenu || openWishlist ) {
+        if(openMenu || openWishlist ||  dropDown) {
             document.body.style.overflow = 'hidden';  // lock the scroll of home page
         } else {
             document.body.style.overflow = 'unset';  // unlock the scroll of home page
         }
-    }, [openMenu, openWishlist]);
+    }, [openMenu, openWishlist, dropDown]);
     
 
     return (
