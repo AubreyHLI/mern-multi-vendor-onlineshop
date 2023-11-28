@@ -163,9 +163,11 @@ const createReview = asyncHandler( async(req, res, next) => {
     let avgRating =  product.reviews.reduce((acc, item) => acc += item.rating, 0);
     product.ratings = avgRating / product.reviews.length;
     await product.save();
+
+    let review = product?.reviews?.find(review => review?.orderId === orderId && review?.customer == req.user.id);
     
     await Order.findByIdAndUpdate(orderId,
-        { $set: { "orderDetails.$[elem].isReviewed": true } },
+        { $set: { "orderDetails.$[elem].isReviewed": true , "orderDetails.$[elem].reviewId": review?._id} },
         { arrayFilters: [{ "elem.productId": productId }] }
     );
     res.status(201).json({

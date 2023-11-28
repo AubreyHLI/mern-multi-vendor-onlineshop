@@ -86,7 +86,7 @@ const AccountDetails = () => {
                 </form>
             </div>
         </div>
-        );
+    );
 }
 
 export default AccountDetails

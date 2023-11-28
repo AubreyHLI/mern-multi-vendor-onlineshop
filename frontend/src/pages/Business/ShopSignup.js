@@ -65,8 +65,8 @@ const ShopSignup = () => {
 						label='密码' id='password' password={password} setPassword={setPassword} visible={visible} setVisible={setVisible} 
 					/>						
 					<div className="flex flex-col gap-[6px] w-full">
-						<label htmlFor={description} className='w-max'>店铺介绍</label>
-						<textarea id={description} value={description} onChange={(e) => setDescription(e.target.value)} className='w-full border px-2 py-[6px] rounded-[5px] border-[#cccccc] !h-[100px] resize-none'/>
+						<label htmlFor='description' className='w-max'>店铺介绍</label>
+						<textarea id='description' value={description} onChange={(e) => setDescription(e.target.value)} className='w-full border px-2 py-[6px] rounded-[5px] border-[#cccccc] !h-[100px] resize-none'/>
 					</div>
 					<div>
 						<button type="submit" className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-[16px] font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">

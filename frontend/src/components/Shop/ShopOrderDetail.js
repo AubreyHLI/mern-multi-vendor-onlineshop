@@ -3,9 +3,12 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { useAcceptRefundRequestMutation } from '../../redux/features/shop/shopApi'
+import { useSelector } from 'react-redux';
+import Ratings from '../Products/Ratings';
 
 const ShopOrderDetail = ({status, orderDetails, orderId}) => {
     const [acceptRefundRequest, {isLoading, isSuccess, isError, error}] = useAcceptRefundRequestMutation();
+    const { shopProducts } = useSelector(state => state.shop);
 
     useEffect(() => {
         if(isSuccess) {
@@ -53,7 +56,15 @@ const ShopOrderDetail = ({status, orderDetails, orderId}) => {
         if(!data?.value?.isReviewed) {
             return <span className='text-[14px]'>未评价</span>
         } else {
-            return <Link to={''} className='text-[14px]'>已评价</Link>
+            const product = shopProducts?.find(p => p?._id == data?.value?.productId);
+            const review = product?.reviews?.find(r => r?._id == data?.value?.reviewId);
+            return (
+            <Link to={`/product/${data?.value?.productId}?reviewId=${data?.value?.reviewId}`} >
+                <div className='text-[14px]'>
+                    已评价
+                </div>
+                <Ratings ratings={review?.rating} />
+            </Link>)
         }
     }
 
@@ -97,7 +108,8 @@ const ShopOrderDetail = ({status, orderDetails, orderId}) => {
             total: `¥ ${(item?.price * item?.qty).toFixed(2)}`,
             comment: {
                 isReviewed: item?.isReviewed,
-                commentId: item?.commentId,
+                reviewId: item?.reviewId,
+                productId: item?.productId
             },
             actions: {
                 productStatus: item?.productStatus,

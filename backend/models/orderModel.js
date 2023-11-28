@@ -7,7 +7,7 @@ const orderDetailSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     qty: { type: Number, required: true },
     isReviewed: { type: Boolean, default: false },
-    commentId: { type: String },
+    reviewId: { type: String },
     productStatus: { type: String, default: 'Preparing' },
 }, { versionKey: false, _id: false });
 

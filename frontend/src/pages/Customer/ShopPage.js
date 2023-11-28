@@ -3,10 +3,10 @@ import { useOutletContext, useParams } from 'react-router-dom'
 import { useGetSingleShopInfoQuery } from '../../redux/features/products/productsApi';
 import { toast } from 'react-toastify';
 import Loader from '../../components/atoms/Loader';
-import ShopInfoCard from '../../components/Shop/ShopInfoCard';
 import ProductCard from '../../components/Products/ProductCard';
 import CouponsListModal from '../../components/Coupons/CouponsListModal';
 import CouponPrev from '../../components/Coupons/CouponPrev';
+import ShopInfoCard from '../../components/Products/ShopInfoCard';
 
 const ShopPage = () => {
 	const { id } = useParams();
@@ -52,16 +52,13 @@ const ShopPage = () => {
 
     return (
 		<div className="section py-5 flex flex-col gap-5">
-			<div className="bg-[#fff] rounded-[4px]">
-				<ShopInfoCard shopData={data?.shop} shopProductsCount={data?.shopProducts?.length} avgRatings={avgRatings}/>
-			</div>
+			
+			<ShopInfoCard shopData={data?.shop} shopProductsCount={data?.shopProducts?.length} avgRatings={avgRatings}/>
 
-			<div>
-				<div className="normalFlex gap-1 overflow-x-scroll">
-					{ data?.shopCoupons?.map((i, index) => 
-						<CouponPrev data={i} key={index} setOpenCouponsList={setOpenCouponsList} />
-					)}	
-				</div>
+			<div className="normalFlex gap-1 overflow-x-scroll">
+				{ data?.shopCoupons?.map((i, index) => 
+					<CouponPrev data={i} key={index} setOpenCouponsList={setOpenCouponsList} />
+				)}	
 			</div>
 
 			<div className="grid grid-cols-1 gap-[20px] 600px:grid-cols-auto-fill-245">

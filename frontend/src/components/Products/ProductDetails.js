@@ -11,21 +11,17 @@ const ProductDetails = ({data}) => {
         <div className="bg-[#fff] px-3 800px:px-10 pt-2 pb-5 rounded mt-7 ">
             <div className="w-full flex justify-around border-b py-3">
                 <h5 onClick={() => setActive(1)} className={`text-[#000] text-[18px] pt-1 pb-2 px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] border-b border-b-[3px] ${active === 1 ? 'border-b-[crimson]' : 'border-b-transparent'}`}>
-                    商品详情
+                    评价 <span className='text-[17px]'> ( {data?.reviews?.length} ) </span>
                 </h5>
                 <h5 onClick={() => setActive(2)} className={`text-[#000] text-[18px] pt-1 pb-2 px-1 leading-5 font-[600] cursor-pointer 800px:text-[20px] border-b border-b-[3px] ${active === 2 ? 'border-b-[crimson]' : 'border-b-transparent'}`}>
-                    评价 <span className='text-[17px]'> ( {data?.reviews?.length} ) </span>
+                    商品详情
                 </h5>
             </div>
 
-            { active === 1 && 
-            <p className="leading-8 py-5 whitespace-pre-line px-2">{data?.description}</p>
-            }
-
-            { active === 2 &&
+            { active === 1 &&
             <div className="w-full flex flex-col items-center px-2 overflow-y-scroll">
                 { data?.reviews?.map((item, index) => (
-                    <div className="w-full flex gap-3 border-b py-3" key={index}>
+                    <div id={`review-${item?._id}`} className="w-full flex gap-3 border-b py-3" key={index}>
                         {item?.customer?.avatar?.url 
                         ? <Avatar src={item?.customer?.avatar?.url} alt='' />
                         : <Avatar>{item?.customer?.name.slice(0,1)}</Avatar>
@@ -46,6 +42,10 @@ const ProductDetails = ({data}) => {
                 { data?.reviews?.length === 0 && 
                 <h5 className='leading-8 py-5 whitespace-pre-line'>暂无评价</h5>}
             </div>
+            }
+
+            { active === 2 && 
+            <p className="leading-8 py-5 whitespace-pre-line px-2">{data?.description}</p>
             }
         </div>
     );
