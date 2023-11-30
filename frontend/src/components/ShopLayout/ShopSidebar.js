@@ -59,7 +59,7 @@ const sidebarData = [
     {
         label: '店铺',
         icon: <MdStorefront size={28} />,
-        linkUrl: "/business/shop",
+        linkUrl: "/business/account",
     },
 ]
 

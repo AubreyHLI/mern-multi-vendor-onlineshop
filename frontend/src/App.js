@@ -43,6 +43,7 @@ import ShopStatisPage from './pages/Business/ShopStatisPage';
 import ShopAccountPage from './pages/Business/ShopAccountPage';
 import ShopInboxPage from './pages/Business/ShopInboxPage';
 import ShopRefundPage from './pages/Business/ShopRefundPage';
+import ShopChangePwPage from './pages/Business/ShopChangePwPage';
 
 
 const App = () => {
@@ -89,8 +90,9 @@ const App = () => {
                     <Route path='refundOrganize' element={<ShopRefundPage />} />
                     <Route path='sales' element={<ShopSalePage />} />
                     <Route path='statis' element={<ShopStatisPage />} />
-                    <Route path='shop' element={<ShopAccountPage />} />
+                    <Route path='account' element={<ShopAccountPage />} />
                     <Route path='inbox' element={<ShopInboxPage />} />
+                    <Route path='changePW' element={<ShopChangePwPage />} />                   
                 </Route>
                 <Route path='/business/signup' element={<ShopSignup />} />
                 <Route path='/business/login' element={<ShopLogin />} />

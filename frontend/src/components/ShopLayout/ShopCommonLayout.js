@@ -53,7 +53,7 @@ const ShopCommonLayout = () => {
 			<ShopHeader active={active}/>
 			<div className="flex items-start justify-between w-full h-[calc(100%-80px)]">
 				<ShopSidebar active={active}/>
-				<div className='flex-1 px-2 800px:px-4 h-full overflow-y-scroll'>
+				<div className='flex-1 mx-2 800px:mx-4 h-full overflow-y-scroll'>
 					<Outlet context={{setActive}} />
 				</div>
 			</div>

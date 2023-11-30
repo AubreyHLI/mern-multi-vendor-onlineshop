@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { AiOutlineEdit } from 'react-icons/ai';
 import ShopAccountDetail from '../../components/Shop/ShopAccountDetail';
 
 
@@ -18,10 +17,15 @@ const ShopAccountPage = () => {
 
 
     return (
-        <div className='w-full my-3'>   
-            <h1 className="text-[20px] px-2 600px:text-[22px] 800px:text-[24px] 800px:px-0">店铺账号信息</h1> 
+        <div className="w-full my-3 ">
+             <h1 className="text-[20px] 600px:text-[22px] 800px:text-[24px] ">
+                店铺账号信息
+            </h1> 
 				
-            <ShopAccountDetail />
+            <div className='w-full mt-3'>
+                <ShopAccountDetail />
+            </div>
+
 		</div>
     )
 }
