@@ -10,6 +10,7 @@ const {
     logoutShop,
     getCurrentShop,
     getSingleShopInfo,
+    updateShopInfo
 } = require('../controllers/shopsController');
 
 // middlewares
@@ -23,5 +24,7 @@ router.post("/login", loginShop);
 router.get("/logout", logoutShop);
 router.get("/getShop", verifyShopToken, getCurrentShop);
 router.get("/getShopInfo/:id", getSingleShopInfo);
+router.patch('/updateShopInfo', verifyShopToken, upload.single("avatar"), updateShopInfo);
+
 
 module.exports = router;

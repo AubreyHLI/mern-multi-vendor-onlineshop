@@ -16,7 +16,7 @@ const ShopAuth = ({children}) => {
         if(isError) {
             dispatch(setShop(null));
         }
-    }, [isSuccess, isError])
+    }, [isSuccess, isError, shopData])
 
     if(!isLoading && (!shopToken || !shop)) {
         return <Navigate to="/business/login" replace={true} /> 

@@ -7,6 +7,8 @@ const asyncHandler = require('../middlewares/asyncHandler');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const sendEmail = require('../utils/sendEmail');
+const { removeFromCloudinary, uploadStreamToCloudinary } = require('../utils/cloudinary');
+
 
 // Create a new shop
 const createShop = asyncHandler( async(request, res, next) => {
@@ -208,6 +210,36 @@ const getSingleShopInfo = asyncHandler( async(req, res, next) => {
     }
 })
 
+const updateShopInfo = asyncHandler( async(req, res, next) => {
+    const { name, description } = req.body;
+    const shop = await Shop.findById(req.shop.id);
+    if (!shop) {
+        return next(new CustomErrorClass(400, "店铺不存在"));
+    }
+    const nameUsed = await Shop.findOne({name});
+    if(nameUsed && nameUsed._id.toString() !== nameUsed._id.toString()) {
+        return next(new CustomErrorClass(400, "该店名已被使用，请更换"));
+    }
+    // else
+    shop.name = name;
+    shop.description = description;
+    if(req.file) {
+        if(shop.avatar && shop.avatar.public_id) {
+            await removeFromCloudinary(shop.avatar)
+        }
+        let result = await uploadStreamToCloudinary(req.file.buffer, `shops/avatars`, 240); 
+        shop.avatar = {
+            public_id: result.public_id,
+            url: result.secure_url,
+        }
+    }
+    await shop.save();
+
+    res.status(201).json({
+        success: true,
+    });
+})
+
 
 
 // export
@@ -219,4 +251,5 @@ module.exports = {
     logoutShop,
     getCurrentShop,
     getSingleShopInfo,
+    updateShopInfo,
 }
